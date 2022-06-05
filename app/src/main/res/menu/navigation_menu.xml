@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:showIn="navigation_view">
+
+    <item
+        android:id="@+id/nav_bar_search"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="@string/nav_search"
+        app:actionViewClass="android.widget.SearchView" />
+    <item
+        android:id="@+id/nav_bar_add_movie"
+        android:icon="@drawable/ic_navigation_menu_add_movie"
+        android:title="@string/navigation_menu_add_movie" />
+    <item
+        android:id="@+id/nav_bar_setting"
+        android:icon="@drawable/ic_nav_menu_settings"
+        android:title="@string/navigation_menu_setting" />
+    <item android:title="@string/filter_navigation_menu_category">
+        <menu>
+            <item
+                android:id="@+id/nav_bar_switch_min_max"
+                android:icon="@drawable/ic_filter_rating"
+                android:title="@string/filter_increase"
+                app:actionLayout="@layout/switch_item"
+                app:showAsAction="always" />
+            <item
+                android:id="@+id/nav_bar_switch_max_min"
+                android:icon="@drawable/ic_filter_rating"
+                android:title="@string/filter_decrease"
+                app:actionLayout="@layout/switch_item"
+                app:showAsAction="always" />
+            <item
+                android:id="@+id/nav_bar_switch_a_z"
+                android:title="@string/filter_a_z"
+                app:actionLayout="@layout/switch_item"
+                app:showAsAction="always" />
+            <item
+                android:id="@+id/nav_bar_switch_z_a"
+                android:title="@string/filter_z_a"
+                app:actionLayout="@layout/switch_item"
+                app:showAsAction="always" />
+            <item
+                android:id="@+id/nav_bar_switch_watch_again"
+                android:title="@string/filter_watch_again"
+                app:actionLayout="@layout/switch_item"
+                app:showAsAction="always"></item>
+
+        </menu>
+    </item>
+
+</menu>

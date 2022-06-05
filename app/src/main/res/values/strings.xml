@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">NewTopMovies</string>
+    <string name="repeat">Repeat</string>
+    <string name="watch_again">Watch again</string>
+    <string name="no_watch_again">Do not watch again</string>
+    <string name="rating_input">Rating</string>
+    <string name="navigation_menu_add_movie">Add movie</string>
+    <string name="filter_navigation_menu_category">Filters</string>
+    <string name="filter_increase">Min to Max</string>
+    <string name="filter_decrease">Max to Min</string>
+    <string name="filter_a_z">A-Z</string>
+    <string name="filter_z_a">Z-A</string>
+    <string name="filter_watch_again">Watch again</string>
+    <string name="navigation_menu_setting">Setting</string>
+    <string name="nav_search">Search</string>
+    <string name="context_change">Change</string>
+    <string name="context_delete">Delete</string>
+</resources>
