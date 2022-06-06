@@ -13,8 +13,8 @@ data class Movie(
     val antiheroes: Int,
     val story: Int,
     val drama: Int,
-    val repeat: Boolean,
-    val iconRes: Int,
+    val repeat: Int,
+    val iconId: Int,
     var rating: Int = 0
 ) : Serializable {
 

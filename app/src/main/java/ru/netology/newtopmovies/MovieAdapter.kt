@@ -6,18 +6,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.newtopmovies.databinding.MovieCardBinding
 
-class MovieAdapter(val listener: Listener) : RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
+class MovieAdapter(private val listener: Listener) : RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
 
     private var movies = mutableListOf<Movie>()
 
     class MovieHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val bindingMovieCard = MovieCardBinding.bind(item)
         fun bind(movie: Movie, listener: Listener) = with(bindingMovieCard) {
-            imageMovieCard.setImageResource(movie.iconRes)
+            imageMovieCard.setImageResource(movie.iconId)
             titleMovieCard.text = movie.title
             ratingMovieCard.rating = (movie.rating * 0.05).toFloat()
             ratingValue.text = (ratingMovieCard.rating * 20).toInt().toString()
-            if (movie.repeat) repeatMovieCard.setText(R.string.watch_again)
+            if (movie.repeat == 1) repeatMovieCard.setText(R.string.watch_again)
             itemView.setOnClickListener {
                 listener.onClick(movie)
             }
@@ -38,8 +38,8 @@ class MovieAdapter(val listener: Listener) : RecyclerView.Adapter<MovieAdapter.M
         return movies.size
     }
 
-    fun addMovie(movie: Movie) {
-        movies.add(movie)
+    fun setMoviesList(movieList: MutableList<Movie>) {
+        movies = movieList
         repeatMoviesList()
     }
 

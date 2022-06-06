@@ -6,31 +6,33 @@ import android.view.*
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import ru.netology.newtopmovies.database.DataBaseManager
 import ru.netology.newtopmovies.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), MovieAdapter.Listener {
+    lateinit var myDataBaseManager: DataBaseManager
+/*    var moviesMain = mutableListOf(
+        Movie("Я легенда", 10, 9, 9, 9, 9, 9, 9, 9, 9, 0, R.drawable.ic_no_image),
+        Movie("Гадкий Я", 4, 5, 2, 3, 8, 10, 9, 10, 4, 1, R.drawable.ic_no_image),
+        Movie("Крестный отец", 8, 5, 6, 4, 9, 2, 5, 7, 9, 0, R.drawable.ic_no_image),
+        Movie("Интерстеллар", 4, 10, 7, 1, 8, 7, 9, 10, 3, 1, R.drawable.ic_no_image),
+        Movie("Зверополис", 1, 7, 6, 4, 4, 2, 9, 1, 9, 0, R.drawable.ic_no_image),
+        Movie("Человек-паук 2", 4, 7, 6, 5, 4, 2, 9, 10, 9, 1, R.drawable.ic_no_image),
+        Movie("Мстители", 9, 7, 9, 4, 9, 2, 9, 9, 9, 0, R.drawable.ic_no_image),
+        Movie("Гадкий Я", 4, 5, 2, 3, 8, 10, 9, 10, 4, 1, R.drawable.ic_no_image),
+        Movie("Крестный отец", 8, 5, 6, 4, 9, 2, 5, 7, 9, 0, R.drawable.ic_no_image),
+        Movie("Интерстеллар", 4, 10, 7, 1, 8, 7, 9, 10, 3, 0, R.drawable.ic_no_image),
+        Movie("Зверополис", 1, 7, 6, 4, 4, 2, 9, 1, 9, 0, R.drawable.ic_no_image),
+        Movie("Человек-паук 2", 4, 7, 6, 5, 4, 2, 9, 10, 9, 0, R.drawable.ic_no_image),
+        Movie("Мстители", 9, 7, 9, 4, 9, 2, 9, 9, 9, 0, R.drawable.ic_no_image),
+        Movie("Гадкий Я", 4, 5, 2, 3, 8, 10, 9, 10, 4, 1, R.drawable.ic_no_image),
+        Movie("Крестный отец", 8, 5, 6, 4, 9, 2, 5, 7, 9, 0, R.drawable.ic_no_image),
+        Movie("Интерстеллар", 4, 10, 7, 1, 8, 7, 9, 10, 3, 1, R.drawable.ic_no_image),
+        Movie("Зверополис", 1, 7, 6, 4, 4, 2, 9, 1, 9, 1, R.drawable.ic_no_image),
+        Movie("Человек-паук 2", 4, 7, 6, 5, 4, 2, 9, 10, 9, 1, R.drawable.ic_no_image),
+        Movie("Мстители", 9, 7, 9, 4, 9, 2, 9, 9, 9, 0, R.drawable.ic_no_image),
+    )*/
 
-    var moviesMain = mutableListOf(
-        Movie("Я легенда", 10, 9, 9, 9, 9, 9, 9, 9, 9, false, R.drawable.ic_no_image),
-        Movie("Гадкий Я", 4, 5, 2, 3, 8, 10, 9, 10, 4, true, R.drawable.ic_no_image),
-        Movie("Крестный отец", 8, 5, 6, 4, 9, 2, 5, 7, 9, false, R.drawable.ic_no_image),
-        Movie("Интерстеллар", 4, 10, 7, 1, 8, 7, 9, 10, 3, true, R.drawable.ic_no_image),
-        Movie("Зверополис", 1, 7, 6, 4, 4, 2, 9, 1, 9, false, R.drawable.ic_no_image),
-        Movie("Человек-паук 2", 4, 7, 6, 5, 4, 2, 9, 10, 9, true, R.drawable.ic_no_image),
-        Movie("Мстители", 9, 7, 9, 4, 9, 2, 9, 9, 9, false, R.drawable.ic_no_image),
-        Movie("Гадкий Я", 4, 5, 2, 3, 8, 10, 9, 10, 4, true, R.drawable.ic_no_image),
-        Movie("Крестный отец", 8, 5, 6, 4, 9, 2, 5, 7, 9, false, R.drawable.ic_no_image),
-        Movie("Интерстеллар", 4, 10, 7, 1, 8, 7, 9, 10, 3, false, R.drawable.ic_no_image),
-        Movie("Зверополис", 1, 7, 6, 4, 4, 2, 9, 1, 9, false, R.drawable.ic_no_image),
-        Movie("Человек-паук 2", 4, 7, 6, 5, 4, 2, 9, 10, 9, false, R.drawable.ic_no_image),
-        Movie("Мстители", 9, 7, 9, 4, 9, 2, 9, 9, 9, false, R.drawable.ic_no_image),
-        Movie("Гадкий Я", 4, 5, 2, 3, 8, 10, 9, 10, 4, true, R.drawable.ic_no_image),
-        Movie("Крестный отец", 8, 5, 6, 4, 9, 2, 5, 7, 9, false, R.drawable.ic_no_image),
-        Movie("Интерстеллар", 4, 10, 7, 1, 8, 7, 9, 10, 3, true, R.drawable.ic_no_image),
-        Movie("Зверополис", 1, 7, 6, 4, 4, 2, 9, 1, 9, true, R.drawable.ic_no_image),
-        Movie("Человек-паук 2", 4, 7, 6, 5, 4, 2, 9, 10, 9, true, R.drawable.ic_no_image),
-        Movie("Мстители", 9, 7, 9, 4, 9, 2, 9, 9, 9, false, R.drawable.ic_no_image),
-    )
 
     private lateinit var binding: ActivityMainBinding
     private var adapter = MovieAdapter(this)
@@ -39,17 +41,14 @@ class MainActivity : AppCompatActivity(), MovieAdapter.Listener {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        init()
+        myDataBaseManager = DataBaseManager(this)
+
 
         val toolbar = binding.toolbarMy                      // Нашел мой новый тулбар на экране
         setSupportActionBar(toolbar)                         // Задал его в качестве основного тулбара (стоковый скрыт)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)    // Вывел на экран кнопку Home
         toolbar.setNavigationIcon(R.drawable.ic_menu_open)   // Поменял иконку кнопки Home
 
-
-        for (movie in moviesMain) {
-            adapter.addMovie(movie)
-        }
 
         // Слушатель для всех кнопок из навигационного меню (слева которое)
         binding.apply {
@@ -64,6 +63,27 @@ class MainActivity : AppCompatActivity(), MovieAdapter.Listener {
                 true
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        myDataBaseManager.openDb()
+        adapter.setMoviesList(myDataBaseManager.getFromDataBase()) // Передаю в адаптер список фильмов, загруженных из БД
+        myDataBaseManager.apply {
+            insertToDataBase("Я легенда", 10, 9, 9, 9, 9, 9, 9, 9, 9, 0, R.drawable.ic_no_image)
+            insertToDataBase("Гадкий Я", 4, 5, 2, 3, 8, 10, 9, 10, 4, 1, R.drawable.ic_no_image)
+            insertToDataBase("Крестный отец", 8, 5, 6, 4, 9, 2, 5, 7, 9, 0, R.drawable.ic_no_image)
+            insertToDataBase("Интерстеллар", 4, 10, 7, 1, 8, 7, 9, 10, 3, 1, R.drawable.ic_no_image)
+            insertToDataBase("Человек-паук 2", 4, 7, 6, 5, 4, 2, 9, 10, 9, 1, R.drawable.ic_no_image)
+            insertToDataBase("Зверополис", 1, 7, 6, 4, 4, 2, 9, 1, 9, 0, R.drawable.ic_no_image)
+            insertToDataBase("Мстители", 9, 7, 9, 4, 9, 2, 9, 9, 9, 0, R.drawable.ic_no_image)
+        }
+        init()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        myDataBaseManager.closeDataBase()
     }
 
     // Метод - слушатель для кнопок на Toolbar
@@ -117,16 +137,13 @@ class MainActivity : AppCompatActivity(), MovieAdapter.Listener {
                 "Открыть меню изменения данных",
                 Toast.LENGTH_SHORT
             ).show()
-
             R.id.context_delete -> Toast.makeText(
                 this,
                 "Удалить фильм из базы и обновить список",
                 Toast.LENGTH_SHORT
             ).show()
-
             else -> return super.onContextItemSelected(item)
         }
-
         return true
     }
 }
