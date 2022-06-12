@@ -1,84 +1,50 @@
 package ru.netology.newtopmovies
 
-import androidx.appcompat.app.AppCompatActivity
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.core.view.MenuCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.netology.newtopmovies.database.DataBaseManager
 import ru.netology.newtopmovies.databinding.ActivityMainBinding
 
+
 class MainActivity : AppCompatActivity(), MovieAdapter.Listener {
-    lateinit var myDataBaseManager: DataBaseManager
-/*    var moviesMain = mutableListOf(
-        Movie("Я легенда", 10, 9, 9, 9, 9, 9, 9, 9, 9, 0, R.drawable.ic_no_image),
-        Movie("Гадкий Я", 4, 5, 2, 3, 8, 10, 9, 10, 4, 1, R.drawable.ic_no_image),
-        Movie("Крестный отец", 8, 5, 6, 4, 9, 2, 5, 7, 9, 0, R.drawable.ic_no_image),
-        Movie("Интерстеллар", 4, 10, 7, 1, 8, 7, 9, 10, 3, 1, R.drawable.ic_no_image),
-        Movie("Зверополис", 1, 7, 6, 4, 4, 2, 9, 1, 9, 0, R.drawable.ic_no_image),
-        Movie("Человек-паук 2", 4, 7, 6, 5, 4, 2, 9, 10, 9, 1, R.drawable.ic_no_image),
-        Movie("Мстители", 9, 7, 9, 4, 9, 2, 9, 9, 9, 0, R.drawable.ic_no_image),
-        Movie("Гадкий Я", 4, 5, 2, 3, 8, 10, 9, 10, 4, 1, R.drawable.ic_no_image),
-        Movie("Крестный отец", 8, 5, 6, 4, 9, 2, 5, 7, 9, 0, R.drawable.ic_no_image),
-        Movie("Интерстеллар", 4, 10, 7, 1, 8, 7, 9, 10, 3, 0, R.drawable.ic_no_image),
-        Movie("Зверополис", 1, 7, 6, 4, 4, 2, 9, 1, 9, 0, R.drawable.ic_no_image),
-        Movie("Человек-паук 2", 4, 7, 6, 5, 4, 2, 9, 10, 9, 0, R.drawable.ic_no_image),
-        Movie("Мстители", 9, 7, 9, 4, 9, 2, 9, 9, 9, 0, R.drawable.ic_no_image),
-        Movie("Гадкий Я", 4, 5, 2, 3, 8, 10, 9, 10, 4, 1, R.drawable.ic_no_image),
-        Movie("Крестный отец", 8, 5, 6, 4, 9, 2, 5, 7, 9, 0, R.drawable.ic_no_image),
-        Movie("Интерстеллар", 4, 10, 7, 1, 8, 7, 9, 10, 3, 1, R.drawable.ic_no_image),
-        Movie("Зверополис", 1, 7, 6, 4, 4, 2, 9, 1, 9, 1, R.drawable.ic_no_image),
-        Movie("Человек-паук 2", 4, 7, 6, 5, 4, 2, 9, 10, 9, 1, R.drawable.ic_no_image),
-        Movie("Мстители", 9, 7, 9, 4, 9, 2, 9, 9, 9, 0, R.drawable.ic_no_image),
-    )*/
-
-
+    private lateinit var myDataBaseManager: DataBaseManager
     private lateinit var binding: ActivityMainBinding
     private var adapter = MovieAdapter(this)
+    private lateinit var movieNow: Movie
+    private lateinit var itemNow: View
+    private var itemClickSave = mutableListOf<View>()
+    private var movieClickSave = mutableListOf<Movie>()
+    private lateinit var toolbar: androidx.appcompat.widget.Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         myDataBaseManager = DataBaseManager(this)
+        toolbar =
+            binding.toolbarMy                                 // Нашел мой новый тулбар на экране
+        setSupportActionBar(toolbar)                                // Задал его в качестве основного тулбара (стоковый скрыт)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)           // Вывел на экран кнопку Home
+        toolbar.setNavigationIcon(R.drawable.ic_toolbar_filter)     // Поменял иконку кнопки Home
+
+        clickNavigationMenu()
 
 
-        val toolbar = binding.toolbarMy                      // Нашел мой новый тулбар на экране
-        setSupportActionBar(toolbar)                         // Задал его в качестве основного тулбара (стоковый скрыт)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)    // Вывел на экран кнопку Home
-        toolbar.setNavigationIcon(R.drawable.ic_menu_open)   // Поменял иконку кнопки Home
-
-
-        // Слушатель для всех кнопок из навигационного меню (слева которое)
-        binding.apply {
-            navigMenu.setNavigationItemSelectedListener {
-                when (it.itemId) {
-                    R.id.nav_bar_search -> {}
-                    R.id.nav_bar_add_movie -> {}
-                    R.id.nav_bar_switch_max_min -> {}
-                    R.id.nav_bar_switch_min_max -> {}
-                    R.id.nav_bar_switch_watch_again -> {}
-                }
-                true
-            }
-        }
     }
 
     override fun onResume() {
         super.onResume()
+        binding.drawer.closeDrawer(GravityCompat.START)
         myDataBaseManager.openDb()
         adapter.setMoviesList(myDataBaseManager.getFromDataBase()) // Передаю в адаптер список фильмов, загруженных из БД
-        myDataBaseManager.apply {
-            insertToDataBase("Я легенда", 10, 9, 9, 9, 9, 9, 9, 9, 9, 0, R.drawable.ic_no_image)
-            insertToDataBase("Гадкий Я", 4, 5, 2, 3, 8, 10, 9, 10, 4, 1, R.drawable.ic_no_image)
-            insertToDataBase("Крестный отец", 8, 5, 6, 4, 9, 2, 5, 7, 9, 0, R.drawable.ic_no_image)
-            insertToDataBase("Интерстеллар", 4, 10, 7, 1, 8, 7, 9, 10, 3, 1, R.drawable.ic_no_image)
-            insertToDataBase("Человек-паук 2", 4, 7, 6, 5, 4, 2, 9, 10, 9, 1, R.drawable.ic_no_image)
-            insertToDataBase("Зверополис", 1, 7, 6, 4, 4, 2, 9, 1, 9, 0, R.drawable.ic_no_image)
-            insertToDataBase("Мстители", 9, 7, 9, 4, 9, 2, 9, 9, 9, 0, R.drawable.ic_no_image)
-        }
         init()
+        menuSelector(R.menu.toolbar_menu)
     }
 
     override fun onDestroy() {
@@ -86,13 +52,47 @@ class MainActivity : AppCompatActivity(), MovieAdapter.Listener {
         myDataBaseManager.closeDataBase()
     }
 
+    // Слушатель для всех кнопок из навигационного меню (слева которое)
+    private fun clickNavigationMenu() {
+        binding.apply {
+            navigMenu.setNavigationItemSelectedListener {
+                when (it.itemId) {
+                    R.id.nav_bar_switch_a_z -> adapter.sortTitleAtoZ()
+                    R.id.nav_bar_switch_z_a -> adapter.sortTitleZtoA()
+                    R.id.nav_bar_switch_min_max -> adapter.sortRatingMinToMax()
+                    R.id.nav_bar_switch_max_min -> adapter.sortRatingMaxToMin()
+                    R.id.nav_bar_switch_time_add -> adapter.sortTimeAdd()
+                }
+                binding.drawer.closeDrawer(GravityCompat.START)
+                true
+            }
+        }
+    }
+
+
+
     // Метод - слушатель для кнопок на Toolbar
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> binding.drawer.openDrawer(GravityCompat.START)
-            R.id.repeat -> {
-                adapter.repeatMoviesList()
-                Toast.makeText(this, "Repeat", Toast.LENGTH_SHORT).show()
+            R.id.toolbar_add ->
+                startActivity(Intent(this@MainActivity, ActivityAddMovie::class.java))
+            R.id.toolbar_edit -> {
+                val intent = Intent(this, ActivityEditMovie::class.java)
+                intent.putExtra("keyEdit", movieNow)
+                startActivity(intent)
+            }
+            R.id.toolbar_delete -> {
+                myDataBaseManager.deleteMovie(movieNow.idMovie)
+                adapter.delete(movieNow)
+                binding.toolbarMy.apply {
+                    menu.clear()
+                    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                    inflateMenu(R.menu.toolbar_menu)
+                    setNavigationIcon(R.drawable.ic_toolbar_filter)
+                    itemNow.findViewById<View>(R.id.click_rate)
+                        .setBackgroundResource(R.color.grey_background_card)
+                }
             }
         }
         return true
@@ -112,38 +112,45 @@ class MainActivity : AppCompatActivity(), MovieAdapter.Listener {
         }
     }
 
-    override fun onClick(movie: Movie) {
-        Toast.makeText(this, "Переходим на карточку ${movie.title}", Toast.LENGTH_LONG).show()
-    }
+    @SuppressLint("ResourceAsColor")
+    override fun onClick(movie: Movie, item: View, movies: MutableList<Movie>) {
+        movieNow = movie
+        itemNow = item
 
-    override fun onLongClick(view: View) {
-        registerForContextMenu(view)
-    }
-
-    override fun onCreateContextMenu(
-        menu: ContextMenu?,
-        v: View?,
-        menuInfo: ContextMenu.ContextMenuInfo?
-    ) {
-        super.onCreateContextMenu(menu, v, menuInfo)
-        menuInflater.inflate(R.menu.popup_menu, menu)
-    }
-
-    override fun onContextItemSelected(item: MenuItem): Boolean {
-
-        when (item.itemId) {
-            R.id.context_change -> Toast.makeText(
-                this,
-                "Открыть меню изменения данных",
-                Toast.LENGTH_SHORT
-            ).show()
-            R.id.context_delete -> Toast.makeText(
-                this,
-                "Удалить фильм из базы и обновить список",
-                Toast.LENGTH_SHORT
-            ).show()
-            else -> return super.onContextItemSelected(item)
+        if (!movie.isClicked) {
+            menuSelector(R.menu.toolbar_menu_second)
+            item.findViewById<View>(R.id.click_rate).setBackgroundResource(R.color.teal_700)
+            itemClickSave.add(item)
+            movieClickSave.add(movie)
+            movie.isClicked = !movie.isClicked
+        } else {
+            menuSelector(R.menu.toolbar_menu)
+            item.findViewById<View>(R.id.click_rate)
+                .setBackgroundResource(R.color.grey_background_card)
+            itemClickSave.remove(item)
+            movieClickSave.remove(movie)
+            movie.isClicked = !movie.isClicked
         }
-        return true
+        if (itemClickSave.isNotEmpty() && movieClickSave.isNotEmpty()) {
+
+            if (itemClickSave[0] != item) {
+                itemClickSave[0].findViewById<View>(R.id.click_rate)
+                    .setBackgroundResource(R.color.grey_background_card)
+                itemClickSave.remove(itemClickSave[0])
+            }
+
+            if (movieClickSave[0] != movie) {
+                movieClickSave[0].isClicked = !movieClickSave[0].isClicked
+                movieClickSave.remove(movieClickSave[0])
+            }
+        }
     }
+
+    private fun menuSelector(menuId: Int) {
+        binding.toolbarMy.apply {
+            menu.clear()
+            inflateMenu(menuId)
+        }
+    }
+
 }

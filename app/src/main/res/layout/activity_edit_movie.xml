@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_background_card"
+    tools:context=".ActivityEditMovie">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/textMotivationNameMovie"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextPersonName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/nameMovie"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/tShapka"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/setParametersFrom1To10"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/editTextPersonName"
+        app:layout_constraintStart_toStartOf="@+id/editTextPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPersonName" />
+
+    <TextView
+        android:id="@+id/textHumor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/humor"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/Humor"
+        app:layout_constraintEnd_toStartOf="@id/Humor" />
+
+    <SeekBar
+        android:id="@+id/Humor"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="232dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:max="10"
+        android:progress="0"
+        android:textAlignment="textEnd"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/tShapka"
+        app:layout_constraintHorizontal_bias="0.704"
+        app:layout_constraintStart_toStartOf="@+id/tShapka"
+        app:layout_constraintTop_toBottomOf="@+id/tShapka" />
+
+    <TextView
+        android:id="@+id/valueHumor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:inputType="number"
+        android:text="0"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/Humor"
+        app:layout_constraintStart_toEndOf="@+id/Humor" />
+
+    <TextView
+        android:id="@+id/textMusik"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/music"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/Musik"
+        app:layout_constraintEnd_toStartOf="@+id/Musik" />
+
+    <SeekBar
+        android:id="@+id/Musik"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="232dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:max="10"
+        android:progress="0"
+        android:textAlignment="textEnd"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/Humor"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/Humor"
+        app:layout_constraintTop_toBottomOf="@+id/Humor" />
+
+    <TextView
+        android:id="@+id/ValueMusik"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:inputType="number"
+        android:text="0"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/Musik"
+        app:layout_constraintStart_toEndOf="@+id/Musik" />
+
+    <TextView
+        android:id="@+id/textDinamic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/dynamic"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/Dinamic"
+        app:layout_constraintEnd_toStartOf="@id/Dinamic" />
+
+    <SeekBar
+        android:id="@+id/Dinamic"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="232dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:max="10"
+        android:progress="0"
+        android:textAlignment="textEnd"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/Musik"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/Musik"
+        app:layout_constraintTop_toBottomOf="@+id/Musik" />
+
+    <TextView
+        android:id="@+id/valueDinamic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:inputType="number"
+        android:text="0"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/Dinamic"
+        app:layout_constraintStart_toEndOf="@id/Dinamic" />
+
+    <TextView
+        android:id="@+id/textImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/image"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/Image"
+        app:layout_constraintEnd_toStartOf="@id/Image" />
+
+    <SeekBar
+        android:id="@+id/Image"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="232dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:max="10"
+        android:progress="0"
+        android:textAlignment="textEnd"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/Dinamic"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/Dinamic"
+        app:layout_constraintTop_toBottomOf="@+id/Dinamic" />
+
+    <TextView
+        android:id="@+id/valueImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="0"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/Image"
+        app:layout_constraintStart_toEndOf="@id/Image" />
+
+    <TextView
+        android:id="@+id/textDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/dialogs"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/dialog"
+        app:layout_constraintEnd_toStartOf="@id/dialog" />
+
+    <SeekBar
+        android:id="@+id/dialog"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="232dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:max="10"
+        android:progress="0"
+        android:textAlignment="textEnd"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@id/Image"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@id/Image"
+        app:layout_constraintTop_toBottomOf="@id/Image" />
+
+    <TextView
+        android:id="@+id/valueDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="0"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/dialog"
+        app:layout_constraintStart_toEndOf="@id/dialog" />
+
+    <TextView
+        android:id="@+id/textHeroes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/heroes"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/heroes"
+        app:layout_constraintEnd_toStartOf="@id/heroes" />
+
+    <SeekBar
+        android:id="@+id/heroes"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="232dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:max="10"
+        android:progress="0"
+        android:textAlignment="textEnd"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@id/dialog"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@id/dialog"
+        app:layout_constraintTop_toBottomOf="@id/dialog" />
+
+    <TextView
+        android:id="@+id/ValueHeroes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="0"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/heroes"
+        app:layout_constraintStart_toEndOf="@id/heroes" />
+
+    <TextView
+        android:id="@+id/textAntiheroes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/antiheroes"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/antiheroes"
+        app:layout_constraintEnd_toStartOf="@id/antiheroes" />
+
+    <SeekBar
+        android:id="@+id/antiheroes"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="232dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:max="10"
+        android:progress="0"
+        android:textAlignment="textEnd"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@id/heroes"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@id/heroes"
+        app:layout_constraintTop_toBottomOf="@id/heroes" />
+
+    <TextView
+        android:id="@+id/ValueAntiheroes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="0"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/antiheroes"
+        app:layout_constraintStart_toEndOf="@id/antiheroes" />
+
+    <TextView
+        android:id="@+id/textStory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/story"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/story"
+        app:layout_constraintEnd_toStartOf="@id/story" />
+
+    <SeekBar
+        android:id="@+id/story"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="232dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:max="10"
+        android:progress="0"
+        android:textAlignment="textEnd"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@id/antiheroes"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@id/antiheroes"
+        app:layout_constraintTop_toBottomOf="@id/antiheroes" />
+
+    <TextView
+        android:id="@+id/ValueStory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="0"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/story"
+        app:layout_constraintStart_toEndOf="@id/story" />
+
+    <TextView
+        android:id="@+id/textDrama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/drama"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/drama"
+        app:layout_constraintEnd_toStartOf="@id/drama" />
+
+    <SeekBar
+        android:id="@+id/drama"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="232dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:max="10"
+        android:progress="0"
+        android:textAlignment="textEnd"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@id/story"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@id/story"
+        app:layout_constraintTop_toBottomOf="@id/story" />
+
+    <TextView
+        android:id="@+id/valueDrama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="0"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/drama"
+        app:layout_constraintStart_toEndOf="@id/drama" />
+
+    <Switch
+        android:id="@+id/switchRepeat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="left|center_vertical"
+        android:text="@string/watchAgain"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/drama"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/drama"
+        app:layout_constraintTop_toBottomOf="@+id/drama"
+        tools:checked="false" />
+
+    <Button
+        android:id="@+id/buttonSaveAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/saveAll"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/buttomNotSave"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttomNotSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#FFFFFF"
+        android:text="@string/saveNotSave"
+        android:textColor="#000000"
+        android:textSize="10sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_vis_invis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="tShapka,textHumor,Humor,valueHumor,textMusik,Musik,ValueMusik,textDinamic,Dinamic,valueDinamic,textImage,Image,valueImage,textDialog,dialog,valueDialog,textHeroes,heroes,ValueHeroes,textAntiheroes,antiheroes,ValueAntiheroes,textStory,story,ValueStory,textDrama,drama,valueDrama,switchRepeat" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

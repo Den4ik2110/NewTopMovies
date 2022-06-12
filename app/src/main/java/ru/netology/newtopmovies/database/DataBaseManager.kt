@@ -1,9 +1,9 @@
 package ru.netology.newtopmovies.database
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import android.util.Log
 import ru.netology.newtopmovies.Movie
 
 class DataBaseManager(
@@ -35,10 +35,10 @@ class DataBaseManager(
             put(DataBaseConstants.COLUMN_NAME_REPEAT, repeat)
             put(DataBaseConstants.COLUMN_NAME_ICON_ID, icon_id)
         }
-        Log.d("MyLog", "$contentValues")
         dataBase.insert(DataBaseConstants.TABLE_NAME, null, contentValues)
     }
 
+    @SuppressLint("Recycle")
     fun getFromDataBase(): MutableList<Movie> {
         val moviesList = mutableListOf<Movie>()
         val cursor = dataBase.query(
@@ -46,8 +46,8 @@ class DataBaseManager(
             null, null, null, null
         )
         while (cursor.moveToNext()) {
-            val title =
-                cursor.getString(cursor.getColumnIndexOrThrow(DataBaseConstants.COLUMN_NAME_TITLE))
+            val idMovie = cursor.getInt(cursor.getColumnIndexOrThrow(DataBaseConstants._ID))
+            val title = cursor.getString(cursor.getColumnIndexOrThrow(DataBaseConstants.COLUMN_NAME_TITLE))
             val humor =
                 cursor.getInt(cursor.getColumnIndexOrThrow(DataBaseConstants.COLUMN_NAME_HUMOR))
             val music =
@@ -72,9 +72,8 @@ class DataBaseManager(
                 cursor.getInt(cursor.getColumnIndexOrThrow(DataBaseConstants.COLUMN_NAME_ICON_ID))
             val movie = Movie(
                 title, humor, music, dynamic, image, dialogs,
-                heroes, antiheroes, story, drama, repeat, iconId
+                heroes, antiheroes, story, drama, repeat, iconId, idMovie = idMovie
             )
-            Log.d("MyLog", "$movie")
             moviesList.add(movie)
         }
         return moviesList
@@ -82,6 +81,37 @@ class DataBaseManager(
 
     fun closeDataBase() {
         myDataBaseHelper.close()
+    }
+
+    fun deleteMovie(id: Int) {
+        dataBase.delete(
+            DataBaseConstants.TABLE_NAME,
+            DataBaseConstants._ID + "=?",
+            arrayOf(id.toString())
+        )
+    }
+
+    fun updateMovie(
+        title: String, humor: Int, music: Int, dynamic: Int, image: Int, dialogs: Int,
+        heroes: Int, antiheroes: Int, story: Int, drama: Int, repeat: Int, icon_id: Int, idMovie: Int
+    ) {
+        val contentValues = ContentValues()
+        contentValues.apply {
+            put(DataBaseConstants.COLUMN_NAME_TITLE, title)
+            put(DataBaseConstants.COLUMN_NAME_HUMOR, humor)
+            put(DataBaseConstants.COLUMN_NAME_MUSIC, music)
+            put(DataBaseConstants.COLUMN_NAME_DYNAMIC, dynamic)
+            put(DataBaseConstants.COLUMN_NAME_IMAGE, image)
+            put(DataBaseConstants.COLUMN_NAME_DIALOGS, dialogs)
+            put(DataBaseConstants.COLUMN_NAME_HEROES, heroes)
+            put(DataBaseConstants.COLUMN_NAME_ANTIHEROES, antiheroes)
+            put(DataBaseConstants.COLUMN_NAME_STORY, story)
+            put(DataBaseConstants.COLUMN_NAME_DRAMA, drama)
+            put(DataBaseConstants.COLUMN_NAME_REPEAT, repeat)
+            put(DataBaseConstants.COLUMN_NAME_ICON_ID, icon_id)
+        }
+        dataBase.update(DataBaseConstants.TABLE_NAME, contentValues, DataBaseConstants._ID + "=?", arrayOf(idMovie.toString()))
+
     }
 
 

@@ -5,8 +5,8 @@
     android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    >
+    android:backgroundTint="@color/grey"
+    tools:context=".MainActivity">
 
 
     <LinearLayout
@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/teal_700"
+            android:foregroundGravity="center_vertical"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme" />
 
@@ -35,10 +36,10 @@
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navig_menu"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:layout_marginEnd="10dp"
-        app:headerLayout="@layout/header"
-        app:menu="@menu/navigation_menu"/>
+        android:backgroundTint="@color/grey"
+        app:menu="@menu/navigation_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>

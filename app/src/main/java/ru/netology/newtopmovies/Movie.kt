@@ -15,10 +15,14 @@ data class Movie(
     val drama: Int,
     val repeat: Int,
     val iconId: Int,
-    var rating: Int = 0
-) : Serializable {
+    val idMovie: Int = 0,
+    var rating: Int = 0,
+    var isClicked: Boolean = false
+) : Serializable, Comparable<Movie> {
 
     init {
-         rating = humor + music + dynamic + image + dialogs + heroes + antiheroes + story + drama
+         rating = humor + music + dynamic + image + dialogs + heroes + antiheroes + story + drama + repeat
      }
+
+    override fun compareTo(other: Movie): Int = title.compareTo(other.title)
 }

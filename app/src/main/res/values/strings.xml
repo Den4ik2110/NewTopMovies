@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">NewTopMovies</string>
-    <string name="repeat">Repeat</string>
+    <string name="edit">Edit</string>
     <string name="watch_again">Watch again</string>
     <string name="no_watch_again">Do not watch again</string>
     <string name="rating_input">Rating</string>
@@ -15,4 +15,28 @@
     <string name="nav_search">Search</string>
     <string name="context_change">Change</string>
     <string name="context_delete">Delete</string>
+    <string name="hallo">Привет!</string>
+    <string name="buttomTopMovies">Топ фильмов</string>
+    <string name="buttomNewFilm">Добавить фильм</string>
+    <string name="textMotivationNameMovie">Напишите название фильма</string>
+    <string name="nameMovie">Название фильма</string>
+    <string name="setParameters">Ввести параметры</string>
+    <string name="saveNotSave">Не сохранять</string>
+    <string name="back">Назад</string>
+    <string name="setParametersFrom1To10">Выберите значение параметров от 1 до 10</string>
+    <string name="humor">Юмор</string>
+    <string name="music">Музыка</string>
+    <string name="dynamic">Динамика</string>
+    <string name="image">Картинка</string>
+    <string name="dialogs">Диалоги</string>
+    <string name="heroes">Герои</string>
+    <string name="antiheroes">Злодеи</string>
+    <string name="story">Сюжет</string>
+    <string name="drama">Драма</string>
+    <string name="watchAgain">Посмотрю снова</string>
+    <string name="saveAll">Сохранить все</string>
+    <string name="toolbar_search">Search</string>
+    <string name="delete">Delete</string>
+    <string name="add">Add</string>
+    <string name="rating_card_movie">Райтинг: %1$d</string>
 </resources>
