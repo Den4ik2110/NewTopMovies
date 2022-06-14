@@ -30,7 +30,7 @@ class MovieAdapter(private val listener: Listener) :
                 antiheroesValueCard.text = "Злодеи - ${movie.antiheroes}"
                 storyValueCard.text = "Сюжет - ${movie.story}"
                 dramaValueCard.text = "Драма - ${movie.drama}"
-                //ratingValue.text = "Рейтинг ${(ratingMovieCard.rating * 10).toInt()}"
+                ratingValue.text = "Рейтинг ${(ratingMovieCard.rating * 10).toInt()}"
                 //if (movie.repeat == 10) repeatMovieCard.setText(R.string.watch_again)
                 itemView.setOnClickListener {
                     listener.onClick(movie, itemView, movies)
@@ -53,7 +53,7 @@ class MovieAdapter(private val listener: Listener) :
     }
 
     fun setMoviesList(movieList: MutableList<Movie>) {
-        movies = movieList
+        movies = movieList.asReversed()
         repeatMoviesList()
     }
 
@@ -100,8 +100,13 @@ class MovieAdapter(private val listener: Listener) :
         repeatMoviesList()
     }
 
-    fun sortTimeAdd() {
+    fun sortOldNew() {
         movies.sortBy { it.idMovie }
+        repeatMoviesList()
+    }
+
+    fun sortNewOld() {
+        movies.sortByDescending { it.idMovie }
         repeatMoviesList()
     }
 }

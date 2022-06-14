@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NewTopMovies">
         <activity
+            android:name=".ActivityDownloadMovie"
+            android:exported="false" />
+        <activity
             android:name=".ActivityEditMovie"
             android:exported="false" />
         <activity

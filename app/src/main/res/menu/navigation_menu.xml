@@ -5,34 +5,31 @@
     tools:showIn="navigation_view">
     <group >
         <item
+            android:id="@+id/nav_bar_sortirovka"
             android:enabled="false"
-            android:title="Sorting" />
+            android:title="Сортировка" />
     </group>
-    <group
-        android:id="@+id/grp1"
-        android:enabled="true">
+    <group android:id="@+id/grp1">
         <item
             android:id="@+id/nav_bar_switch_a_z"
-            android:title="Sort by A-Z" />
-    </group>
-    <group android:id="@+id/grp2">
+            android:title="От А до Я" />
         <item
             android:id="@+id/nav_bar_switch_z_a"
-            android:title="Sort by Z-A" />
-    </group>
-    <group android:id="@+id/grp3">
+            android:title="От Я до А" />
         <item
             android:id="@+id/nav_bar_switch_max_min"
-            android:title="Sort from Max to Min Rating" />
-    </group>
-    <group android:id="@+id/grp4">
+            android:title="От Max до Min рейтинга" />
         <item
             android:id="@+id/nav_bar_switch_min_max"
-            android:title="Sort from Min to Max Rating" />
-    </group>
-    <group android:id="@+id/grp5">
+            android:title="От Min до Max рейтинга" />
         <item
-            android:id="@+id/nav_bar_switch_time_add"
-            android:title="Sort by time of add" />
+            android:id="@+id/nav_bar_switch_old_new"
+            android:title="От старых до новых" />
+        <item
+            android:id="@+id/nav_bar_switch_new_old"
+            android:title="От новых до старых" />
     </group>
+    <item
+        android:id="@+id/nav_bar_download"
+        android:title="Загрузка в текстовом формате" />
 </menu>

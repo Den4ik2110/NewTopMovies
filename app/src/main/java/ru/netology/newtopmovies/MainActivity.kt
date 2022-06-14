@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.core.view.MenuCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.netology.newtopmovies.database.DataBaseManager
 import ru.netology.newtopmovies.databinding.ActivityMainBinding
@@ -42,7 +41,10 @@ class MainActivity : AppCompatActivity(), MovieAdapter.Listener {
         super.onResume()
         binding.drawer.closeDrawer(GravityCompat.START)
         myDataBaseManager.openDb()
-        adapter.setMoviesList(myDataBaseManager.getFromDataBase()) // Передаю в адаптер список фильмов, загруженных из БД
+        val listMovieFromDataBase = myDataBaseManager.getFromDataBase()
+        adapter.setMoviesList(listMovieFromDataBase)                                                                     // Передаю в адаптер список фильмов, загруженных из БД
+        binding.navigMenu.menu.findItem(R.id.nav_bar_sortirovka).title =
+            "Сортировка  (Всего фильмов - ${listMovieFromDataBase.size})"
         init()
         menuSelector(R.menu.toolbar_menu)
     }
@@ -61,14 +63,20 @@ class MainActivity : AppCompatActivity(), MovieAdapter.Listener {
                     R.id.nav_bar_switch_z_a -> adapter.sortTitleZtoA()
                     R.id.nav_bar_switch_min_max -> adapter.sortRatingMinToMax()
                     R.id.nav_bar_switch_max_min -> adapter.sortRatingMaxToMin()
-                    R.id.nav_bar_switch_time_add -> adapter.sortTimeAdd()
+                    R.id.nav_bar_switch_old_new -> adapter.sortOldNew()
+                    R.id.nav_bar_switch_new_old -> adapter.sortNewOld()
+                    R.id.nav_bar_download -> startActivity(
+                        Intent(
+                            this@MainActivity,
+                            ActivityDownloadMovie::class.java
+                        )
+                    )
                 }
                 binding.drawer.closeDrawer(GravityCompat.START)
                 true
             }
         }
     }
-
 
 
     // Метод - слушатель для кнопок на Toolbar
@@ -91,7 +99,7 @@ class MainActivity : AppCompatActivity(), MovieAdapter.Listener {
                     inflateMenu(R.menu.toolbar_menu)
                     setNavigationIcon(R.drawable.ic_toolbar_filter)
                     itemNow.findViewById<View>(R.id.click_rate)
-                        .setBackgroundResource(R.color.grey_background_card)
+                        .setBackgroundResource(R.drawable.rounded_corner_card_text_grey)
                 }
             }
         }
@@ -119,14 +127,15 @@ class MainActivity : AppCompatActivity(), MovieAdapter.Listener {
 
         if (!movie.isClicked) {
             menuSelector(R.menu.toolbar_menu_second)
-            item.findViewById<View>(R.id.click_rate).setBackgroundResource(R.color.teal_700)
+            item.findViewById<View>(R.id.click_rate)
+                .setBackgroundResource(R.drawable.rounded_corner_card_text_orange)
             itemClickSave.add(item)
             movieClickSave.add(movie)
             movie.isClicked = !movie.isClicked
         } else {
             menuSelector(R.menu.toolbar_menu)
             item.findViewById<View>(R.id.click_rate)
-                .setBackgroundResource(R.color.grey_background_card)
+                .setBackgroundResource(R.drawable.rounded_corner_card_text_grey)
             itemClickSave.remove(item)
             movieClickSave.remove(movie)
             movie.isClicked = !movie.isClicked
@@ -135,7 +144,7 @@ class MainActivity : AppCompatActivity(), MovieAdapter.Listener {
 
             if (itemClickSave[0] != item) {
                 itemClickSave[0].findViewById<View>(R.id.click_rate)
-                    .setBackgroundResource(R.color.grey_background_card)
+                    .setBackgroundResource(R.drawable.rounded_corner_card_text_grey)
                 itemClickSave.remove(itemClickSave[0])
             }
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey_background_card"
+    android:background="@color/grey_dark"
     tools:context=".ActivityAddMovie">
 
     <TextView
@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/textMotivationNameMovie"
+        android:textColor="@color/orange"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,10 +24,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:backgroundTint="@color/chalk_color"
         android:ems="10"
         android:gravity="center"
         android:hint="@string/nameMovie"
         android:inputType="textPersonName"
+        android:textColor="@color/orange"
+        android:textColorHint="@color/orange"
         app:layout_constraintEnd_toEndOf="@+id/textView2"
         app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -37,6 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="64dp"
         android:text="@string/setParameters"
+        android:textColor="@color/grey_dark"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,6 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/setParametersFrom1To10"
+        android:textColor="@color/orange"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/editTextPersonName"
         app:layout_constraintStart_toStartOf="@+id/editTextPersonName"
@@ -59,6 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="@string/humor"
+        android:textColor="@color/orange"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/Humor"
         app:layout_constraintEnd_toStartOf="@id/Humor" />
@@ -72,6 +79,8 @@
         android:layout_marginTop="24dp"
         android:max="10"
         android:progress="0"
+        android:progressBackgroundTint="@color/chalk_color"
+        android:progressBackgroundTintMode="src_in"
         android:textAlignment="textEnd"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/tShapka"
@@ -86,6 +95,7 @@
         android:layout_marginStart="8dp"
         android:inputType="number"
         android:text="0"
+        android:textColor="@color/orange"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/Humor"
         app:layout_constraintStart_toEndOf="@+id/Humor" />
@@ -96,6 +106,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="@string/music"
+        android:textColor="@color/orange"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/Musik"
         app:layout_constraintEnd_toStartOf="@+id/Musik" />
@@ -109,6 +120,8 @@
         android:layout_marginTop="16dp"
         android:max="10"
         android:progress="0"
+        android:progressBackgroundTint="@color/chalk_color"
+        android:progressBackgroundTintMode="src_in"
         android:textAlignment="textEnd"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/Humor"
@@ -123,6 +136,7 @@
         android:layout_marginStart="8dp"
         android:inputType="number"
         android:text="0"
+        android:textColor="@color/orange"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/Musik"
         app:layout_constraintStart_toEndOf="@+id/Musik" />
@@ -133,6 +147,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="@string/dynamic"
+        android:textColor="@color/orange"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/Dinamic"
         app:layout_constraintEnd_toStartOf="@id/Dinamic" />
@@ -146,6 +161,8 @@
         android:layout_marginTop="16dp"
         android:max="10"
         android:progress="0"
+        android:progressBackgroundTint="@color/chalk_color"
+        android:progressBackgroundTintMode="src_in"
         android:textAlignment="textEnd"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/Musik"
@@ -160,6 +177,7 @@
         android:layout_marginStart="8dp"
         android:inputType="number"
         android:text="0"
+        android:textColor="@color/orange"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/Dinamic"
         app:layout_constraintStart_toEndOf="@id/Dinamic" />
@@ -170,6 +188,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="@string/image"
+        android:textColor="@color/orange"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/Image"
         app:layout_constraintEnd_toStartOf="@id/Image" />
@@ -183,6 +202,8 @@
         android:layout_marginTop="16dp"
         android:max="10"
         android:progress="0"
+        android:progressBackgroundTint="@color/chalk_color"
+        android:progressBackgroundTintMode="src_in"
         android:textAlignment="textEnd"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/Dinamic"
@@ -196,6 +217,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="0"
+        android:textColor="@color/orange"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/Image"
         app:layout_constraintStart_toEndOf="@id/Image" />
@@ -206,6 +228,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="@string/dialogs"
+        android:textColor="@color/orange"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/dialog"
         app:layout_constraintEnd_toStartOf="@id/dialog" />
@@ -219,6 +242,8 @@
         android:layout_marginTop="16dp"
         android:max="10"
         android:progress="0"
+        android:progressBackgroundTint="@color/chalk_color"
+        android:progressBackgroundTintMode="src_in"
         android:textAlignment="textEnd"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@id/Image"
@@ -232,6 +257,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="0"
+        android:textColor="@color/orange"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/dialog"
         app:layout_constraintStart_toEndOf="@id/dialog" />
@@ -242,6 +268,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="@string/heroes"
+        android:textColor="@color/orange"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/heroes"
         app:layout_constraintEnd_toStartOf="@id/heroes" />
@@ -255,6 +282,8 @@
         android:layout_marginTop="16dp"
         android:max="10"
         android:progress="0"
+        android:progressBackgroundTint="@color/chalk_color"
+        android:progressBackgroundTintMode="src_in"
         android:textAlignment="textEnd"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@id/dialog"
@@ -268,6 +297,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="0"
+        android:textColor="@color/orange"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/heroes"
         app:layout_constraintStart_toEndOf="@id/heroes" />
@@ -278,6 +308,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="@string/antiheroes"
+        android:textColor="@color/orange"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/antiheroes"
         app:layout_constraintEnd_toStartOf="@id/antiheroes" />
@@ -291,6 +322,8 @@
         android:layout_marginTop="16dp"
         android:max="10"
         android:progress="0"
+        android:progressBackgroundTint="@color/chalk_color"
+        android:progressBackgroundTintMode="src_in"
         android:textAlignment="textEnd"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@id/heroes"
@@ -304,6 +337,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="0"
+        android:textColor="@color/orange"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/antiheroes"
         app:layout_constraintStart_toEndOf="@id/antiheroes" />
@@ -314,6 +348,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="@string/story"
+        android:textColor="@color/orange"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/story"
         app:layout_constraintEnd_toStartOf="@id/story" />
@@ -327,6 +362,8 @@
         android:layout_marginTop="16dp"
         android:max="10"
         android:progress="0"
+        android:progressBackgroundTint="@color/chalk_color"
+        android:progressBackgroundTintMode="src_in"
         android:textAlignment="textEnd"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@id/antiheroes"
@@ -340,6 +377,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="0"
+        android:textColor="@color/orange"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/story"
         app:layout_constraintStart_toEndOf="@id/story" />
@@ -350,6 +388,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="@string/drama"
+        android:textColor="@color/orange"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/drama"
         app:layout_constraintEnd_toStartOf="@id/drama" />
@@ -363,6 +402,8 @@
         android:layout_marginTop="16dp"
         android:max="10"
         android:progress="0"
+        android:progressBackgroundTint="@color/chalk_color"
+        android:progressBackgroundTintMode="src_in"
         android:textAlignment="textEnd"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@id/story"
@@ -376,6 +417,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="0"
+        android:textColor="@color/orange"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/drama"
         app:layout_constraintStart_toEndOf="@id/drama" />
@@ -385,8 +427,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:backgroundTint="@color/grey_dark"
         android:gravity="left|center_vertical"
         android:text="@string/watchAgain"
+        android:textColor="@color/orange"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/drama"
         app:layout_constraintHorizontal_bias="0.0"
@@ -400,25 +444,28 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="@string/saveAll"
+        android:textColor="@color/grey_dark"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/buttomNotSave"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
 
     <Button
         android:id="@+id/buttomNotSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="@color/grey_dark"
         android:text="@string/saveNotSave"
-        android:textColor="#000000"
+        android:textColor="@color/chalk_color"
         android:textSize="10sp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group_vis_invis"

@@ -9,4 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#6C6C6C</color>
     <color name="grey_background_card">#575151</color>
+    <color name="grey_dark">#222831</color>
+    <color name="grey_medium_dark">#393E46</color>
+    <color name="orange">#FD7013</color>
+    <color name="chalk_color">#EEEEEE</color>
 </resources>
