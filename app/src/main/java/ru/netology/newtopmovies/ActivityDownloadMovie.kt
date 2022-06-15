@@ -88,7 +88,11 @@ class ActivityDownloadMovie : AppCompatActivity() {
             parameterList[6],
             parameterList[8],
             parameterList[9],
-            if (parameterList[7] == 1) 10 else 0,
+            when (parameterList[7]) {
+                10 -> 10
+                0 -> 0
+                else -> 5
+            },
             R.drawable.ic_no_image
         )
 

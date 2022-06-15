@@ -57,3 +57,5 @@ out/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
 !**/src/test/**
+/app/release/app-release.apk
+/app/release/output-metadata.json

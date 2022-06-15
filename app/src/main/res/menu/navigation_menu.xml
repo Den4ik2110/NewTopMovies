@@ -28,8 +28,14 @@
         <item
             android:id="@+id/nav_bar_switch_new_old"
             android:title="От новых до старых" />
+        <item
+            android:id="@+id/nav_bar_repeat"
+            android:title="Повторно посмотрю" />
     </group>
     <item
         android:id="@+id/nav_bar_download"
         android:title="Загрузка в текстовом формате" />
+    <item
+        android:id="@+id/nav_bar_delete"
+        android:title="Очистить базу данных" />
 </menu>

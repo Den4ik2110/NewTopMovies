@@ -63,7 +63,11 @@ class ActivityAddMovie : AppCompatActivity() {
                 binding.ValueMusik.text.toString().toInt(),
                 binding.valueImage.text.toString().toInt(),
                 binding.valueDialog.text.toString().toInt(),
-                if (binding.switchRepeat.isChecked) 10 else 0,
+                when (binding.repeatAddMovie.progress) {
+                    0 -> 0
+                    2 -> 10
+                    else -> 5
+                },
                 R.drawable.ic_no_image
             )
             finish()

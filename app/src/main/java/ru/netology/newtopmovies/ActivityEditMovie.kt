@@ -53,7 +53,11 @@ class ActivityEditMovie : AppCompatActivity() {
                 binding.ValueMusik.text.toString().toInt(),
                 binding.valueImage.text.toString().toInt(),
                 binding.valueDialog.text.toString().toInt(),
-                if (binding.switchRepeat.isChecked) 10 else 0,
+                when (binding.repeatAddMovie2.progress) {
+                    0 -> 0
+                    2 -> 10
+                    else -> 5
+                },
                 R.drawable.ic_no_image,
                 movie.idMovie
             )
@@ -99,7 +103,11 @@ class ActivityEditMovie : AppCompatActivity() {
             Musik.progress = editMovie.music
             Image.progress = editMovie.image
             dialog.progress = editMovie.dialogs
-            switchRepeat.isChecked = editMovie.repeat == 10
+            repeatAddMovie2.progress = when (editMovie.repeat) {
+                0 -> 0
+                10 -> 2
+                else -> 1
+            }
 
             valueHumor.text = editMovie.humor.toString()
             valueDinamic.text = editMovie.dynamic.toString()

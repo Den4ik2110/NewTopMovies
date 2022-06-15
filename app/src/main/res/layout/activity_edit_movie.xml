@@ -401,21 +401,6 @@
         app:layout_constraintBottom_toBottomOf="@id/drama"
         app:layout_constraintStart_toEndOf="@id/drama" />
 
-    <Switch
-        android:id="@+id/switchRepeat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="left|center_vertical"
-        android:text="@string/watchAgain"
-        android:textColor="@color/orange"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="@+id/drama"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/drama"
-        app:layout_constraintTop_toBottomOf="@+id/drama"
-        tools:checked="false" />
-
     <Button
         android:id="@+id/buttonSaveAll"
         android:layout_width="wrap_content"
@@ -442,11 +427,52 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <SeekBar
+        android:id="@+id/repeat_add_movie2"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:max="2"
+        android:progress="0"
+        android:progressBackgroundTint="@color/chalk_color"
+        app:layout_constraintEnd_toEndOf="@+id/drama"
+        app:layout_constraintStart_toStartOf="@+id/drama"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/repeat_value2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Да"
+        android:textColor="@color/orange"
+        app:layout_constraintBottom_toBottomOf="@+id/repeat_add_movie2"
+        app:layout_constraintStart_toStartOf="@+id/valueDrama" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Нет"
+        android:textColor="@color/orange"
+        app:layout_constraintBottom_toBottomOf="@+id/repeat_add_movie2"
+        app:layout_constraintEnd_toEndOf="@+id/textDrama" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Повтор"
+        android:textColor="@color/orange"
+        app:layout_constraintEnd_toEndOf="@+id/drama"
+        app:layout_constraintStart_toStartOf="@+id/drama"
+        app:layout_constraintTop_toBottomOf="@+id/drama" />
+
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group_vis_invis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"
-        app:constraint_referenced_ids="tShapka,textHumor,Humor,valueHumor,textMusik,Musik,ValueMusik,textDinamic,Dinamic,valueDinamic,textImage,Image,valueImage,textDialog,dialog,valueDialog,textHeroes,heroes,ValueHeroes,textAntiheroes,antiheroes,ValueAntiheroes,textStory,story,ValueStory,textDrama,drama,valueDrama,switchRepeat" />
+        app:constraint_referenced_ids="tShapka,textHumor,Humor,valueHumor,textMusik,Musik,ValueMusik,textDinamic,Dinamic,valueDinamic,textImage,Image,valueImage,textDialog,dialog,valueDialog,textHeroes,heroes,ValueHeroes,textAntiheroes,antiheroes,ValueAntiheroes,textStory,story,ValueStory,textDrama,drama,valueDrama,repeat_add_movie2,repeat_value2,textView6,textView4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

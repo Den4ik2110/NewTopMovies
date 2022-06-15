@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -63,14 +64,19 @@ class MainActivity : AppCompatActivity(), MovieAdapter.Listener {
                     R.id.nav_bar_switch_z_a -> adapter.sortTitleZtoA()
                     R.id.nav_bar_switch_min_max -> adapter.sortRatingMinToMax()
                     R.id.nav_bar_switch_max_min -> adapter.sortRatingMaxToMin()
-                    R.id.nav_bar_switch_old_new -> adapter.sortOldNew()
-                    R.id.nav_bar_switch_new_old -> adapter.sortNewOld()
+                    R.id.nav_bar_switch_old_new -> adapter.sortNewOld()
+                    R.id.nav_bar_switch_new_old -> adapter.sortOldNew()
                     R.id.nav_bar_download -> startActivity(
                         Intent(
                             this@MainActivity,
                             ActivityDownloadMovie::class.java
                         )
                     )
+                    R.id.nav_bar_delete -> {
+                        myDataBaseManager.deleteDataBase()
+                        Toast.makeText(applicationContext, "Перезапустите приложение", Toast.LENGTH_LONG).show()
+                    }
+                    R.id.nav_bar_repeat -> adapter.sortRepeat()
                 }
                 binding.drawer.closeDrawer(GravityCompat.START)
                 true

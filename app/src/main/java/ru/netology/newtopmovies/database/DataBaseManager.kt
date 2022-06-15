@@ -113,6 +113,9 @@ class DataBaseManager(
         dataBase.update(DataBaseConstants.TABLE_NAME, contentValues, DataBaseConstants._ID + "=?", arrayOf(idMovie.toString()))
 
     }
+    fun deleteDataBase() {
+        dataBase.delete(DataBaseConstants.TABLE_NAME, null, null)
+    }
 
 
 }

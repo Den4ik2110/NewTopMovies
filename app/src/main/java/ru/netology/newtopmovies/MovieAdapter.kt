@@ -31,7 +31,11 @@ class MovieAdapter(private val listener: Listener) :
                 storyValueCard.text = "Сюжет - ${movie.story}"
                 dramaValueCard.text = "Драма - ${movie.drama}"
                 ratingValue.text = "Рейтинг ${(ratingMovieCard.rating * 10).toInt()}"
-                //if (movie.repeat == 10) repeatMovieCard.setText(R.string.watch_again)
+                when (movie.repeat) {
+                    0 -> bindingMovieCard.repeat.setImageResource(R.drawable.ic_card_repeat_0)
+                    5 -> bindingMovieCard.repeat.setImageResource(R.drawable.ic_card_repeat_5)
+                    10 -> bindingMovieCard.repeat.setImageResource(R.drawable.ic_card_repeat_10)
+                }
                 itemView.setOnClickListener {
                     listener.onClick(movie, itemView, movies)
                 }
@@ -107,6 +111,12 @@ class MovieAdapter(private val listener: Listener) :
 
     fun sortNewOld() {
         movies.sortByDescending { it.idMovie }
+        repeatMoviesList()
+    }
+
+    fun sortRepeat() {
+        val comparatorRepeat = Comparator { p1: Movie, p2: Movie -> p2.repeat - p1.repeat }
+        movies.sortWith(comparatorRepeat.thenComparator { p1, p2 -> p1.title.compareTo(p2.title) })
         repeatMoviesList()
     }
 }
