@@ -87,11 +87,6 @@ class MovieAdapter(private val listener: Listener) :
         repeatMoviesList()
     }
 
-    fun sortTitleZtoA() {
-        movies.sortByDescending { it.title }
-        repeatMoviesList()
-    }
-
     fun sortRatingMinToMax() {
         val comparatorRating = Comparator { p1: Movie, p2: Movie -> p1.rating - p2.rating }
         movies.sortWith(comparatorRating.thenComparator { p1, p2 -> p1.title.compareTo(p2.title) })

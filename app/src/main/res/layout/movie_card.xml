@@ -189,9 +189,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:gravity="center"
+                android:paddingStart="35dp"
+                android:paddingEnd="35dp"
                 android:text="TextView"
                 android:textColor="@color/chalk_color"
                 android:textSize="20sp"
+                app:autoSizeMaxTextSize="26sp"
+                app:autoSizeTextType="uniform"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

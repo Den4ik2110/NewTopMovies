@@ -12,10 +12,7 @@
     <group android:id="@+id/grp1">
         <item
             android:id="@+id/nav_bar_switch_a_z"
-            android:title="От А до Я" />
-        <item
-            android:id="@+id/nav_bar_switch_z_a"
-            android:title="От Я до А" />
+            android:title="По алфавиту" />
         <item
             android:id="@+id/nav_bar_switch_max_min"
             android:title="От Max до Min рейтинга" />
@@ -30,12 +27,6 @@
             android:title="От новых до старых" />
         <item
             android:id="@+id/nav_bar_repeat"
-            android:title="Повторно посмотрю" />
+            android:title="Да! Покажите еще раз!" />
     </group>
-    <item
-        android:id="@+id/nav_bar_download"
-        android:title="Загрузка в текстовом формате" />
-    <item
-        android:id="@+id/nav_bar_delete"
-        android:title="Очистить базу данных" />
 </menu>

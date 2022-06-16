@@ -59,7 +59,6 @@ class ActivityDownloadMovie : AppCompatActivity() {
         mutableModText.removeAt(mutableModText.size - 1)
         nameMovie = mutableModText[0]
         mutableModText.removeAt(0)
-        Log.d("MyLog", "$mutableModText ${mutableModText.size} $nameMovie")
 
         for (string in mutableModText) {
             val i = string.split(" ")
@@ -75,7 +74,6 @@ class ActivityDownloadMovie : AppCompatActivity() {
             val i = (string * 10).toInt()
             parameterList.add(i)
         }
-        Log.d("MyLog", "$parameterList")
 
         myDataBaseManager.insertToDataBase(
             nameMovie,

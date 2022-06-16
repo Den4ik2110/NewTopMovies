@@ -3,16 +3,20 @@ package ru.netology.newtopmovies
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.netology.newtopmovies.database.DataBaseManager
 import ru.netology.newtopmovies.databinding.ActivityMainBinding
+import kotlin.properties.Delegates
 
 
-class MainActivity : AppCompatActivity(), MovieAdapter.Listener {
+class MainActivity : AppCompatActivity(), MovieAdapter.Listener,
+    DeleteMovieDialogFragment.AnswerClick {
     private lateinit var myDataBaseManager: DataBaseManager
     private lateinit var binding: ActivityMainBinding
     private var adapter = MovieAdapter(this)
@@ -21,6 +25,8 @@ class MainActivity : AppCompatActivity(), MovieAdapter.Listener {
     private var itemClickSave = mutableListOf<View>()
     private var movieClickSave = mutableListOf<Movie>()
     private lateinit var toolbar: androidx.appcompat.widget.Toolbar
+    private val alertDialog = DeleteMovieDialogFragment(this)
+    private var answerDialog = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,12 +67,11 @@ class MainActivity : AppCompatActivity(), MovieAdapter.Listener {
             navigMenu.setNavigationItemSelectedListener {
                 when (it.itemId) {
                     R.id.nav_bar_switch_a_z -> adapter.sortTitleAtoZ()
-                    R.id.nav_bar_switch_z_a -> adapter.sortTitleZtoA()
                     R.id.nav_bar_switch_min_max -> adapter.sortRatingMinToMax()
                     R.id.nav_bar_switch_max_min -> adapter.sortRatingMaxToMin()
                     R.id.nav_bar_switch_old_new -> adapter.sortNewOld()
                     R.id.nav_bar_switch_new_old -> adapter.sortOldNew()
-                    R.id.nav_bar_download -> startActivity(
+                    /*R.id.nav_bar_download -> startActivity(
                         Intent(
                             this@MainActivity,
                             ActivityDownloadMovie::class.java
@@ -75,7 +80,7 @@ class MainActivity : AppCompatActivity(), MovieAdapter.Listener {
                     R.id.nav_bar_delete -> {
                         myDataBaseManager.deleteDataBase()
                         Toast.makeText(applicationContext, "Перезапустите приложение", Toast.LENGTH_LONG).show()
-                    }
+                    }*/
                     R.id.nav_bar_repeat -> adapter.sortRepeat()
                 }
                 binding.drawer.closeDrawer(GravityCompat.START)
@@ -97,16 +102,7 @@ class MainActivity : AppCompatActivity(), MovieAdapter.Listener {
                 startActivity(intent)
             }
             R.id.toolbar_delete -> {
-                myDataBaseManager.deleteMovie(movieNow.idMovie)
-                adapter.delete(movieNow)
-                binding.toolbarMy.apply {
-                    menu.clear()
-                    supportActionBar?.setDisplayHomeAsUpEnabled(true)
-                    inflateMenu(R.menu.toolbar_menu)
-                    setNavigationIcon(R.drawable.ic_toolbar_filter)
-                    itemNow.findViewById<View>(R.id.click_rate)
-                        .setBackgroundResource(R.drawable.rounded_corner_card_text_grey)
-                }
+                alertDialog.show(supportFragmentManager, "delete")
             }
         }
         return true
@@ -165,6 +161,21 @@ class MainActivity : AppCompatActivity(), MovieAdapter.Listener {
         binding.toolbarMy.apply {
             menu.clear()
             inflateMenu(menuId)
+        }
+    }
+
+    override fun answerPositive(answer: Boolean) {
+        if (answer) {
+            myDataBaseManager.deleteMovie(movieNow.idMovie)
+            adapter.delete(movieNow)
+            binding.toolbarMy.apply {
+                menu.clear()
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                inflateMenu(R.menu.toolbar_menu)
+                setNavigationIcon(R.drawable.ic_toolbar_filter)
+                itemNow.findViewById<View>(R.id.click_rate)
+                    .setBackgroundResource(R.drawable.rounded_corner_card_text_grey)
+            }
         }
     }
 
