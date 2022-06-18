@@ -2,7 +2,6 @@ package ru.netology.newtopmovies
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import ru.netology.newtopmovies.database.DataBaseManager
 import ru.netology.newtopmovies.databinding.ActivityDownloadMovieBinding

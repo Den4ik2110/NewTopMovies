@@ -3,16 +3,12 @@ package ru.netology.newtopmovies
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.netology.newtopmovies.database.DataBaseManager
 import ru.netology.newtopmovies.databinding.ActivityMainBinding
-import kotlin.properties.Delegates
 
 
 class MainActivity : AppCompatActivity(), MovieAdapter.Listener,
@@ -26,7 +22,6 @@ class MainActivity : AppCompatActivity(), MovieAdapter.Listener,
     private var movieClickSave = mutableListOf<Movie>()
     private lateinit var toolbar: androidx.appcompat.widget.Toolbar
     private val alertDialog = DeleteMovieDialogFragment(this)
-    private var answerDialog = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
