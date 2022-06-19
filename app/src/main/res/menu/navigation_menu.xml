@@ -15,10 +15,10 @@
             android:title="По алфавиту" />
         <item
             android:id="@+id/nav_bar_switch_max_min"
-            android:title="От Max до Min рейтинга" />
+            android:title="По убыванию рейтинга" />
         <item
             android:id="@+id/nav_bar_switch_min_max"
-            android:title="От Min до Max рейтинга" />
+            android:title="По возрастанию рейтинга" />
         <item
             android:id="@+id/nav_bar_switch_old_new"
             android:title="От старых до новых" />
