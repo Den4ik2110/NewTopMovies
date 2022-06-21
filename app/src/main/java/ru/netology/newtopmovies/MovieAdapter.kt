@@ -4,11 +4,13 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.newtopmovies.databinding.MovieCardBinding
 
 class MovieAdapter(private val listener: Listener) :
-    RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
+    ListAdapter<Movie, MovieAdapter.MovieHolder>(DiffCallback) {
 
     private var movies = mutableListOf<Movie>()
 
@@ -61,6 +63,7 @@ class MovieAdapter(private val listener: Listener) :
         repeatMoviesList()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun repeatMoviesList() {
         notifyDataSetChanged()
     }
@@ -113,6 +116,17 @@ class MovieAdapter(private val listener: Listener) :
         val comparatorRepeat = Comparator { p1: Movie, p2: Movie -> p2.repeat - p1.repeat }
         movies.sortWith(comparatorRepeat.thenComparator { p1, p2 -> p1.title.compareTo(p2.title) })
         repeatMoviesList()
+    }
+
+    private object DiffCallback : DiffUtil.ItemCallback<Movie>() {
+
+        override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean =
+            oldItem.idMovie == newItem.idMovie
+
+
+        override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean =
+            newItem == oldItem
+
     }
 }
 

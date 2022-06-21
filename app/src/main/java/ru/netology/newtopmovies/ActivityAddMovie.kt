@@ -55,14 +55,14 @@ class ActivityAddMovie : AppCompatActivity() {
             myDataBaseManager.insertToDataBase(
                 binding.editTextPersonName.text.toString(),
                 binding.valueHumor.text.toString().toInt(),
-                binding.valueDinamic.text.toString().toInt(),
-                binding.ValueStory.text.toString().toInt(),
-                binding.ValueHeroes.text.toString().toInt(),
-                binding.ValueAntiheroes.text.toString().toInt(),
-                binding.valueDrama.text.toString().toInt(),
                 binding.ValueMusik.text.toString().toInt(),
+                binding.valueDinamic.text.toString().toInt(),
                 binding.valueImage.text.toString().toInt(),
                 binding.valueDialog.text.toString().toInt(),
+                binding.ValueHeroes.text.toString().toInt(),
+                binding.ValueAntiheroes.text.toString().toInt(),
+                binding.ValueStory.text.toString().toInt(),
+                binding.valueDrama.text.toString().toInt(),
                 when (binding.repeatAddMovie.progress) {
                     0 -> 0
                     2 -> 10
