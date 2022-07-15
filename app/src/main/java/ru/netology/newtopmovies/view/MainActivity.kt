@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(), MovieAdapter.ShowDialog {
 
         viewModel.data.observe(this) { movieFromData ->
             adapter.submitList(movieFromData)
-            toolbar.title = "Всего фильмов - ${movieFromData.size}"
+            toolbar.title = if (movieFromData.isEmpty()) "Добавь новый фильм ->" else "Всего фильмов - ${movieFromData.size}"
         }
 
         clickNavigationMenu()
@@ -95,5 +95,6 @@ class MainActivity : AppCompatActivity(), MovieAdapter.ShowDialog {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         toolbar.setNavigationIcon(R.drawable.ic_toolbar_filter)
+        toolbar.elevation = 20F
     }
 }

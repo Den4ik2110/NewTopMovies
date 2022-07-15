@@ -14,10 +14,8 @@ class DataBaseHelper(context: Context, dbVersion: Int, dbName: String, private v
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        TODO("Not implemented")
     }
 
     override fun onDowngrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        TODO("Not implemented")
     }
 }
