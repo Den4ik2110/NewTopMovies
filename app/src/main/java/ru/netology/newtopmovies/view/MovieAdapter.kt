@@ -3,6 +3,7 @@ package ru.netology.newtopmovies.view
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.view.*
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
@@ -29,10 +30,11 @@ class MovieAdapter(
 
         private val popupMenu by lazy {
             val contextThemeWrapper = ContextThemeWrapper(context, R.style.PopupMenu)
-            PopupMenu(
+            val popup = PopupMenu(
                 contextThemeWrapper,
                 binding.repeat
-            ).apply {
+            )
+                popup.apply {
                 inflate(R.menu.context_menu)
                 setOnMenuItemClickListener { menuItem ->
                     when (menuItem.itemId) {
@@ -48,10 +50,17 @@ class MovieAdapter(
                             dialog.showDialog(movie)
                             true
                         }
+                        R.id.context_menu_share -> {
+                            dialog.shareMovie(movie)
+                            true
+                        }
                         else -> {
                             false
                         }
                     }
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    popup.setForceShowIcon(true)
                 }
             }
         }
@@ -107,7 +116,10 @@ class MovieAdapter(
 
     interface ShowDialog {
         fun showDialog(movie: Movie)
+
+        fun shareMovie(movie: Movie)
     }
+
 }
 
 

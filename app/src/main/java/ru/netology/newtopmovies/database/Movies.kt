@@ -34,22 +34,5 @@ internal fun Movie.toEntity() = MovieEntity(
     rating = rating
 )
 
-internal fun Movie.toEntityAndKey(key: String) = MovieEntity(
-    title = title,
-    humor = humor,
-    music = music,
-    dynamic = dynamic,
-    image = image,
-    dialogs = dialogs,
-    heroes = heroes,
-    antiheroes = antiheroes,
-    story = story,
-    drama = drama,
-    repeat = repeat,
-    id = idMovie,
-    rating = rating,
-    keySort = key
-)
-
 
 

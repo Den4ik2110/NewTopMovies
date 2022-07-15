@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import ru.netology.newtopmovies.data.Movie
 import ru.netology.newtopmovies.data.MovieRepository
 import ru.netology.newtopmovies.database.AppDb
+import ru.netology.newtopmovies.util.SingleLiveEvent
 import ru.netology.newtopmovies.view.MovieInteractionListener
 
 class MovieViewModel(application: Application) : AndroidViewModel(application),
@@ -17,6 +18,8 @@ class MovieViewModel(application: Application) : AndroidViewModel(application),
     )
 
     val data by repository::data
+    val keySort by repository::keySort
+    val shareMovie = SingleLiveEvent<Movie>()
 
     override fun removeMovie(movie: Movie) = repository.movieRemove(movie.idMovie)
 
@@ -26,5 +29,11 @@ class MovieViewModel(application: Application) : AndroidViewModel(application),
 
     fun deleteAll() = repository.deleteAll()
 
-    fun sortMovie(key: String) = repository.sortMovie(key)
+    fun sortMovie(key: String) {
+        repository.sortMovie(key)
+    }
+
+    fun shareMovie(movie: Movie) {
+        shareMovie.value = movie
+    }
 }

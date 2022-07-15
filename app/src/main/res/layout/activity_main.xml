@@ -31,9 +31,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/orange"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:scrollbars="vertical">
         </androidx.recyclerview.widget.RecyclerView>
-
 
     </LinearLayout>
 
@@ -44,7 +44,7 @@
         android:layout_gravity="start"
         android:layout_marginEnd="10dp"
         android:backgroundTint="@color/grey_dark"
-        app:itemTextColor="@color/orange"
+        app:itemTextColor="@color/clicked_item_menu_selector"
         app:menu="@menu/navigation_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>
 

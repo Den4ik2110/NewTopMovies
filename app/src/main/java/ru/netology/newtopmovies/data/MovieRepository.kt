@@ -1,6 +1,7 @@
 package ru.netology.newtopmovies.data
 
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import ru.netology.newtopmovies.database.*
 import ru.netology.newtopmovies.database.toEntity
@@ -9,7 +10,10 @@ class MovieRepository(
     private val dao: MovieDao
 ) {
     val data = dao.getFromDataBase().map { entities ->
-        when (if (entities.isEmpty()) null else entities[0].keySort) {
+        if (entities.isNotEmpty()) {
+            if (keySort.value != entities[0].keySort) keySort.value = entities[0].keySort
+        } else keySort.value = "null"
+            when (if (entities.isEmpty()) null else entities[0].keySort) {
             "A_Z" -> entities.map { it.toMovie() }.sortedBy { it.title }
             "Min_Max" -> {
                 val comparatorRating = Comparator { p1: Movie, p2: Movie -> p1.rating - p2.rating }
@@ -34,6 +38,8 @@ class MovieRepository(
         }
     }
 
+    val keySort = MutableLiveData<String>()
+
     fun movieRemove(movieId: Long) {
         dao.delete(movieId)
     }
@@ -53,5 +59,4 @@ class MovieRepository(
     fun sortMovie(key: String) {
         dao.updateKey(key)
     }
-
 }
