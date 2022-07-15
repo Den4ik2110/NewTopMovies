@@ -7,9 +7,6 @@ import androidx.room.OnConflictStrategy.REPLACE
 @Dao
 interface MovieDao {
 
-    /*@Insert
-    fun insertToDataBase(movie: MovieEntity)*/
-
     @Query("DELETE FROM movies WHERE id = :id")
     fun delete(id: Long)
 

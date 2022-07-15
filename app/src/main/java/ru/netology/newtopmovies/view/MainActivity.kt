@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(), MovieAdapter.ShowDialog {
 
         viewModel.data.observe(this) { movieFromData ->
             adapter.submitList(movieFromData)
-
+            toolbar.title = "Всего фильмов - ${movieFromData.size}"
         }
 
         clickNavigationMenu()
@@ -41,7 +41,6 @@ class MainActivity : AppCompatActivity(), MovieAdapter.ShowDialog {
     override fun onResume() {
         super.onResume()
         binding.drawer.closeDrawer(GravityCompat.START)
-        toolbar.title = "Всего фильмов - 10000"
     }
 
     // Слушатель для всех кнопок из навигационного меню (слева которое)
