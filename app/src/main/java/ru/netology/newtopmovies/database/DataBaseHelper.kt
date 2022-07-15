@@ -4,15 +4,20 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DataBaseConstants.DATA_BASE_NAME, null, DataBaseConstants.DATA_BASE_VERSION) {
+class DataBaseHelper(context: Context, dbVersion: Int, dbName: String, private val DDLs: Array<String>) :
+    SQLiteOpenHelper(context, dbName, null, dbVersion) {
 
-    override fun onCreate(dataBase: SQLiteDatabase?) {
-        dataBase?.execSQL(DataBaseConstants.SQL_TABLE_CREATE)
+    override fun onCreate(db: SQLiteDatabase) {
+        DDLs.forEach {
+            db.execSQL(it)
+        }
     }
 
-    override fun onUpgrade(dataBase: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        dataBase?.execSQL(DataBaseConstants.SQL_TABLE_DELETE)
-        onCreate(dataBase)
+    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        TODO("Not implemented")
     }
 
+    override fun onDowngrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        TODO("Not implemented")
+    }
 }

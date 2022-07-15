@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="@color/grey"
-    tools:context=".MainActivity">
+    tools:context=".view.MainActivity">
 
 
     <LinearLayout
@@ -30,9 +30,13 @@
             android:id="@+id/recycler_movie"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/orange">
-
+            android:background="@color/orange"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:scrollbars="vertical"
+            android:fadeScrollbars="true">
         </androidx.recyclerview.widget.RecyclerView>
+
+
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -45,3 +49,4 @@
         app:itemTextColor="@color/orange"
         app:menu="@menu/navigation_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>
+

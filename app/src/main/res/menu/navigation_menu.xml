@@ -29,4 +29,10 @@
             android:id="@+id/nav_bar_repeat"
             android:title="Да! Покажите еще раз!" />
     </group>
+    <item
+        android:id="@+id/nav_bar_download"
+        android:title="Добавить списком" />
+    <item
+        android:id="@+id/nav_bar_delete"
+        android:title="Удалить всю базу" />
 </menu>

@@ -10,16 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NewTopMovies">
         <activity
-            android:name=".ActivityDownloadMovie"
+            android:name=".view.ActivityDownloadMovie"
             android:exported="false" />
         <activity
-            android:name=".ActivityEditMovie"
+            android:name=".view.ActivityEditMovie"
             android:exported="false" />
         <activity
-            android:name=".ActivityAddMovie"
+            android:name=".view.ActivityAddMovie"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
