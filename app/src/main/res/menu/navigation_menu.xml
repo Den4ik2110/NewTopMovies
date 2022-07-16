@@ -30,9 +30,15 @@
             android:title="Да! Покажите еще раз!" />
     </group>
     <item
+        android:id="@+id/nav_bar_share_all"
+        android:icon="@drawable/ic_context_menu_share"
+        android:title="Поделиться коллекцией" />
+    <item
         android:id="@+id/nav_bar_download"
-        android:title="Добавить списком" />
+        android:icon="@drawable/ic_nav_menu_download_orange"
+        android:title="Загрузить списком" />
     <item
         android:id="@+id/nav_bar_delete"
-        android:title="Удалить всю базу" />
+        android:icon="@drawable/ic_context_menu_delete"
+        android:title="Удалить все данные" />
 </menu>

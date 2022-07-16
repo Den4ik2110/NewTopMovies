@@ -11,6 +11,7 @@ import androidx.core.view.GravityCompat
 import ru.netology.newtopmovies.R
 import ru.netology.newtopmovies.data.Movie
 import ru.netology.newtopmovies.databinding.ActivityMainBinding
+import ru.netology.newtopmovies.util.Constants
 import ru.netology.newtopmovies.viewModel.MovieViewModel
 import java.util.*
 import kotlin.concurrent.schedule
@@ -66,32 +67,113 @@ class MainActivity : AppCompatActivity(), MovieAdapter.ShowDialog {
             }
 
         }
+
+        viewModel.shareAllMovie.observe(this) { allMovie ->
+            Intent().apply {
+                action = Intent.ACTION_SEND
+                val intentString = buildString {
+                    append("Смотри! Вся моя коллекция!\n")
+                    append(
+                        "Она насчитывает ${allMovie.size} ${
+                            rounding(
+                                allMovie.size,
+                                Constants.KEY_ROUNDING_SHARE_ALL_MOVIE
+                            )
+                        }:\n"
+                    )
+                    var index = 1
+                    allMovie.forEach { movie ->
+                        append("$index. \"${movie.title}\" - ${movie.rating}/100; \n")
+                        index++
+                    }
+                }
+                putExtra(Intent.EXTRA_TEXT, intentString)
+                type = "text/plain"
+            }.also { intent ->
+                val shareIntent =
+                    Intent.createChooser(intent, getString(R.string.text_share_message))
+                startActivity(shareIntent)
+            }
+        }
+
     }
 
     private fun getStringShare(movie: Movie): String {
         return "Посмотрел недавно фильм \"${movie.title}\". \n" +
                 "\n" +
-                "Я оценил его в ${movie.rating} ${rounding(movie.rating)} из 100 \n" +
+                "Я оценил его в ${movie.rating} ${
+                    rounding(
+                        movie.rating,
+                        Constants.KEY_ROUNDING_SHARE_MOVIE
+                    )
+                } из 100 \n" +
                 "\n" +
                 "Вот все критерии, по которым я оценивал:\n" +
-                "Юмор - ${movie.humor} ${rounding(movie.humor)} из 10 \n" +
-                "Музыка - ${movie.music} ${rounding(movie.music)} из 10 \n" +
-                "Динамика - ${movie.dynamic} ${rounding(movie.dynamic)} из 10 \n" +
-                "Картинка - ${movie.image} ${rounding(movie.image)} из 10 \n" +
-                "Диалоги - ${movie.dialogs} ${rounding(movie.dialogs)} из 10 \n" +
-                "Герои - ${movie.heroes} ${rounding(movie.heroes)} из 10 \n" +
-                "Злодеи - ${movie.antiheroes} ${rounding(movie.antiheroes)} из 10 \n" +
-                "История - ${movie.story} ${rounding(movie.story)} из 10 \n" +
-                "Драма - ${movie.drama} ${rounding(movie.drama)} из 10 \n" +
+                "Юмор - ${movie.humor} ${
+                    rounding(
+                        movie.humor,
+                        Constants.KEY_ROUNDING_SHARE_MOVIE
+                    )
+                } из 10 \n" +
+                "Музыка - ${movie.music} ${
+                    rounding(
+                        movie.music,
+                        Constants.KEY_ROUNDING_SHARE_MOVIE
+                    )
+                } из 10 \n" +
+                "Динамика - ${movie.dynamic} ${
+                    rounding(
+                        movie.dynamic,
+                        Constants.KEY_ROUNDING_SHARE_MOVIE
+                    )
+                } из 10 \n" +
+                "Картинка - ${movie.image} ${
+                    rounding(
+                        movie.image,
+                        Constants.KEY_ROUNDING_SHARE_MOVIE
+                    )
+                } из 10 \n" +
+                "Диалоги - ${movie.dialogs} ${
+                    rounding(
+                        movie.dialogs,
+                        Constants.KEY_ROUNDING_SHARE_MOVIE
+                    )
+                } из 10 \n" +
+                "Герои - ${movie.heroes} ${
+                    rounding(
+                        movie.heroes,
+                        Constants.KEY_ROUNDING_SHARE_MOVIE
+                    )
+                } из 10 \n" +
+                "Злодеи - ${movie.antiheroes} ${
+                    rounding(
+                        movie.antiheroes,
+                        Constants.KEY_ROUNDING_SHARE_MOVIE
+                    )
+                } из 10 \n" +
+                "История - ${movie.story} ${
+                    rounding(
+                        movie.story,
+                        Constants.KEY_ROUNDING_SHARE_MOVIE
+                    )
+                } из 10 \n" +
+                "Драма - ${movie.drama} ${
+                    rounding(
+                        movie.drama,
+                        Constants.KEY_ROUNDING_SHARE_MOVIE
+                    )
+                } из 10 \n" +
                 "\n" +
                 "Если тебе интересно мое мнение, тогда знай: ${isRepeat(movie.repeat)}"
     }
 
-    private fun rounding(rating: Int): String {
-        return when (rating % 10) {
-            1 -> "балл"
-            in 2..4 -> "балла"
-            else -> "баллов"
+    private fun rounding(amount: Int, key: String): String = if (amount in 11..14) {
+        if (key == "movie") "баллов" else "фильмов"
+    } else {
+        when (amount % 10) {
+            1 -> if (key == "movie") "балл" else "фильм"
+            in 2..4 -> if (key == "movie") "балла" else "фильма"
+            else -> if (key == "movie") "баллов" else "фильмов"
         }
     }
 
@@ -132,13 +214,19 @@ class MainActivity : AppCompatActivity(), MovieAdapter.ShowDialog {
                     R.id.nav_bar_repeat -> {
                         viewModel.sortMovie("Repeat")
                     }
+                    R.id.nav_bar_share_all -> {
+                        viewModel.shareAllMovie()
+                    }
                     R.id.nav_bar_download -> startActivity(
                         Intent(
                             this@MainActivity,
                             ActivityDownloadMovie::class.java
                         )
                     )
-                    R.id.nav_bar_delete -> viewModel.deleteAll()
+                    R.id.nav_bar_delete -> {
+                        val alertDialog = DeleteAllMovieDialogFragment(viewModel)
+                        alertDialog.show(supportFragmentManager, "keyAll")
+                    }
                 }
                 binding.drawer.closeDrawer(GravityCompat.START)
                 true
@@ -168,7 +256,7 @@ class MainActivity : AppCompatActivity(), MovieAdapter.ShowDialog {
 
     override fun showDialog(movie: Movie) {
         val alertDialog = DeleteMovieDialogFragment(viewModel, movie)
-        alertDialog.show(supportFragmentManager, "key")
+        alertDialog.show(supportFragmentManager, "keyOne")
     }
 
     override fun shareMovie(movie: Movie) {

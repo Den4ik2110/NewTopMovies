@@ -40,6 +40,7 @@
     <string name="add">Add</string>
     <string name="rating_card_movie">Райтинг: %1$d</string>
     <string name="dialog_start_delete">Вы уверены, что хотите удалить фильм?</string>
+    <string name="dialog_start_delete_all">Вы уверены, что хотите удалить все данные?\nВосстановление невозможно!</string>
     <string name="dialog_yes">Да</string>
     <string name="dialog_no">Нет</string>
     <string name="text_share_message">Посмотрел недавно фильм</string>

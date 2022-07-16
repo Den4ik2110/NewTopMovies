@@ -34,7 +34,7 @@
             android:hint="@string/nameMovie"
             android:inputType="textMultiLine"
             android:textColor="@color/orange"
-            android:textColorHint="@color/orange"
+            android:textColorHint="#80FD7013"
             app:layout_constraintEnd_toEndOf="@+id/textView2"
             app:layout_constraintStart_toStartOf="@+id/textView2"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />

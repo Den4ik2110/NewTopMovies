@@ -20,6 +20,7 @@ class MovieViewModel(application: Application) : AndroidViewModel(application),
     val data by repository::data
     val keySort by repository::keySort
     val shareMovie = SingleLiveEvent<Movie>()
+    val shareAllMovie = SingleLiveEvent<List<Movie>>()
 
     override fun removeMovie(movie: Movie) = repository.movieRemove(movie.idMovie)
 
@@ -35,5 +36,9 @@ class MovieViewModel(application: Application) : AndroidViewModel(application),
 
     fun shareMovie(movie: Movie) {
         shareMovie.value = movie
+    }
+
+    fun shareAllMovie() {
+        shareAllMovie.value = data.value
     }
 }

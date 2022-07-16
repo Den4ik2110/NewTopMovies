@@ -45,6 +45,7 @@
         android:layout_marginEnd="10dp"
         android:backgroundTint="@color/grey_dark"
         app:itemTextColor="@color/clicked_item_menu_selector"
+        app:itemIconTint="@color/orange"
         app:menu="@menu/navigation_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>
 
