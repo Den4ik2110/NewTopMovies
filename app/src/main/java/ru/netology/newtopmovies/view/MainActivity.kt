@@ -1,16 +1,27 @@
 package ru.netology.newtopmovies.view
 
 
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.core.view.isVisible
+import androidx.core.view.marginTop
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import ru.netology.newtopmovies.R
 import ru.netology.newtopmovies.data.Movie
 import ru.netology.newtopmovies.databinding.ActivityMainBinding
+import ru.netology.newtopmovies.util.CenterSmoothScroller
 import ru.netology.newtopmovies.util.Constants
 import ru.netology.newtopmovies.viewModel.MovieViewModel
 import java.util.*
@@ -23,23 +34,48 @@ class MainActivity : AppCompatActivity(), MovieAdapter.ShowDialog {
     private val viewModel by viewModels<MovieViewModel>()
     private lateinit var adapter: MovieAdapter
     private lateinit var toolbar: Toolbar
+    private lateinit var scroller: RecyclerView.SmoothScroller
+    private lateinit var arrayAdapter: ArrayAdapter<String>
+    private lateinit var arrayForAdapterSearch: MutableList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         toolbarReplace()
-
-        adapter = MovieAdapter(this@MainActivity, this)
+        adapter = MovieAdapter(binding,this@MainActivity, this)
         binding.recyclerMovie.adapter = adapter
+        scroller = CenterSmoothScroller(binding.recyclerMovie.context)
+        arrayForAdapterSearch = mutableListOf()
+        arrayAdapter = ArrayAdapter(this, R.layout.suggetion, arrayForAdapterSearch)
 
         viewModel.data.observe(this) { movieFromData ->
             adapter.submitList(movieFromData)
-            toolbar.title =
+            if (movieFromData.isNotEmpty()) binding.searchView.visibility = View.VISIBLE else binding.searchView.visibility = View.INVISIBLE
+            binding.collapsingLayout.findViewById<TextView>(R.id.text_toolbar).text =
                 if (movieFromData.isEmpty()) "Добавь новый фильм ->" else "Всего фильмов - ${movieFromData.size}"
-            Timer().schedule(750) {
-                binding.recyclerMovie.smoothScrollToPosition(0)
+            if (arrayForAdapterSearch.isNotEmpty()) arrayForAdapterSearch.clear()
+            movieFromData.forEach { movie ->
+                arrayForAdapterSearch.add(movie.title)
+            }
+            arrayAdapter = ArrayAdapter(this, R.layout.suggetion, arrayForAdapterSearch)
+        }
+
+        val searchAutoComplete = findViewById<AutoCompleteTextView>(
+            resources.getIdentifier(
+                "android:id/search_src_text",
+                null,
+                null
+            )
+        )
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        binding.searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        searchAutoComplete.apply {
+            setAdapter(arrayAdapter)
+            threshold = 2
+            setOnItemClickListener { _, view, _, _ ->
+                val text = view.findViewById<TextView>(R.id.suggetion_text).text
+                binding.searchView.setQuery(text, false)
             }
         }
 
@@ -53,6 +89,7 @@ class MainActivity : AppCompatActivity(), MovieAdapter.ShowDialog {
                 "New_Old" -> isCheckedMenuItem(key)
             }
         }
+
         clickNavigationMenu()
 
         viewModel.shareMovie.observe(this) { movie ->
@@ -65,7 +102,6 @@ class MainActivity : AppCompatActivity(), MovieAdapter.ShowDialog {
                     Intent.createChooser(intent, getString(R.string.text_share_message))
                 startActivity(shareIntent)
             }
-
         }
 
         viewModel.shareAllMovie.observe(this) { allMovie ->
@@ -95,7 +131,6 @@ class MainActivity : AppCompatActivity(), MovieAdapter.ShowDialog {
                 startActivity(shareIntent)
             }
         }
-
     }
 
     private fun getStringShare(movie: Movie): String {
@@ -196,32 +231,15 @@ class MainActivity : AppCompatActivity(), MovieAdapter.ShowDialog {
         binding.apply {
             navigMenu.setNavigationItemSelectedListener {
                 when (it.itemId) {
-                    R.id.nav_bar_switch_a_z -> {
-                        viewModel.sortMovie("A_Z")
-                    }
-                    R.id.nav_bar_switch_min_max -> {
-                        viewModel.sortMovie("Min_Max")
-                    }
-                    R.id.nav_bar_switch_max_min -> {
-                        viewModel.sortMovie("Max_Min")
-                    }
-                    R.id.nav_bar_switch_old_new -> {
-                        viewModel.sortMovie("Old_New")
-                    }
-                    R.id.nav_bar_switch_new_old -> {
-                        viewModel.sortMovie("New_Old")
-                    }
-                    R.id.nav_bar_repeat -> {
-                        viewModel.sortMovie("Repeat")
-                    }
-                    R.id.nav_bar_share_all -> {
-                        viewModel.shareAllMovie()
-                    }
+                    R.id.nav_bar_switch_a_z -> viewModel.sortMovie("A_Z")
+                    R.id.nav_bar_switch_min_max -> viewModel.sortMovie("Min_Max")
+                    R.id.nav_bar_switch_max_min -> viewModel.sortMovie("Max_Min")
+                    R.id.nav_bar_switch_old_new -> viewModel.sortMovie("Old_New")
+                    R.id.nav_bar_switch_new_old -> viewModel.sortMovie("New_Old")
+                    R.id.nav_bar_repeat -> viewModel.sortMovie("Repeat")
+                    R.id.nav_bar_share_all -> viewModel.shareAllMovie()
                     R.id.nav_bar_download -> startActivity(
-                        Intent(
-                            this@MainActivity,
-                            ActivityDownloadMovie::class.java
-                        )
+                        Intent(this@MainActivity, ActivityDownloadMovie::class.java)
                     )
                     R.id.nav_bar_delete -> {
                         val alertDialog = DeleteAllMovieDialogFragment(viewModel)
@@ -269,7 +287,6 @@ class MainActivity : AppCompatActivity(), MovieAdapter.ShowDialog {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         toolbar.setNavigationIcon(R.drawable.ic_toolbar_filter)
-        toolbar.elevation = 20F
     }
 
     private fun isCheckedMenuItem(key: String) {
@@ -283,5 +300,43 @@ class MainActivity : AppCompatActivity(), MovieAdapter.ShowDialog {
         }
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        binding.searchView.apply {
+            setQuery("", false)
+            clearFocus()
+        }
+        binding.appBarLayout.setExpanded(false)
+        if (intent != null) {
+            if (Intent.ACTION_SEARCH == intent.action) {
+                intent.getStringExtra(SearchManager.QUERY)?.also { query ->
+                    val position = viewModel.scrollToMovie(query)
+                    if (position == null) onSnackBar() else {
+                        scroller.targetPosition = position
+                        Timer().schedule(250) {
+                            binding.recyclerMovie.layoutManager?.startSmoothScroll(scroller)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun onSnackBar() {
+        val snackBar = Snackbar.make(
+            binding.root, getString(R.string.unsuccessful_search),
+            Constants.LENGTH_CUSTOM
+        )
+        val snackBarView = snackBar.view
+        snackBarView.apply {
+            setBackgroundColor(getColor(R.color.chalk_color))
+            findViewById<TextView>(com.google.android.material.R.id.snackbar_text).apply {
+                setTextColor(getColor(R.color.grey_dark))
+                textAlignment = View.TEXT_ALIGNMENT_CENTER
+                textSize = 14f
+            }
+        }
+        snackBar.show()
+    }
 
 }

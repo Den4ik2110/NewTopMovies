@@ -11,15 +11,18 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.newtopmovies.data.Movie
 import ru.netology.newtopmovies.R
+import ru.netology.newtopmovies.databinding.ActivityMainBinding
 import ru.netology.newtopmovies.databinding.MovieCardBinding
 
 class MovieAdapter(
+    private val bindingMainActivity: ActivityMainBinding,
     private val context: Context,
     private val dialog: ShowDialog
 ) : ListAdapter<Movie, MovieAdapter.MovieHolder>(DiffCallback) {
 
 
     class MovieHolder(
+        private val bindingMainActivity: ActivityMainBinding,
         private val binding: MovieCardBinding,
         private val context: Context,
         private val dialog: ShowDialog
@@ -91,6 +94,9 @@ class MovieAdapter(
                     popupMenu.show()
                     true
                 }
+                cardMovie.setOnClickListener {
+                    bindingMainActivity.searchView.clearFocus()
+                }
             }
         }
     }
@@ -98,7 +104,7 @@ class MovieAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = MovieCardBinding.inflate(inflater, parent, false)
-        return MovieHolder(binding, context, dialog)
+        return MovieHolder(bindingMainActivity, binding, context, dialog)
     }
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
@@ -119,7 +125,6 @@ class MovieAdapter(
 
         fun shareMovie(movie: Movie)
     }
-
 }
 
 

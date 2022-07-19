@@ -512,7 +512,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="textView5,repeat_value,repeat_add_movie, editTextPersonName" />
+            app:constraint_referenced_ids="textView5,repeat_value,repeat_add_movie, editTextPersonName"
+            tools:layout_editor_absoluteY="563dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

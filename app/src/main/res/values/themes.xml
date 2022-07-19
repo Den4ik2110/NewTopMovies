@@ -17,4 +17,13 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
     </style>
+
+    <style name="RatingBar" parent="Widget.AppCompat.RatingBar.Indicator" >
+        <!-- Color Full Stars -->
+        <item name="android:progressTint">@color/orange</item>
+        <!-- Color Non Full Stars -->
+        <item name="android:progressBackgroundTint">@color/chalk_color</item>
+        <!-- Color Border Stars -->
+        <item name="android:secondaryProgressTint">@color/orange</item>
+    </style>
 </resources>

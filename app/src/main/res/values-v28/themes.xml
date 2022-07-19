@@ -10,4 +10,31 @@
         <item name="android:dropDownVerticalOffset">0dp</item>
         <item name="android:dropDownHorizontalOffset">0dp</item>
     </style>
+
+    <style name="AppSearchView" parent="Widget.AppCompat.SearchView" >
+        <!-- Text Size -->
+        <item name="android:textSize">14sp</item>
+        <!-- Query Text Color -->
+        <item name="android:textColorPrimary">@color/chalk_color</item>
+        <!-- Hint Color -->
+        <item name="android:textColorHint">#80EEEEEE</item>
+        <!-- Icon Color -->
+        <item name="android:tint">@color/chalk_color</item>
+        <item name="android:background">@color/grey_dark</item>
+        <item name="android:queryBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="Toolbar" parent="Widget.AppCompat.Toolbar" >
+        <!-- Text Size -->
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="RatingBar" parent="Widget.AppCompat.RatingBar.Indicator" >
+        <!-- Color Full Stars -->
+        <item name="android:progressTint">@color/orange</item>
+        <!-- Color Non Full Stars -->
+        <item name="android:progressBackgroundTint">@color/chalk_color</item>
+        <!-- Color Border Stars -->
+        <item name="android:secondaryProgressTint">@color/orange</item>
+    </style>
 </resources>

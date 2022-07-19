@@ -31,6 +31,7 @@ class MovieViewModel(application: Application) : AndroidViewModel(application),
     fun deleteAll() = repository.deleteAll()
 
     fun sortMovie(key: String) {
+        if (keySort.value == key) return
         repository.sortMovie(key)
     }
 
@@ -40,5 +41,15 @@ class MovieViewModel(application: Application) : AndroidViewModel(application),
 
     fun shareAllMovie() {
         shareAllMovie.value = data.value
+    }
+
+    fun scrollToMovie(query: String): Int? {
+        val listMovie: List<Movie>? = data.value
+        if (listMovie != null) {
+            if (listMovie.isNotEmpty()) listMovie.forEachIndexed { index, movie ->
+                if (movie.title.equals(query, ignoreCase = true)) return index
+            }
+        }
+        return null
     }
 }
