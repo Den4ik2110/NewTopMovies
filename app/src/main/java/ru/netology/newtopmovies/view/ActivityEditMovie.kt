@@ -1,19 +1,32 @@
 package ru.netology.newtopmovies.view
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import ru.netology.newtopmovies.R
 import ru.netology.newtopmovies.data.Movie
 import ru.netology.newtopmovies.databinding.ActivityEditMovieBinding
+import ru.netology.newtopmovies.util.Constants
 import ru.netology.newtopmovies.viewModel.MovieViewModel
+import java.io.IOException
+
 
 class ActivityEditMovie : AppCompatActivity() {
     private lateinit var binding: ActivityEditMovieBinding
     private lateinit var movie: Movie
+    private lateinit var uriImage: String
+    private var uriEdit : String? = null
     private val viewModel by viewModels<MovieViewModel>()
 
     @SuppressLint("SetTextI18n")
@@ -36,30 +49,45 @@ class ActivityEditMovie : AppCompatActivity() {
         movementSeekBar(binding.Image, binding.valueImage)
         movementSeekBar(binding.dialog, binding.valueDialog)
 
+
     }
 
     override fun onResume() {
         super.onResume()
 
+        viewModel.editUrlImage.observe(this) {url ->
+            uriEdit = url
+            Glide.with(this)
+                .load(url)
+                .placeholder(R.drawable.ic_no_image)
+                .into(binding.posterMovie)
+        }
+
         binding.buttonSaveAll.setOnClickListener {
-            viewModel.editMovie(Movie(
-                title = binding.editTextPersonName.text.toString(),
-                humor = binding.valueHumor.text.toString().toInt(),
-                dynamic = binding.valueDinamic.text.toString().toInt(),
-                story = binding.ValueStory.text.toString().toInt(),
-                heroes = binding.ValueHeroes.text.toString().toInt(),
-                antiheroes = binding.ValueAntiheroes.text.toString().toInt(),
-                drama = binding.valueDrama.text.toString().toInt(),
-                music = binding.ValueMusik.text.toString().toInt(),
-                image = binding.valueImage.text.toString().toInt(),
-                dialogs = binding.valueDialog.text.toString().toInt(),
-                repeat = when (binding.repeatAddMovie2.progress) {
-                    0 -> 0
-                    2 -> 10
-                    else -> 5
-                },
-                idMovie = movie.idMovie
-            ))
+            viewModel.editMovie(
+                Movie(
+                    title = binding.editTextPersonName.text.toString(),
+                    humor = binding.valueHumor.text.toString().toInt(),
+                    dynamic = binding.valueDinamic.text.toString().toInt(),
+                    story = binding.ValueStory.text.toString().toInt(),
+                    heroes = binding.ValueHeroes.text.toString().toInt(),
+                    antiheroes = binding.ValueAntiheroes.text.toString().toInt(),
+                    drama = binding.valueDrama.text.toString().toInt(),
+                    music = binding.ValueMusik.text.toString().toInt(),
+                    image = binding.valueImage.text.toString().toInt(),
+                    dialogs = binding.valueDialog.text.toString().toInt(),
+                    repeat = when (binding.repeatAddMovie2.progress) {
+                        0 -> 0
+                        2 -> 10
+                        else -> 5
+                    },
+                    idMovie = movie.idMovie,
+                    urlImage = if (uriEdit == null) uriImage else uriEdit,
+                    genre = binding.editGenre.text.toString(),
+                    year = binding.editYear.text.toString(),
+                    franchise = movie.franchise
+                )
+            )
             finish()
         }
 
@@ -67,6 +95,37 @@ class ActivityEditMovie : AppCompatActivity() {
             Toast.makeText(applicationContext, "Фильм не сохранен", Toast.LENGTH_SHORT)
                 .show()
             finish()
+        }
+
+        binding.posterMovie.setOnClickListener {
+            val downloadImageFragment = DownloadImageFragment(viewModel)
+            downloadImageFragment.show(supportFragmentManager, "DownloadImageFranchise")
+        }
+
+        viewModel.editImageMovie.observe(this) {
+            val intent = Intent().apply {
+                action = Intent.ACTION_PICK
+                type = "image/*"
+            }
+            val shareIntent = Intent.createChooser(intent, getString(android.R.string.search_go))
+            startActivityForResult(shareIntent, Constants.INTENT_PHOTO)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && requestCode == Constants.INTENT_PHOTO) {
+            val selectedImage: Uri? = data?.data
+            if (selectedImage != null) {
+                uriImage = selectedImage.toString()
+            }
+            Glide.with(this)
+                .load(uriImage)
+                .override(500, 700)
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .placeholder(R.drawable.ic_no_image)
+                .into(binding.posterMovie)
         }
     }
 
@@ -86,7 +145,13 @@ class ActivityEditMovie : AppCompatActivity() {
 
     private fun chain(editMovie: Movie) {
         with(binding) {
+            Glide.with(this@ActivityEditMovie)
+                .load(movie.urlImage.toString())
+                .placeholder(R.drawable.ic_no_image)
+                .into(binding.posterMovie)
             editTextPersonName.setText(editMovie.title)
+            editGenre.setText(movie.genre)
+            if (movie.year == null) editYear.setText("") else editYear.setText(movie.year)
             Humor.progress = editMovie.humor
             Dinamic.progress = editMovie.dynamic
             story.progress = editMovie.story
@@ -111,7 +176,6 @@ class ActivityEditMovie : AppCompatActivity() {
             ValueMusik.text = editMovie.music.toString()
             valueImage.text = editMovie.image.toString()
             valueDialog.text = editMovie.dialogs.toString()
-
         }
     }
 }

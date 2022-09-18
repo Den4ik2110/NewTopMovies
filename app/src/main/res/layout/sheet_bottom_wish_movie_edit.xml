@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="24dp"
+    tools:background="@color/choco_milk">
+
+    <EditText
+        android:id="@+id/sheet_bottom_wish_movie_title_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="@color/clicked_item_sheet_bottom_selector"
+        android:ems="10"
+        android:enabled="false"
+        android:gravity="center"
+        android:hint="Название фильма"
+        android:inputType="textMultiLine"
+        android:textColorHint="#80EEEEEE"
+        android:textColorLink="@color/chalk_color"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/sheet_bottom_wish_movie_year_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/clicked_item_sheet_bottom_selector"
+        android:ems="10"
+        android:enabled="false"
+        android:gravity="center_horizontal|top"
+        android:hint="Год выпуска"
+        android:inputType="textMultiLine"
+        android:textColorHint="#80EEEEEE"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sheet_bottom_wish_movie_title_edit" />
+
+    <TextView
+        android:id="@+id/sheet_bottom_wish_movie_buttom_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Изменить"
+        android:textColor="@color/chalk_color"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider12" />
+
+    <View
+        android:id="@+id/divider10"
+        android:layout_width="20dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/chalk_color"
+        app:layout_constraintEnd_toEndOf="@+id/sheet_bottom_wish_movie_buttom_view"
+        app:layout_constraintStart_toStartOf="@+id/sheet_bottom_wish_movie_buttom_view"
+        app:layout_constraintTop_toBottomOf="@+id/sheet_bottom_wish_movie_buttom_edit" />
+
+    <TextView
+        android:id="@+id/sheet_bottom_wish_movie_buttom_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Добавить в рейтинг"
+        android:textColor="@color/chalk_color"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider10" />
+
+    <TextView
+        android:id="@+id/sheet_bottom_wish_movie_buttom_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Удалить"
+        android:textColor="@color/chalk_color"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider9" />
+
+    <View
+        android:id="@+id/divider9"
+        android:layout_width="20dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/chalk_color"
+        app:layout_constraintEnd_toEndOf="@+id/sheet_bottom_wish_movie_buttom_view"
+        app:layout_constraintStart_toStartOf="@+id/sheet_bottom_wish_movie_buttom_view"
+        app:layout_constraintTop_toBottomOf="@+id/sheet_bottom_wish_movie_buttom_view" />
+
+    <View
+        android:id="@+id/divider18"
+        android:layout_width="20dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/chalk_color"
+        app:layout_constraintEnd_toEndOf="@+id/sheet_bottom_wish_movie_buttom_view"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/sheet_bottom_wish_movie_buttom_view"
+        app:layout_constraintTop_toBottomOf="@+id/sheet_bottom_wish_movie_buttom_delete" />
+
+    <TextView
+        android:id="@+id/sheet_bottom_wish_movie_buttom_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Сохранить"
+        android:textColor="@color/chalk_color"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider12" />
+
+    <TextView
+        android:id="@+id/sheet_bottom_wish_movie_buttom_not_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Не сохранять"
+        android:textColor="@color/chalk_color"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider11" />
+
+    <View
+        android:id="@+id/divider11"
+        android:layout_width="20sp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/chalk_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sheet_bottom_wish_movie_buttom_save" />
+
+    <View
+        android:id="@+id/divider19"
+        android:layout_width="20sp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/chalk_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sheet_bottom_wish_movie_buttom_not_save" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_item_menu_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="sheet_bottom_wish_movie_buttom_edit,divider10,sheet_bottom_wish_movie_buttom_view,sheet_bottom_wish_movie_buttom_delete,divider9,divider18" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_item_menu_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="sheet_bottom_wish_movie_buttom_save,sheet_bottom_wish_movie_buttom_not_save,divider11,divider19" />
+
+    <View
+        android:id="@+id/divider12"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/chalk_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sheet_bottom_wish_movie_year_edit" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

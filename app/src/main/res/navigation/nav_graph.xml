@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragmentViewMovies">
+
+    <fragment
+        android:id="@+id/fragmentViewMovies"
+        android:name="ru.netology.newtopmovies.view.FragmentViewMovies"
+        android:label="fragment_view_movies"
+        tools:layout="@layout/fragment_view_movies" />
+    <fragment
+        android:id="@+id/fragmentWishList"
+        android:name="ru.netology.newtopmovies.view.FragmentWishList"
+        android:label="fragment_wish_list"
+        tools:layout="@layout/fragment_wish_list" />
+    <fragment
+        android:id="@+id/fragmentFranchise"
+        android:name="ru.netology.newtopmovies.view.FragmentFranchise"
+        android:label="fragment_franchise"
+        tools:layout="@layout/fragment_franchise" />
+</navigation>

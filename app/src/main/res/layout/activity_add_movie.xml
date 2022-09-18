@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey_dark"
+    android:background="@color/chalk_color"
     tools:context=".view.ActivityAddMovie">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/textMotivationNameMovie"
-            android:textColor="@color/orange"
+            android:textColor="@color/choco_milk"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
@@ -25,16 +25,18 @@
 
         <EditText
             android:id="@+id/editTextPersonName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
-            android:backgroundTint="@color/chalk_color"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/choco_milk"
             android:ems="10"
             android:gravity="center"
             android:hint="@string/nameMovie"
             android:inputType="textMultiLine"
-            android:textColor="@color/orange"
-            android:textColorHint="#80FD7013"
+            android:textColor="@color/choco_milk"
+            android:textColorHint="#809C8472"
             app:layout_constraintEnd_toEndOf="@+id/textView2"
             app:layout_constraintStart_toStartOf="@+id/textView2"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -44,8 +46,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:backgroundTint="@color/choco_milk"
             android:text="@string/setParameters"
-            android:textColor="@color/grey_dark"
+            android:textColor="@color/chalk_color"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,11 +60,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/setParametersFrom1To10"
-            android:textColor="@color/orange"
+            android:textColor="@color/choco_milk"
+            android:textColorHighlight="@color/choco_milk"
+            android:textColorLink="@color/choco_milk"
             android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="@+id/editTextPersonName"
-            app:layout_constraintStart_toStartOf="@+id/editTextPersonName"
-            app:layout_constraintTop_toBottomOf="@+id/editTextPersonName" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/genre" />
 
         <TextView
             android:id="@+id/textHumor"
@@ -69,7 +74,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="@string/humor"
-            android:textColor="@color/orange"
+            android:textColor="@color/choco_milk"
+            android:textColorHighlight="@color/choco_milk"
+            android:textColorLink="@color/choco_milk"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/Humor"
             app:layout_constraintEnd_toStartOf="@id/Humor" />
@@ -90,7 +97,8 @@
             app:layout_constraintEnd_toEndOf="@+id/tShapka"
             app:layout_constraintHorizontal_bias="0.704"
             app:layout_constraintStart_toStartOf="@+id/tShapka"
-            app:layout_constraintTop_toBottomOf="@+id/tShapka" />
+            app:layout_constraintTop_toBottomOf="@+id/tShapka"
+            app:tickMarkTint="@color/choco_milk" />
 
         <TextView
             android:id="@+id/valueHumor"
@@ -99,7 +107,9 @@
             android:layout_marginStart="8dp"
             android:inputType="number"
             android:text="0"
-            android:textColor="@color/orange"
+            android:textColor="@color/choco_milk"
+            android:textColorHighlight="@color/choco_milk"
+            android:textColorLink="@color/choco_milk"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/Humor"
             app:layout_constraintStart_toEndOf="@+id/Humor" />
@@ -110,7 +120,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="@string/music"
-            android:textColor="@color/orange"
+            android:textColor="@color/choco_milk"
+            android:textColorHighlight="@color/choco_milk"
+            android:textColorLink="@color/choco_milk"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/Musik"
             app:layout_constraintEnd_toStartOf="@+id/Musik" />
@@ -131,7 +143,8 @@
             app:layout_constraintEnd_toEndOf="@+id/Humor"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/Humor"
-            app:layout_constraintTop_toBottomOf="@+id/Humor" />
+            app:layout_constraintTop_toBottomOf="@+id/Humor"
+            app:tickMarkTint="@color/choco_milk" />
 
         <TextView
             android:id="@+id/ValueMusik"
@@ -140,7 +153,9 @@
             android:layout_marginStart="8dp"
             android:inputType="number"
             android:text="0"
-            android:textColor="@color/orange"
+            android:textColor="@color/choco_milk"
+            android:textColorHighlight="@color/choco_milk"
+            android:textColorLink="@color/choco_milk"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/Musik"
             app:layout_constraintStart_toEndOf="@+id/Musik" />
@@ -151,7 +166,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="@string/dynamic"
-            android:textColor="@color/orange"
+            android:textColor="@color/choco_milk"
+            android:textColorHighlight="@color/choco_milk"
+            android:textColorLink="@color/choco_milk"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@id/Dinamic"
             app:layout_constraintEnd_toStartOf="@id/Dinamic" />
@@ -172,7 +189,8 @@
             app:layout_constraintEnd_toEndOf="@+id/Musik"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/Musik"
-            app:layout_constraintTop_toBottomOf="@+id/Musik" />
+            app:layout_constraintTop_toBottomOf="@+id/Musik"
+            app:tickMarkTint="@color/choco_milk" />
 
         <TextView
             android:id="@+id/valueDinamic"
@@ -181,7 +199,9 @@
             android:layout_marginStart="8dp"
             android:inputType="number"
             android:text="0"
-            android:textColor="@color/orange"
+            android:textColor="@color/choco_milk"
+            android:textColorHighlight="@color/choco_milk"
+            android:textColorLink="@color/choco_milk"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@id/Dinamic"
             app:layout_constraintStart_toEndOf="@id/Dinamic" />
@@ -192,7 +212,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="@string/image"
-            android:textColor="@color/orange"
+            android:textColor="@color/choco_milk"
+            android:textColorHighlight="@color/choco_milk"
+            android:textColorLink="@color/choco_milk"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@id/Image"
             app:layout_constraintEnd_toStartOf="@id/Image" />
@@ -213,7 +235,8 @@
             app:layout_constraintEnd_toEndOf="@+id/Dinamic"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/Dinamic"
-            app:layout_constraintTop_toBottomOf="@+id/Dinamic" />
+            app:layout_constraintTop_toBottomOf="@+id/Dinamic"
+            app:tickMarkTint="@color/choco_milk" />
 
         <TextView
             android:id="@+id/valueImage"
@@ -221,7 +244,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="0"
-            android:textColor="@color/orange"
+            android:textColor="@color/choco_milk"
+            android:textColorHighlight="@color/choco_milk"
+            android:textColorLink="@color/choco_milk"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@id/Image"
             app:layout_constraintStart_toEndOf="@id/Image" />
@@ -232,7 +257,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="@string/dialogs"
-            android:textColor="@color/orange"
+            android:textColor="@color/choco_milk"
+            android:textColorHighlight="@color/choco_milk"
+            android:textColorLink="@color/choco_milk"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@id/dialog"
             app:layout_constraintEnd_toStartOf="@id/dialog" />
@@ -253,7 +280,8 @@
             app:layout_constraintEnd_toEndOf="@id/Image"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@id/Image"
-            app:layout_constraintTop_toBottomOf="@id/Image" />
+            app:layout_constraintTop_toBottomOf="@id/Image"
+            app:tickMarkTint="@color/choco_milk" />
 
         <TextView
             android:id="@+id/valueDialog"
@@ -261,7 +289,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="0"
-            android:textColor="@color/orange"
+            android:textColor="@color/choco_milk"
+            android:textColorHighlight="@color/choco_milk"
+            android:textColorLink="@color/choco_milk"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@id/dialog"
             app:layout_constraintStart_toEndOf="@id/dialog" />
@@ -272,7 +302,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="@string/heroes"
-            android:textColor="@color/orange"
+            android:textColor="@color/choco_milk"
+            android:textColorHighlight="@color/choco_milk"
+            android:textColorLink="@color/choco_milk"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@id/heroes"
             app:layout_constraintEnd_toStartOf="@id/heroes" />
@@ -293,7 +325,8 @@
             app:layout_constraintEnd_toEndOf="@id/dialog"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@id/dialog"
-            app:layout_constraintTop_toBottomOf="@id/dialog" />
+            app:layout_constraintTop_toBottomOf="@id/dialog"
+            app:tickMarkTint="@color/choco_milk" />
 
         <TextView
             android:id="@+id/ValueHeroes"
@@ -301,7 +334,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="0"
-            android:textColor="@color/orange"
+            android:textColor="@color/choco_milk"
+            android:textColorHighlight="@color/choco_milk"
+            android:textColorLink="@color/choco_milk"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@id/heroes"
             app:layout_constraintStart_toEndOf="@id/heroes" />
@@ -312,7 +347,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="@string/antiheroes"
-            android:textColor="@color/orange"
+            android:textColor="@color/choco_milk"
+            android:textColorHighlight="@color/choco_milk"
+            android:textColorLink="@color/choco_milk"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@id/antiheroes"
             app:layout_constraintEnd_toStartOf="@id/antiheroes" />
@@ -333,7 +370,8 @@
             app:layout_constraintEnd_toEndOf="@id/heroes"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@id/heroes"
-            app:layout_constraintTop_toBottomOf="@id/heroes" />
+            app:layout_constraintTop_toBottomOf="@id/heroes"
+            app:tickMarkTint="@color/choco_milk" />
 
         <TextView
             android:id="@+id/ValueAntiheroes"
@@ -341,7 +379,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="0"
-            android:textColor="@color/orange"
+            android:textColor="@color/choco_milk"
+            android:textColorHighlight="@color/choco_milk"
+            android:textColorLink="@color/choco_milk"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@id/antiheroes"
             app:layout_constraintStart_toEndOf="@id/antiheroes" />
@@ -352,7 +392,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="@string/story"
-            android:textColor="@color/orange"
+            android:textColor="@color/choco_milk"
+            android:textColorHighlight="@color/choco_milk"
+            android:textColorLink="@color/choco_milk"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@id/story"
             app:layout_constraintEnd_toStartOf="@id/story" />
@@ -373,7 +415,8 @@
             app:layout_constraintEnd_toEndOf="@id/antiheroes"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@id/antiheroes"
-            app:layout_constraintTop_toBottomOf="@id/antiheroes" />
+            app:layout_constraintTop_toBottomOf="@id/antiheroes"
+            app:tickMarkTint="@color/choco_milk" />
 
         <TextView
             android:id="@+id/ValueStory"
@@ -381,7 +424,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="0"
-            android:textColor="@color/orange"
+            android:textColor="@color/choco_milk"
+            android:textColorHighlight="@color/choco_milk"
+            android:textColorLink="@color/choco_milk"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@id/story"
             app:layout_constraintStart_toEndOf="@id/story" />
@@ -392,7 +437,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="@string/drama"
-            android:textColor="@color/orange"
+            android:textColor="@color/choco_milk"
+            android:textColorHighlight="@color/choco_milk"
+            android:textColorLink="@color/choco_milk"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@id/drama"
             app:layout_constraintEnd_toStartOf="@id/drama" />
@@ -413,7 +460,8 @@
             app:layout_constraintEnd_toEndOf="@id/story"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@id/story"
-            app:layout_constraintTop_toBottomOf="@id/story" />
+            app:layout_constraintTop_toBottomOf="@id/story"
+            app:tickMarkTint="@color/choco_milk" />
 
         <TextView
             android:id="@+id/valueDrama"
@@ -421,7 +469,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="0"
-            android:textColor="@color/orange"
+            android:textColor="@color/choco_milk"
+            android:textColorHighlight="@color/choco_milk"
+            android:textColorLink="@color/choco_milk"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@id/drama"
             app:layout_constraintStart_toEndOf="@id/drama" />
@@ -432,8 +482,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/choco_milk"
             android:text="@string/saveAll"
-            android:textColor="@color/grey_dark"
+            android:textColor="@color/chalk_color"
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/buttomNotSave"
             app:layout_constraintEnd_toEndOf="parent"
@@ -447,9 +498,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/grey_dark"
+            android:backgroundTint="@color/chalk_color"
             android:text="@string/saveNotSave"
-            android:textColor="@color/chalk_color"
+            android:textColor="@color/choco_milk"
             android:textSize="10sp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -457,12 +508,22 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:visibility="visible" />
 
+        <ImageView
+            android:id="@+id/image_add_movie"
+            android:layout_width="180dp"
+            android:layout_height="220dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextPersonName"
+            app:srcCompat="@drawable/ic_no_image" />
+
         <androidx.constraintlayout.widget.Group
             android:id="@+id/group_vis_invis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:constraint_referenced_ids="tShapka,textHumor,Humor,valueHumor,textMusik,Musik,ValueMusik,textDinamic,Dinamic,valueDinamic,textImage,Image,valueImage,textDialog,dialog,valueDialog,textHeroes,heroes,ValueHeroes,textAntiheroes,antiheroes,ValueAntiheroes,textStory,story,ValueStory,textDrama,drama,valueDrama,textView5,repeat_value,repeat_add_movie,textView"
+            app:constraint_referenced_ids="tShapka,textHumor,Humor,valueHumor,textMusik,Musik,ValueMusik,textDinamic,Dinamic,valueDinamic,textImage,Image,valueImage,textDialog,dialog,valueDialog,textHeroes,heroes,ValueHeroes,textAntiheroes,antiheroes,ValueAntiheroes,textStory,story,ValueStory,textDrama,drama,valueDrama,textView5,repeat_value,repeat_add_movie,textView,year,genre,image_add_movie"
             tools:visibility="visible" />
 
         <SeekBar
@@ -476,7 +537,43 @@
             android:progressBackgroundTint="@color/chalk_color"
             app:layout_constraintEnd_toEndOf="@+id/drama"
             app:layout_constraintStart_toStartOf="@+id/drama"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:tickMarkTint="@color/choco_milk" />
+
+        <EditText
+            android:id="@+id/year"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/choco_milk"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Год создания"
+            android:inputType="textPersonName"
+            android:textColor="@color/choco_milk"
+            android:textColorHint="#809C8472"
+            app:layout_constraintBottom_toBottomOf="@+id/genre"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/genre" />
+
+        <EditText
+            android:id="@+id/genre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/choco_milk"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Жанр"
+            android:inputType="textMultiLine"
+            android:textColor="@color/choco_milk"
+            android:textColorHint="#809C8472"
+            app:layout_constraintEnd_toStartOf="@+id/year"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_add_movie" />
 
         <TextView
             android:id="@+id/textView"
@@ -484,7 +581,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Повтор"
-            android:textColor="@color/orange"
+            android:textColor="@color/choco_milk"
+            android:textColorHighlight="@color/choco_milk"
+            android:textColorLink="@color/choco_milk"
             app:layout_constraintEnd_toEndOf="@+id/drama"
             app:layout_constraintStart_toStartOf="@+id/drama"
             app:layout_constraintTop_toBottomOf="@+id/drama" />
@@ -494,7 +593,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Да"
-            android:textColor="@color/orange"
+            android:textColor="@color/choco_milk"
+            android:textColorHighlight="@color/choco_milk"
+            android:textColorLink="@color/choco_milk"
             app:layout_constraintBottom_toBottomOf="@+id/repeat_add_movie"
             app:layout_constraintStart_toStartOf="@+id/valueDrama" />
 
@@ -503,7 +604,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Нет"
-            android:textColor="@color/orange"
+            android:textColor="@color/choco_milk"
+            android:textColorHighlight="@color/choco_milk"
+            android:textColorLink="@color/choco_milk"
             app:layout_constraintBottom_toBottomOf="@+id/repeat_add_movie"
             app:layout_constraintEnd_toEndOf="@+id/textDrama" />
 

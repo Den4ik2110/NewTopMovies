@@ -31,10 +31,10 @@
 
     <style name="RatingBar" parent="Widget.AppCompat.RatingBar.Indicator" >
         <!-- Color Full Stars -->
-        <item name="android:progressTint">@color/orange</item>
+        <item name="android:progressTint">@color/choco_milk</item>
         <!-- Color Non Full Stars -->
         <item name="android:progressBackgroundTint">@color/chalk_color</item>
         <!-- Color Border Stars -->
-        <item name="android:secondaryProgressTint">@color/orange</item>
+        <item name="android:secondaryProgressTint">@color/choco_milk</item>
     </style>
 </resources>

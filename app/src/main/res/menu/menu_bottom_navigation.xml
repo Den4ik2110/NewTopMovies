@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/fragmentViewMovies"
+        android:icon="@drawable/ic_bottom_nav_movies"
+        android:title="Фильмы" />
+    <item
+        android:id="@+id/fragmentFranchise"
+        android:icon="@drawable/ic_bottom_nav_franchise"
+        android:title="Франшизы" />
+    <item
+        android:id="@+id/fragmentWishList"
+        android:icon="@drawable/ic_wish_list"
+        android:title="Желаемое"
+        app:showAsAction="ifRoom" />
+</menu>

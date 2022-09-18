@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NewTopMovies</string>
+    <string name="app_name">Cinema Trip</string>
     <string name="edit">Edit</string>
     <string name="watch_again">Watch again</string>
     <string name="no_watch_again">Do not watch again</string>

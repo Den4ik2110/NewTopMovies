@@ -34,5 +34,33 @@ class MovieEntity(
     @ColumnInfo(name = "rating")
     val rating: Int,
     @ColumnInfo(name = "keySort")
-    val keySort: String = "New_Old"
+    val keySort: String = "New_Old",
+    @ColumnInfo(name = "urlImage")
+    val urlImage: String?,
+    @ColumnInfo(name = "genre")
+    val genre: String?,
+    @ColumnInfo(name = "year")
+    val year: String?,
+    @ColumnInfo(name = "franchise")
+    val franchise: String?
+)
+
+@Entity(tableName = "franchises")
+class FranchiseEntity(
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    val id: Long,
+    @ColumnInfo(name = "title")
+    val title: String
+)
+
+@Entity(tableName = "wishMovies")
+class WishMovieEntity(
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    val id: Long,
+    @ColumnInfo(name = "title")
+    val title: String,
+    @ColumnInfo(name = "year")
+    val year: Int
 )

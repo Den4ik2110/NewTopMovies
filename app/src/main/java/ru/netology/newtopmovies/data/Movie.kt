@@ -16,7 +16,11 @@ data class Movie(
     val repeat: Int,
     val idMovie: Long = 0,
     var rating: Int = 0,
-    var isClicked: Boolean = false
+    var isClicked: Boolean = false,
+    var urlImage: String? = null,
+    var genre: String? = null,
+    var year: String? = null,
+    var franchise: String? = null
 ) : Serializable, Comparable<Movie> {
 
     init {
@@ -24,4 +28,7 @@ data class Movie(
      }
 
     override fun compareTo(other: Movie): Int = title.compareTo(other.title)
+
 }
+
+

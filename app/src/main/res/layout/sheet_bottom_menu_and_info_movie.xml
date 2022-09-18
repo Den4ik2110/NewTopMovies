@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sheet_bottom_menu_and_info_movie"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTintMode="screen"
+    android:paddingBottom="24dp"
+    tools:background="@color/choco_milk">
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_parameter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="sheet_bottom_image,sheet_bottom_humor,sheet_bottom_story,sheet_bottom_drama,sheet_bottom_heroes,sheet_bottom_dynamic,sheet_bottom_dialogs,sheet_bottom_music,sheet_bottom_antiheroes" />
+
+    <TextView
+        android:id="@+id/sheet_bottom_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:autoSizeMaxTextSize="32sp"
+        android:autoSizeTextType="uniform"
+        android:gravity="center"
+        android:maxLines="2"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="Название"
+        android:textColor="@color/chalk_color"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/sheet_bottom_humor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Юмор"
+        android:textColor="@color/chalk_color"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/sheet_bottom_image"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sheet_bottom_title" />
+
+    <TextView
+        android:id="@+id/sheet_bottom_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Картинка"
+        android:textColor="@color/chalk_color"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/sheet_bottom_antiheroes"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/sheet_bottom_humor"
+        app:layout_constraintTop_toBottomOf="@+id/sheet_bottom_title" />
+
+    <TextView
+        android:id="@+id/sheet_bottom_antiheroes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Злодеи"
+        android:textColor="@color/chalk_color"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/sheet_bottom_image"
+        app:layout_constraintTop_toBottomOf="@+id/sheet_bottom_title" />
+
+    <TextView
+        android:id="@+id/sheet_bottom_music"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Музыка"
+        android:textColor="@color/chalk_color"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/sheet_bottom_humor"
+        app:layout_constraintStart_toStartOf="@+id/sheet_bottom_humor"
+        app:layout_constraintTop_toBottomOf="@+id/sheet_bottom_humor" />
+
+    <TextView
+        android:id="@+id/sheet_bottom_dialogs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Диалоги"
+        android:textColor="@color/chalk_color"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/sheet_bottom_image"
+        app:layout_constraintStart_toStartOf="@+id/sheet_bottom_image"
+        app:layout_constraintTop_toBottomOf="@+id/sheet_bottom_image" />
+
+    <TextView
+        android:id="@+id/sheet_bottom_story"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Сюжет"
+        android:textColor="@color/chalk_color"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/sheet_bottom_antiheroes"
+        app:layout_constraintStart_toStartOf="@+id/sheet_bottom_antiheroes"
+        app:layout_constraintTop_toBottomOf="@+id/sheet_bottom_antiheroes" />
+
+    <TextView
+        android:id="@+id/sheet_bottom_dynamic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Динамика"
+        android:textColor="@color/chalk_color"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/sheet_bottom_music"
+        app:layout_constraintStart_toStartOf="@+id/sheet_bottom_music"
+        app:layout_constraintTop_toBottomOf="@+id/sheet_bottom_music" />
+
+    <TextView
+        android:id="@+id/sheet_bottom_heroes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Герои"
+        android:textColor="@color/chalk_color"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/sheet_bottom_dialogs"
+        app:layout_constraintStart_toStartOf="@+id/sheet_bottom_dialogs"
+        app:layout_constraintTop_toBottomOf="@+id/sheet_bottom_dialogs" />
+
+    <TextView
+        android:id="@+id/sheet_bottom_drama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Драма"
+        android:textColor="@color/chalk_color"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/sheet_bottom_story"
+        app:layout_constraintStart_toStartOf="@+id/sheet_bottom_story"
+        app:layout_constraintTop_toBottomOf="@+id/sheet_bottom_story" />
+
+    <ImageView
+        android:id="@+id/buttom_show_hide_parameter"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/sheet_bottom_title"
+        app:layout_constraintStart_toStartOf="@+id/sheet_bottom_title"
+        app:layout_constraintTop_toBottomOf="@id/barrier7"
+        app:srcCompat="@drawable/angle_down_white" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/chalk_color"
+        android:backgroundTint="@color/chalk_color"
+        android:paddingEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barrier6" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="sheet_bottom_heroes,sheet_bottom_title,buttom_show_hide_parameter"
+        tools:layout_editor_absoluteY="723dp" />
+
+    <TextView
+        android:id="@+id/edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="start"
+        android:text="Изменить"
+        android:textColor="@color/chalk_color"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+    <TextView
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="start"
+        android:text="Удалить"
+        android:textColor="@color/chalk_color"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider13" />
+
+    <TextView
+        android:id="@+id/share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="start"
+        android:text="Поделиться"
+        android:textColor="@color/chalk_color"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider14" />
+
+    <TextView
+        android:id="@+id/add_in_franchise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="start"
+        android:text="Добавить во франшизу"
+        android:textColor="@color/chalk_color"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider15" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="sheet_bottom_title,sheet_bottom_heroes"
+        tools:layout_editor_absoluteY="8dp" />
+
+    <TextView
+        android:id="@+id/delete_to_franchise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Убрать из франшизы"
+        android:textColor="@color/chalk_color"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider16" />
+
+    <View
+        android:id="@+id/divider13"
+        android:layout_width="20dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/chalk_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit" />
+
+    <View
+        android:id="@+id/divider14"
+        android:layout_width="20dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/chalk_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/delete" />
+
+    <View
+        android:id="@+id/divider15"
+        android:layout_width="20dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/chalk_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/share" />
+
+    <View
+        android:id="@+id/divider16"
+        android:layout_width="20dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/chalk_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_in_franchise" />
+
+    <View
+        android:id="@+id/divider17"
+        android:layout_width="20dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/chalk_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/delete_to_franchise" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

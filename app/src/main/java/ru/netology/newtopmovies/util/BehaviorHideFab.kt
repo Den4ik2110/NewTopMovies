@@ -47,13 +47,12 @@ class BehaviorHideFab(context: Context?, attrs: AttributeSet?) :
         type: Int
     ) {
         child.setOnClickListener {
-            val recyclerView = coordinatorLayout.findViewById<RecyclerView>(R.id.recycler_movie)
-            recyclerView.scrollToPosition(3)
+            val recyclerView = coordinatorLayout.findViewById<RecyclerView>(R.id.recycle_movies)
+            recyclerView.scrollToPosition(20)
             Handler(Looper.getMainLooper()).postDelayed({
                 recyclerView.smoothScrollToPosition(0)
             }, 10)
             slideDown(child)
-            coordinatorLayout.findViewById<AppBarLayout>(R.id.app_bar_layout).setExpanded(true)
         }
     }
 }

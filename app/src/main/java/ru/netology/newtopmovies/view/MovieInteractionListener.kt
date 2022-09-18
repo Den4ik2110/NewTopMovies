@@ -10,4 +10,6 @@ interface MovieInteractionListener {
 
     fun addMovie(movie: Movie)
 
+    fun setSearchQuery(query: String?)
+
 }
