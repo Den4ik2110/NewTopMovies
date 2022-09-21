@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.NewTopMovies" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/grey_dark</item>
-        <item name="colorPrimaryVariant">@color/grey_dark</item>
+        <item name="colorPrimary">@color/chalk_color</item>
+        <item name="colorPrimaryVariant">@color/chalk_color</item>
         <item name="colorOnPrimary">@color/choco_milk</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/choco_milk</item>
@@ -24,7 +24,7 @@
         <!-- Color Full Stars -->
         <item name="android:progressTint">@color/choco_milk</item>
         <!-- Color Non Full Stars -->
-        <item name="android:progressBackgroundTint">@color/grey_dark</item>
+        <item name="android:progressBackgroundTint">@color/chalk_color</item>
         <!-- Color Border Stars -->
         <item name="android:secondaryProgressTint">@color/choco_milk</item>
     </style>

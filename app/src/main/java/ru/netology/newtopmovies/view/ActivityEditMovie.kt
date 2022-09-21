@@ -149,6 +149,7 @@ class ActivityEditMovie : AppCompatActivity() {
                 .load(movie.urlImage.toString())
                 .placeholder(R.drawable.ic_no_image)
                 .into(binding.posterMovie)
+            uriImage = movie.urlImage.toString()
             editTextPersonName.setText(editMovie.title)
             editGenre.setText(movie.genre)
             if (movie.year == null) editYear.setText("") else editYear.setText(movie.year)
