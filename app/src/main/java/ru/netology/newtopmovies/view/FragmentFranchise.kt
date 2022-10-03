@@ -23,7 +23,7 @@ import ru.netology.newtopmovies.util.SheetBottomMenuAndInfo
 import ru.netology.newtopmovies.viewModel.MovieViewModel
 
 class FragmentFranchise : Fragment(), MovieNoFranchiseItem.SheetBottom,
-    SheetBottomMenuAndInfo.ShowDialogDelete{
+    SheetBottomMenuAndInfo.ShowDialogDelete {
 
     private val viewModel by activityViewModels<MovieViewModel>()
     private val listFranchise = mutableListOf<String>()
@@ -53,7 +53,13 @@ class FragmentFranchise : Fragment(), MovieNoFranchiseItem.SheetBottom,
 
             listNoDouble.forEach { name ->
                 val listMovieInFranchise = franchises.filter { it.franchise == name }
-                val group = ExpandableGroup(ExpandableMovie(name, listMovieInFranchise.size, listMovieInFranchise))
+                val group = ExpandableGroup(
+                    ExpandableMovie(
+                        name,
+                        listMovieInFranchise.size,
+                        listMovieInFranchise
+                    )
+                )
                 listExpandableGroup.add(group)
             }
 

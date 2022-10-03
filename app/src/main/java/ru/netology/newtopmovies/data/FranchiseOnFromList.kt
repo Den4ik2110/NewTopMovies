@@ -3,29 +3,29 @@ package ru.netology.newtopmovies.data
 
 
 import android.view.View
-import androidx.fragment.app.Fragment
+import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import com.xwray.groupie.Item
 import com.xwray.groupie.viewbinding.BindableItem
 import ru.netology.newtopmovies.R
 import ru.netology.newtopmovies.databinding.OneFranchiseBinding
-import ru.netology.newtopmovies.view.ActionFranchiseFragment
-import ru.netology.newtopmovies.view.AddFranchiseFragment
+import ru.netology.newtopmovies.util.SheetBottomFranchise
 import ru.netology.newtopmovies.viewModel.MovieViewModel
 
 class FranchiseOnFromList(
     private val franchise: Franchise,
     private val viewModel: MovieViewModel,
-    private val fragmentManager: FragmentManager,
     private val movie: Movie,
-    private val fragment: Fragment
+    private val fragmentManager: FragmentManager,
+    private val fragment: SheetBottomFranchise
 ) : BindableItem<OneFranchiseBinding>() {
 
     override fun bind(viewBinding: OneFranchiseBinding, position: Int) {
         viewBinding.franchiseName.text = franchise.title
         viewBinding.root.setOnClickListener {
-            val dialog = ActionFranchiseFragment(viewModel, franchise, movie, fragment)
-            dialog.show(fragmentManager, "keyFour")
+            viewModel.addToFranchise(franchise, movie)
+            fragmentManager.beginTransaction().remove(fragment).commit()
+            Toast.makeText(fragment.requireContext(), "Фильм добавлен к франшизе \"${franchise.title}\"", Toast.LENGTH_SHORT).show()
         }
     }
 

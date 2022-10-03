@@ -31,13 +31,12 @@ class SheetBottomFranchise(
         binding ->
         val adapter = GroupieAdapter()
         adapter.add(section)
-        section.setHeader(HeaderFranchise(viewModel, parentFragmentManager))
         binding.recycleFranchise.adapter = adapter
 
         viewModel.listFranchise.observe(viewLifecycleOwner) {list ->
             val futureList = mutableListOf<FranchiseOnFromList>()
             list.forEach { franchise ->
-                futureList.add(FranchiseOnFromList(franchise, viewModel, parentFragmentManager, movie, this))
+                futureList.add(FranchiseOnFromList(franchise, viewModel, movie, parentFragmentManager, this))
             }
             section.update(futureList)
         }

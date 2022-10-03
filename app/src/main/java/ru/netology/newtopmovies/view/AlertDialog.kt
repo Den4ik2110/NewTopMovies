@@ -91,17 +91,15 @@ class AddFranchiseFragment(
     }
 }
 
-class ActionFranchiseFragment(
+
+class ActionFranchiseEditFragment(
     private val viewModel: MovieViewModel,
-    private val franchise: Franchise,
-    private val movie: Movie,
-    private val fragment: Fragment
+    private val franchise: Franchise
 ) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let { fragmentActivity ->
             val items = arrayOf(
-                "Добавить фильм в франшизу",
                 "Изменить название франшизы",
                 "Удалить франшизу"
             )
@@ -109,14 +107,10 @@ class ActionFranchiseFragment(
             builder.setItems(items) { _, case ->
                 when (case) {
                     0 -> {
-                        viewModel.addToFranchise(franchise, movie)
-                        parentFragmentManager.beginTransaction().remove(fragment).commit()
-                    }
-                    1 -> {
                         val editFranchiseFragment = EditFranchiseFragment(viewModel, franchise)
                         editFranchiseFragment.show(parentFragmentManager, "DialogEditFranchise")
                     }
-                    2 -> {
+                    1 -> {
                         viewModel.deleteFranchise(franchise)
                     }
                 }

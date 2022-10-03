@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.netology.newtopmovies.R
 import ru.netology.newtopmovies.databinding.ActivityBottomNavigationBinding
 import ru.netology.newtopmovies.util.Constants
+import ru.netology.newtopmovies.util.SheetBottomEditFranchise
+import ru.netology.newtopmovies.util.SheetBottomFranchise
 import ru.netology.newtopmovies.util.SheetBottomWishMovieAdd
 import ru.netology.newtopmovies.viewModel.MovieViewModel
 
@@ -130,10 +132,18 @@ class BottomNavigationActivity : AppCompatActivity() {
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         when (keyFragment) {
-            Constants.FRAGMENT_FRANCHISE -> menu?.clear()
+            Constants.FRAGMENT_FRANCHISE -> {
+                menu?.findItem(R.id.app_bar_search)?.isVisible = false
+                menu?.findItem(R.id.share_all)?.isVisible = false
+                menu?.findItem(R.id.toolbar_add)?.isVisible = false
+            }
             Constants.FRAGMENT_WISHLIST -> {
                 menu?.findItem(R.id.app_bar_search)?.isVisible = false
                 menu?.findItem(R.id.share_all)?.isVisible = false
+                menu?.findItem(R.id.edit_franchise)?.isVisible = false
+            }
+            Constants.FRAGMENT_MOVIE -> {
+                menu?.findItem(R.id.edit_franchise)?.isVisible = false
             }
         }
         return super.onPrepareOptionsMenu(menu)
@@ -141,7 +151,6 @@ class BottomNavigationActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> {}//binding.drawer.openDrawer(GravityCompat.START)
             R.id.toolbar_add -> {
                 when (keyFragment) {
                     Constants.FRAGMENT_MOVIE -> {
@@ -159,6 +168,10 @@ class BottomNavigationActivity : AppCompatActivity() {
                 }
             }
             R.id.share_all -> viewModel.shareAllMovie()
+            R.id.edit_franchise -> {
+                val sheetBottomEditFranchise = SheetBottomEditFranchise()
+                sheetBottomEditFranchise.show(supportFragmentManager, SheetBottomEditFranchise.TAG)
+            }
         }
         return true
     }
