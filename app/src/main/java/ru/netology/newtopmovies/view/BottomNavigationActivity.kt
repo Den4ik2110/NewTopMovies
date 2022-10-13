@@ -1,14 +1,18 @@
 package ru.netology.newtopmovies.view
 
+import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.os.Environment.DIRECTORY_DOWNLOADS
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.*
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
@@ -19,9 +23,14 @@ import ru.netology.newtopmovies.R
 import ru.netology.newtopmovies.databinding.ActivityBottomNavigationBinding
 import ru.netology.newtopmovies.util.Constants
 import ru.netology.newtopmovies.util.SheetBottomEditFranchise
-import ru.netology.newtopmovies.util.SheetBottomFranchise
 import ru.netology.newtopmovies.util.SheetBottomWishMovieAdd
 import ru.netology.newtopmovies.viewModel.MovieViewModel
+import java.io.File
+import java.io.IOException
+import java.nio.file.Files
+import java.nio.file.StandardCopyOption
+import kotlin.system.exitProcess
+
 
 class BottomNavigationActivity : AppCompatActivity() {
 
@@ -88,6 +97,11 @@ class BottomNavigationActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+    }
+
     private fun rounding(amount: Int, key: String): String = if (amount in 11..14) {
         if (key == "movie") "баллов" else "фильмов"
     } else {
@@ -136,11 +150,15 @@ class BottomNavigationActivity : AppCompatActivity() {
                 menu?.findItem(R.id.app_bar_search)?.isVisible = false
                 menu?.findItem(R.id.share_all)?.isVisible = false
                 menu?.findItem(R.id.toolbar_add)?.isVisible = false
+                menu?.findItem(R.id.export)?.isVisible = false
+                menu?.findItem(R.id.non_export)?.isVisible = false
             }
             Constants.FRAGMENT_WISHLIST -> {
                 menu?.findItem(R.id.app_bar_search)?.isVisible = false
                 menu?.findItem(R.id.share_all)?.isVisible = false
                 menu?.findItem(R.id.edit_franchise)?.isVisible = false
+                menu?.findItem(R.id.export)?.isVisible = false
+                menu?.findItem(R.id.non_export)?.isVisible = false
             }
             Constants.FRAGMENT_MOVIE -> {
                 menu?.findItem(R.id.edit_franchise)?.isVisible = false
@@ -163,7 +181,10 @@ class BottomNavigationActivity : AppCompatActivity() {
                     }
                     Constants.FRAGMENT_WISHLIST -> {
                         val sheetBottomWishMovieAdd = SheetBottomWishMovieAdd()
-                        sheetBottomWishMovieAdd.show(supportFragmentManager, SheetBottomWishMovieAdd.TAG)
+                        sheetBottomWishMovieAdd.show(
+                            supportFragmentManager,
+                            SheetBottomWishMovieAdd.TAG
+                        )
                     }
                 }
             }
@@ -172,6 +193,8 @@ class BottomNavigationActivity : AppCompatActivity() {
                 val sheetBottomEditFranchise = SheetBottomEditFranchise()
                 sheetBottomEditFranchise.show(supportFragmentManager, SheetBottomEditFranchise.TAG)
             }
+            R.id.export -> exportDataBase()
+            R.id.non_export -> importDataBase()
         }
         return true
     }
@@ -187,4 +210,82 @@ class BottomNavigationActivity : AppCompatActivity() {
         }
     }
 
+    private fun exportDataBase() {
+
+        val sourcePath = File(filesDir.parent.toString() + getString(R.string.path_source))
+        val savePath = File(
+            Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)
+                .toString()
+        )
+
+        val sourceFile = File(sourcePath, "data_base_movie.db")
+        val saveFile = File(savePath, "data_base_movie.db")
+
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Files.copy(
+                    sourceFile.toPath(),
+                    saveFile.toPath(),
+                    StandardCopyOption.REPLACE_EXISTING
+                )
+            }
+            Toast.makeText(this, "Файл сохранен в папку Загрузки", Toast.LENGTH_SHORT).show()
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+            println("$ex")
+            Toast.makeText(this, "Файл не сохранен", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+    private fun importDataBase() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+            type = "application/octet-stream"
+        }
+        startActivityForResult(intent, Constants.INTENT_IMPORT)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        var fileName: String? = null
+        when (requestCode) {
+            Constants.INTENT_IMPORT -> if (resultCode === Activity.RESULT_OK) {
+                if (null != data) {
+                    val uri = data.data
+                    fileName = uri?.path?.split("/")?.last()
+                }
+            }
+        }
+        if (fileName != null) {
+            val pathDeleteAndImport = File(filesDir.parent.toString() + getString(R.string.path_source))
+            val pathImportFile = File(
+                Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)
+                    .toString())
+
+            val deleteAndImportFileDB = File(pathDeleteAndImport, "data_base_movie.db")
+            val importFile = File(pathImportFile, "$fileName")
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Files.deleteIfExists(deleteAndImportFileDB.toPath())
+            }
+
+
+
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    Files.copy(
+                        importFile.toPath(),
+                        deleteAndImportFileDB.toPath(),
+                        StandardCopyOption.REPLACE_EXISTING
+                    )
+                }
+                Toast.makeText(this, "База данных импортирована", Toast.LENGTH_SHORT).show()
+                exitProcess(-1)
+            } catch (ex: IOException) {
+                ex.printStackTrace()
+                Toast.makeText(this, "База данных не импортирована", Toast.LENGTH_SHORT).show()
+                println("$ex")
+            }
+        }
+    }
 }

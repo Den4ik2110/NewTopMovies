@@ -31,6 +31,7 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColorSecondary">@color/chalk_color</item>
         <item name="android:textColorPrimary">@color/chalk_color</item>
+        <item name="android:popupBackground">@color/choco_milk</item>
     </style>
 
     <style name="RatingBar" parent="Widget.AppCompat.RatingBar.Indicator" >
@@ -40,5 +41,9 @@
         <item name="android:progressBackgroundTint">@color/chalk_color</item>
         <!-- Color Border Stars -->
         <item name="android:secondaryProgressTint">@color/choco_milk</item>
+    </style>
+
+    <style name="MyOverflowButtonStyle" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">@color/choco_milk</item>
     </style>
 </resources>

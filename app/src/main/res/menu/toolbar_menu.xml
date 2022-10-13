@@ -20,12 +20,19 @@
         android:id="@+id/share_all"
         android:icon="@drawable/ic_context_menu_share"
         android:orderInCategory="2"
-        android:title="Списком"
-        app:showAsAction="always" />
+        android:title="Поделиться" />
     <item
         android:id="@+id/edit_franchise"
         android:icon="@drawable/ic_toolbar_edit_franchise"
         android:title="edit_franchise"
         android:visibility="invisible"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/export"
+        android:orderInCategory="4"
+        android:title="Экспорт" />
+    <item
+        android:id="@+id/non_export"
+        android:orderInCategory="5"
+        android:title="Импорт" />
 </menu>

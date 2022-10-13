@@ -39,6 +39,7 @@ abstract class AppDb : RoomDatabase() {
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(context, AppDb::class.java, "data_base_movie.db")
                 .allowMainThreadQueries()
+                .setJournalMode(JournalMode.TRUNCATE)
                 .build()
     }
 }

@@ -47,4 +47,5 @@
     <string name="search">Search</string>
     <string name="search_hint">Поиск фильмов по названию</string>
     <string name="unsuccessful_search">Фильм с таким названием не найден</string>
+    <string name="path_source">/databases/</string>
 </resources>
