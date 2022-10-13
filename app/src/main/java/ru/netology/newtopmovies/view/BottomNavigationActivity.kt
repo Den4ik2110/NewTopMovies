@@ -8,10 +8,14 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.os.Environment.DIRECTORY_DOWNLOADS
+import android.provider.Settings
+import android.provider.Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.*
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
@@ -19,6 +23,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.hbisoft.pickit.PickiT
+import com.hbisoft.pickit.PickiTCallbacks
 import ru.netology.newtopmovies.R
 import ru.netology.newtopmovies.databinding.ActivityBottomNavigationBinding
 import ru.netology.newtopmovies.util.Constants
@@ -29,16 +35,18 @@ import java.io.File
 import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
+import java.util.ArrayList
 import kotlin.system.exitProcess
 
 
-class BottomNavigationActivity : AppCompatActivity() {
+class BottomNavigationActivity : AppCompatActivity(), PickiTCallbacks {
 
     private lateinit var binding: ActivityBottomNavigationBinding
     private lateinit var toolbar: Toolbar
     private lateinit var navController: NavController
     private lateinit var arrayForAdapterSearch: MutableList<String>
     private lateinit var arrayAdapter: ArrayAdapter<String>
+    private lateinit var pickit: PickiT
     private var keyFragment = Constants.FRAGMENT_MOVIE
     private val viewModel by viewModels<MovieViewModel>()
 
@@ -53,6 +61,8 @@ class BottomNavigationActivity : AppCompatActivity() {
 
         arrayForAdapterSearch = mutableListOf()
         arrayAdapter = ArrayAdapter(this, R.layout.suggetion, arrayForAdapterSearch)
+
+        pickit = PickiT(this, this, this)
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
@@ -95,11 +105,6 @@ class BottomNavigationActivity : AppCompatActivity() {
         viewModel.hideToolbar.observe(this) { key ->
             keyFragment = key
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
     }
 
     private fun rounding(amount: Int, key: String): String = if (amount in 11..14) {
@@ -167,6 +172,7 @@ class BottomNavigationActivity : AppCompatActivity() {
         return super.onPrepareOptionsMenu(menu)
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.toolbar_add -> {
@@ -232,46 +238,71 @@ class BottomNavigationActivity : AppCompatActivity() {
             Toast.makeText(this, "Файл сохранен в папку Загрузки", Toast.LENGTH_SHORT).show()
         } catch (ex: IOException) {
             ex.printStackTrace()
-            println("$ex")
             Toast.makeText(this, "Файл не сохранен", Toast.LENGTH_SHORT).show()
         }
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.R)
     private fun importDataBase() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-            type = "application/octet-stream"
+
+        if (!Environment.isExternalStorageManager()) {
+            val intent = Intent(ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
+            startActivity(intent)
         }
-        startActivityForResult(intent, Constants.INTENT_IMPORT)
+
+        if (Environment.isExternalStorageManager()) {
+            val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+                type = "application/octet-stream"
+            }
+            startActivityForResult(intent, Constants.INTENT_IMPORT)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        var fileName: String? = null
-        when (requestCode) {
-            Constants.INTENT_IMPORT -> if (resultCode === Activity.RESULT_OK) {
-                if (null != data) {
-                    val uri = data.data
-                    fileName = uri?.path?.split("/")?.last()
-                }
+        if (requestCode == Constants.INTENT_IMPORT) {
+            if (resultCode == Activity.RESULT_OK) {
+                pickit.getPath(data?.data, Build.VERSION.SDK_INT)
             }
         }
-        if (fileName != null) {
-            val pathDeleteAndImport = File(filesDir.parent.toString() + getString(R.string.path_source))
-            val pathImportFile = File(
-                Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)
-                    .toString())
+    }
 
+    override fun PickiTonUriReturned() {
+    }
+
+    override fun PickiTonStartListener() {
+    }
+
+    override fun PickiTonProgressUpdate(progress: Int) {
+    }
+
+    override fun PickiTonCompleteListener(
+        path: String?,
+        wasDriveFile: Boolean,
+        wasUnknownProvider: Boolean,
+        wasSuccessful: Boolean,
+        Reason: String?
+    ) {
+
+
+        if (path != null) {
+            val pathDeleteAndImport =
+                File(filesDir.parent.toString() + getString(R.string.path_source))
+            val importFile = File(path)
             val deleteAndImportFileDB = File(pathDeleteAndImport, "data_base_movie.db")
-            val importFile = File(pathImportFile, "$fileName")
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 Files.deleteIfExists(deleteAndImportFileDB.toPath())
             }
 
-
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Log.d("MyLog", "${importFile.toPath()}")
+                Log.d("MyLog", "${deleteAndImportFileDB.toPath()}")
+            }
 
             try {
+                importFile.setWritable(true)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     Files.copy(
                         importFile.toPath(),
@@ -284,8 +315,15 @@ class BottomNavigationActivity : AppCompatActivity() {
             } catch (ex: IOException) {
                 ex.printStackTrace()
                 Toast.makeText(this, "База данных не импортирована", Toast.LENGTH_SHORT).show()
-                println("$ex")
+                Log.d("MyLog", "$ex")
             }
         }
+    }
+
+    override fun PickiTonMultipleCompleteListener(
+        paths: ArrayList<String>?,
+        wasSuccessful: Boolean,
+        Reason: String?
+    ) {
     }
 }
