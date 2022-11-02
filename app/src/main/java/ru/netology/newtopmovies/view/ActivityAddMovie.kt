@@ -2,32 +2,42 @@ package ru.netology.newtopmovies.view
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
+import android.provider.Settings
 import android.view.View
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.hbisoft.pickit.PickiT
+import com.hbisoft.pickit.PickiTCallbacks
 import ru.netology.newtopmovies.R
 import ru.netology.newtopmovies.data.Movie
 import ru.netology.newtopmovies.data.WishMovie
 import ru.netology.newtopmovies.databinding.ActivityAddMovieBinding
 import ru.netology.newtopmovies.util.Constants
 import ru.netology.newtopmovies.viewModel.MovieViewModel
+import java.util.ArrayList
 
-class ActivityAddMovie : AppCompatActivity() {
+class ActivityAddMovie : AppCompatActivity(), PickiTCallbacks {
     private lateinit var binding: ActivityAddMovieBinding
     private var uriImage: String? = null
     private val viewModel by viewModels<MovieViewModel>()
     private var wishMovie: WishMovie? = null
+    private lateinit var pickit: PickiT
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddMovieBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        pickit = PickiT(this, this, this)
 
         if (intent.getSerializableExtra("keyWishMovieAdd") != null) {
             wishMovie = intent.getSerializableExtra("keyWishMovieAdd") as WishMovie
@@ -61,6 +71,7 @@ class ActivityAddMovie : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onResume() {
         super.onResume()
 
@@ -111,31 +122,26 @@ class ActivityAddMovie : AppCompatActivity() {
         }
 
         viewModel.editImageMovie.observe(this) {
-            val intent = Intent().apply {
-                action = Intent.ACTION_PICK
-                type = "image/*"
+            if (!Environment.isExternalStorageManager()) {
+                val intent = Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
+                startActivity(intent)
             }
-            val shareIntent = Intent.createChooser(intent, getString(android.R.string.search_go))
-            startActivityForResult(shareIntent, Constants.INTENT_PHOTO)
-        }
 
+            if (Environment.isExternalStorageManager()) {
+                val intent = Intent().apply {
+                    action = Intent.ACTION_PICK
+                    type = "image/*"
+                }
+                val shareIntent = Intent.createChooser(intent, getString(android.R.string.search_go))
+                startActivityForResult(shareIntent, Constants.INTENT_PHOTO)
+            }
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == Constants.INTENT_PHOTO) {
-            val selectedImage: Uri? = data?.data
-            if (selectedImage != null) {
-                uriImage = selectedImage.toString()
-            }
-
-            Glide.with(this)
-                .load(uriImage)
-                .override(500, 700)
-                .centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                .placeholder(R.drawable.ic_no_image)
-                .into(binding.imageAddMovie)
+            pickit.getPath(data?.data, Build.VERSION.SDK_INT)
         }
     }
 
@@ -151,6 +157,39 @@ class ActivityAddMovie : AppCompatActivity() {
             override fun onStopTrackingTouch(p0: SeekBar?) {
             }
         })
+    }
+
+    override fun PickiTonUriReturned() {}
+
+    override fun PickiTonStartListener() {}
+
+    override fun PickiTonProgressUpdate(progress: Int) {}
+
+    override fun PickiTonCompleteListener(
+        path: String?,
+        wasDriveFile: Boolean,
+        wasUnknownProvider: Boolean,
+        wasSuccessful: Boolean,
+        Reason: String?
+    ) {
+        if (path != null) {
+            uriImage = path
+        }
+
+        Glide.with(this)
+            .load(uriImage)
+            .override(500, 700)
+            .centerCrop()
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+            .placeholder(R.drawable.ic_no_image)
+            .into(binding.imageAddMovie)
+    }
+
+    override fun PickiTonMultipleCompleteListener(
+        paths: ArrayList<String>?,
+        wasSuccessful: Boolean,
+        Reason: String?
+    ) {
     }
 
 }

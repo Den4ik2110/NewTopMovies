@@ -157,6 +157,7 @@ class DownloadImageFragment(
                 "Загрузить картинку из галереи",
                 "Загрузить картинку по URL"
             )
+
             val builder = MaterialAlertDialogBuilder(fragmentActivity)
             builder.setItems(items) { _, case ->
                 when (case) {

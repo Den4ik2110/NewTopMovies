@@ -134,4 +134,5 @@ class MovieViewModel(application: Application) : AndroidViewModel(application),
     fun deleteWishMovie(wishMovie: WishMovie) = repository.deleteWishMovie(wishMovie)
 
     fun updateWishMovie(wishMovie: WishMovie) = repository.updateWishMovie(wishMovie)
+
 }

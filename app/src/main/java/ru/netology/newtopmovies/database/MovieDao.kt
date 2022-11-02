@@ -40,5 +40,4 @@ interface MovieDao {
 
     @Query("UPDATE movies SET franchise = :newName WHERE franchise = :oldName")
     fun editFranchiseOneMovie(newName: String?, oldName: String?)
-
 }

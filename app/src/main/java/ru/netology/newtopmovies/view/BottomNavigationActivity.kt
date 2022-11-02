@@ -216,29 +216,37 @@ class BottomNavigationActivity : AppCompatActivity(), PickiTCallbacks {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     private fun exportDataBase() {
 
-        val sourcePath = File(filesDir.parent.toString() + getString(R.string.path_source))
-        val savePath = File(
-            Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)
-                .toString()
-        )
+        if (!Environment.isExternalStorageManager()) {
+            val intent = Intent(ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
+            startActivity(intent)
+        }
 
-        val sourceFile = File(sourcePath, "data_base_movie.db")
-        val saveFile = File(savePath, "data_base_movie.db")
+        if (Environment.isExternalStorageManager()) {
+            val sourcePath = File(filesDir.parent.toString() + getString(R.string.path_source))
+            val savePath = File(
+                Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)
+                    .toString()
+            )
 
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                Files.copy(
-                    sourceFile.toPath(),
-                    saveFile.toPath(),
-                    StandardCopyOption.REPLACE_EXISTING
-                )
+            val sourceFile = File(sourcePath, "data_base_movie.db")
+            val saveFile = File(savePath, "data_base_movie.db")
+
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    Files.copy(
+                        sourceFile.toPath(),
+                        saveFile.toPath(),
+                        StandardCopyOption.REPLACE_EXISTING
+                    )
+                }
+                Toast.makeText(this, "Файл сохранен в папку Загрузки", Toast.LENGTH_SHORT).show()
+            } catch (ex: IOException) {
+                ex.printStackTrace()
+                Toast.makeText(this, "Файл не сохранен", Toast.LENGTH_SHORT).show()
             }
-            Toast.makeText(this, "Файл сохранен в папку Загрузки", Toast.LENGTH_SHORT).show()
-        } catch (ex: IOException) {
-            ex.printStackTrace()
-            Toast.makeText(this, "Файл не сохранен", Toast.LENGTH_SHORT).show()
         }
     }
 

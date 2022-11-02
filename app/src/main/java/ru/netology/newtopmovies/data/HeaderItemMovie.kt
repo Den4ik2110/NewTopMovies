@@ -17,8 +17,8 @@ class HeaderItemMovie(
 
     override fun bind(viewBinding: HeaderItemBinding, position: Int) {
         viewBinding.sortType.text = when (key) {
-            Constants.MAX_MIN -> "По возрастанию рейтинга"
-            Constants.MIN_MAX -> "По убыванию рейтинга"
+            Constants.MAX_MIN -> "По убыванию рейтинга"
+            Constants.MIN_MAX -> "По возрастанию рейтинга"
             Constants.OLD_NEW -> "От старых до новых"
             Constants.REPEAT -> "По пересмотру"
             Constants.ALPHABET -> "По алфавиту"

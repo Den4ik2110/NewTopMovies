@@ -1,6 +1,5 @@
 package ru.netology.newtopmovies.util
 
-import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.color.MaterialColors.getColor
 import ru.netology.newtopmovies.R
 import ru.netology.newtopmovies.databinding.SheetBottomSortBinding
 import ru.netology.newtopmovies.viewModel.MovieViewModel
