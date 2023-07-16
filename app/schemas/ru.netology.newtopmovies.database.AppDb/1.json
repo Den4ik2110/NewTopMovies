@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d36df36eb3744f688ba3b5b40a62c731",
+    "identityHash": "cdb0fdd587971d7b47633948ee071f52",
     "entities": [
       {
         "tableName": "movies",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `humor` INTEGER NOT NULL, `music` INTEGER NOT NULL, `dynamic` INTEGER NOT NULL, `image` INTEGER NOT NULL, `dialogs` INTEGER NOT NULL, `heroes` INTEGER NOT NULL, `antiheroes` INTEGER NOT NULL, `story` INTEGER NOT NULL, `drama` INTEGER NOT NULL, `repeat` INTEGER NOT NULL, `rating` INTEGER NOT NULL, `keySort` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `humor` INTEGER NOT NULL, `music` INTEGER NOT NULL, `dynamic` INTEGER NOT NULL, `image` INTEGER NOT NULL, `dialogs` INTEGER NOT NULL, `heroes` INTEGER NOT NULL, `antiheroes` INTEGER NOT NULL, `story` INTEGER NOT NULL, `drama` INTEGER NOT NULL, `repeat` INTEGER NOT NULL, `rating` INTEGER NOT NULL, `keySort` TEXT NOT NULL, `urlImage` TEXT, `genre` TEXT, `year` TEXT, `franchise` TEXT, `kinopoiskId` INTEGER, `nameOriginal` TEXT, `posterUrl` TEXT, `coverUrl` TEXT, `logoUrl` TEXT, `ratingKinopoisk` TEXT, `ratingKinopoiskVoteCount` TEXT, `ratingImdb` TEXT, `ratingImdbVoteCount` TEXT, `webUrl` TEXT, `filmLength` INTEGER, `description` TEXT, `ratingAgeLimits` TEXT, `countries` TEXT, `sequelsAndPrequels` TEXT, `review` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -91,13 +91,351 @@
             "columnName": "keySort",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "urlImage",
+            "columnName": "urlImage",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "genres",
+            "columnName": "genre",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "year",
+            "columnName": "year",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "franchise",
+            "columnName": "franchise",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "kinopoiskId",
+            "columnName": "kinopoiskId",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nameOriginal",
+            "columnName": "nameOriginal",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "posterUrl",
+            "columnName": "posterUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "coverUrl",
+            "columnName": "coverUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "logoUrl",
+            "columnName": "logoUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ratingKinopoisk",
+            "columnName": "ratingKinopoisk",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ratingKinopoiskVoteCount",
+            "columnName": "ratingKinopoiskVoteCount",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ratingImdb",
+            "columnName": "ratingImdb",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ratingImdbVoteCount",
+            "columnName": "ratingImdbVoteCount",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "webUrl",
+            "columnName": "webUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "filmLength",
+            "columnName": "filmLength",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ratingAgeLimits",
+            "columnName": "ratingAgeLimits",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "countries",
+            "columnName": "countries",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sequelsAndPrequels",
+            "columnName": "sequelsAndPrequels",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "review",
+            "columnName": "review",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "id"
-          ],
-          "autoGenerate": true
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "searchQuery",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `humor` INTEGER NOT NULL, `music` INTEGER NOT NULL, `dynamic` INTEGER NOT NULL, `image` INTEGER NOT NULL, `dialogs` INTEGER NOT NULL, `heroes` INTEGER NOT NULL, `antiheroes` INTEGER NOT NULL, `story` INTEGER NOT NULL, `drama` INTEGER NOT NULL, `repeat` INTEGER NOT NULL, `rating` INTEGER NOT NULL, `keySort` TEXT NOT NULL, `urlImage` TEXT, `genre` TEXT, `year` TEXT, `franchise` TEXT, `kinopoiskId` INTEGER, `nameOriginal` TEXT, `posterUrl` TEXT, `coverUrl` TEXT, `logoUrl` TEXT, `ratingKinopoisk` TEXT, `ratingKinopoiskVoteCount` TEXT, `ratingImdb` TEXT, `ratingImdbVoteCount` TEXT, `webUrl` TEXT, `filmLength` INTEGER, `description` TEXT, `ratingAgeLimits` TEXT, `countries` TEXT, `sequelsAndPrequels` TEXT, `review` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "humor",
+            "columnName": "humor",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "music",
+            "columnName": "music",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dynamic",
+            "columnName": "dynamic",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "image",
+            "columnName": "image",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dialogs",
+            "columnName": "dialogs",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "heroes",
+            "columnName": "heroes",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "antiheroes",
+            "columnName": "antiheroes",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "story",
+            "columnName": "story",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "drama",
+            "columnName": "drama",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "repeat",
+            "columnName": "repeat",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rating",
+            "columnName": "rating",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "keySort",
+            "columnName": "keySort",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "urlImage",
+            "columnName": "urlImage",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "genres",
+            "columnName": "genre",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "year",
+            "columnName": "year",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "franchise",
+            "columnName": "franchise",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "kinopoiskId",
+            "columnName": "kinopoiskId",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nameOriginal",
+            "columnName": "nameOriginal",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "posterUrl",
+            "columnName": "posterUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "coverUrl",
+            "columnName": "coverUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "logoUrl",
+            "columnName": "logoUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ratingKinopoisk",
+            "columnName": "ratingKinopoisk",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ratingKinopoiskVoteCount",
+            "columnName": "ratingKinopoiskVoteCount",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ratingImdb",
+            "columnName": "ratingImdb",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ratingImdbVoteCount",
+            "columnName": "ratingImdbVoteCount",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "webUrl",
+            "columnName": "webUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "filmLength",
+            "columnName": "filmLength",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ratingAgeLimits",
+            "columnName": "ratingAgeLimits",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "countries",
+            "columnName": "countries",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sequelsAndPrequels",
+            "columnName": "sequelsAndPrequels",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "review",
+            "columnName": "review",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -106,7 +444,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd36df36eb3744f688ba3b5b40a62c731')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cdb0fdd587971d7b47633948ee071f52')"
     ]
   }
 }

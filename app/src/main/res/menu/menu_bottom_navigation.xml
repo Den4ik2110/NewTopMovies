@@ -4,15 +4,15 @@
 
     <item
         android:id="@+id/fragmentViewMovies"
-        android:icon="@drawable/ic_bottom_nav_movies"
-        android:title="Фильмы" />
+        android:icon="@drawable/home"
+        android:title="Главная" />
     <item
-        android:id="@+id/fragmentFranchise"
-        android:icon="@drawable/ic_bottom_nav_franchise"
-        android:title="Франшизы" />
+        android:id="@+id/fragmentSearch"
+        android:icon="@drawable/search"
+        android:title="Поиск" />
     <item
-        android:id="@+id/fragmentWishList"
-        android:icon="@drawable/ic_wish_list"
-        android:title="Желаемое"
+        android:id="@+id/fragmentProfile"
+        android:icon="@drawable/user"
+        android:title="Профиль"
         app:showAsAction="ifRoom" />
 </menu>

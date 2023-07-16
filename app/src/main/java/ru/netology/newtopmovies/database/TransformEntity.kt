@@ -1,11 +1,9 @@
 package ru.netology.newtopmovies.database
 
-import ru.netology.newtopmovies.data.Franchise
 import ru.netology.newtopmovies.data.Movie
-import ru.netology.newtopmovies.data.WishMovie
 
 internal fun MovieEntity.toMovie() = Movie(
-    title = title,
+    nameRu = title,
     humor = humor,
     music = music,
     dynamic = dynamic,
@@ -18,14 +16,30 @@ internal fun MovieEntity.toMovie() = Movie(
     repeat = repeat,
     idMovie = id,
     rating = rating,
-    urlImage = urlImage,
-    genre = genre,
+    posterUrlPreview = urlImage,
+    genres = genres,
     year = year,
-    franchise = franchise
+    franchise = franchise,
+    kinopoiskId = kinopoiskId,
+    nameOriginal = nameOriginal,
+    posterUrl = posterUrl,
+    coverUrl = coverUrl,
+    logoUrl = logoUrl,
+    ratingKinopoisk = ratingKinopoisk,
+    ratingKinopoiskVoteCount = ratingKinopoiskVoteCount,
+    ratingImdb = ratingImdb,
+    ratingImdbVoteCount = ratingImdbVoteCount,
+    webUrl = webUrl,
+    filmLength = filmLength,
+    description = description,
+    ratingAgeLimits = ratingAgeLimits,
+    countries = countries,
+    sequelsAndPrequels = sequelsAndPrequels,
+    review = review
 )
 
 internal fun Movie.toEntity() = MovieEntity(
-    title = title,
+    title = nameRu,
     humor = humor,
     music = music,
     dynamic = dynamic,
@@ -38,33 +52,100 @@ internal fun Movie.toEntity() = MovieEntity(
     repeat = repeat,
     id = idMovie,
     rating = rating,
-    urlImage = urlImage,
-    genre = genre,
+    urlImage = posterUrlPreview,
+    genres = genres,
     year = year,
-    franchise = franchise
+    franchise = franchise,
+    kinopoiskId = kinopoiskId,
+    nameOriginal = nameOriginal,
+    posterUrl = posterUrl,
+    coverUrl = coverUrl,
+    logoUrl = logoUrl,
+    ratingKinopoisk = ratingKinopoisk,
+    ratingKinopoiskVoteCount = ratingKinopoiskVoteCount,
+    ratingImdb = ratingImdb,
+    ratingImdbVoteCount = ratingImdbVoteCount,
+    webUrl = webUrl,
+    filmLength = filmLength,
+    description = description,
+    ratingAgeLimits = ratingAgeLimits,
+    countries = countries,
+    sequelsAndPrequels = sequelsAndPrequels,
+    review = review
 )
 
-internal fun Franchise.toEntity() = FranchiseEntity(
-    id = id,
-    title = title
+internal fun SearchQueryEntity.toMovie() = Movie(
+    nameRu = title,
+    humor = humor,
+    music = music,
+    dynamic = dynamic,
+    image = image,
+    dialogs = dialogs,
+    heroes = heroes,
+    antiheroes = antiheroes,
+    story = story,
+    drama = drama,
+    repeat = repeat,
+    idMovie = id,
+    rating = rating,
+    posterUrlPreview = urlImage,
+    genres = genres,
+    year = year,
+    franchise = franchise,
+    kinopoiskId = kinopoiskId,
+    nameOriginal = nameOriginal,
+    posterUrl = posterUrl,
+    coverUrl = coverUrl,
+    logoUrl = logoUrl,
+    ratingKinopoisk = ratingKinopoisk,
+    ratingKinopoiskVoteCount = ratingKinopoiskVoteCount,
+    ratingImdb = ratingImdb,
+    ratingImdbVoteCount = ratingImdbVoteCount,
+    webUrl = webUrl,
+    filmLength = filmLength,
+    description = description,
+    ratingAgeLimits = ratingAgeLimits,
+    countries = countries,
+    sequelsAndPrequels = sequelsAndPrequels,
+    review = review
 )
 
-internal fun FranchiseEntity.toFranchise() = Franchise(
-    id = id,
-    title = title
+internal fun Movie.toSearchEntity() = SearchQueryEntity(
+    title = nameRu,
+    humor = humor,
+    music = music,
+    dynamic = dynamic,
+    image = image,
+    dialogs = dialogs,
+    heroes = heroes,
+    antiheroes = antiheroes,
+    story = story,
+    drama = drama,
+    repeat = repeat,
+    id = idMovie,
+    rating = rating,
+    urlImage = posterUrlPreview,
+    genres = genres,
+    year = year,
+    franchise = franchise,
+    kinopoiskId = kinopoiskId,
+    nameOriginal = nameOriginal,
+    posterUrl = posterUrl,
+    coverUrl = coverUrl,
+    logoUrl = logoUrl,
+    ratingKinopoisk = ratingKinopoisk,
+    ratingKinopoiskVoteCount = ratingKinopoiskVoteCount,
+    ratingImdb = ratingImdb,
+    ratingImdbVoteCount = ratingImdbVoteCount,
+    webUrl = webUrl,
+    filmLength = filmLength,
+    description = description,
+    ratingAgeLimits = ratingAgeLimits,
+    countries = countries,
+    sequelsAndPrequels = sequelsAndPrequels,
+    review = review
 )
 
-internal fun WishMovieEntity.toWishMovie() = WishMovie(
-    id = id,
-    title = title,
-    year = year
-)
-
-internal fun WishMovie.toEntity() = WishMovieEntity(
-    id = id,
-    title = title,
-    year = year
-)
 
 
 

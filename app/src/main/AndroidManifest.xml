@@ -14,6 +14,7 @@
 
 
     <application
+        android:name=".apiSetting.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -21,9 +22,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NewTopMovies"
         android:requestLegacyExternalStorage="true">
-        <activity
-            android:name=".view.ActivityAddWishMovie"
-            android:exported="false" />
         <activity
             android:name=".view.BottomNavigationActivity"
             android:exported="true"
@@ -40,15 +38,6 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity
-            android:name=".view.ActivityDownloadMovie"
-            android:exported="false" />
-        <activity
-            android:name=".view.ActivityEditMovie"
-            android:exported="false" />
-        <activity
-            android:name=".view.ActivityAddMovie"
-            android:exported="false" />
     </application>
 
 </manifest>

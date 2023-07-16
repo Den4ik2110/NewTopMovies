@@ -2,8 +2,7 @@ package ru.netology.newtopmovies.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import androidx.room.OnConflictStrategy.REPLACE
-import ru.netology.newtopmovies.data.Franchise
+import androidx.room.OnConflictStrategy.Companion.REPLACE
 
 @Dao
 interface MovieDao {
@@ -23,17 +22,17 @@ interface MovieDao {
     @Query("UPDATE movies SET keySort = :key")
     fun updateKey(key: String)
 
-    @Query("SELECT * FROM franchises")
-    fun getFranchise(): LiveData<List<FranchiseEntity>>
+    @Query("UPDATE movies SET sequelsAndPrequels = :sequelsAndPrequels WHERE kinopoiskId = :kinopoiskId")
+    fun updateSequelsAndPrequels(sequelsAndPrequels: String?, kinopoiskId: Int?)
 
-    @Insert(onConflict = REPLACE)
-    fun saveFranchise(franchise: FranchiseEntity)
+    @Query("UPDATE movies SET review = :review WHERE id = :idMovie")
+    fun updateReview(review: String?, idMovie: Long)
 
     @Query("UPDATE movies SET franchise = null WHERE franchise = :nameFranchise")
     fun clearFranchise(nameFranchise: String?)
 
-    @Query("UPDATE movies SET franchise = :nameFranchise WHERE id = :id")
-    fun addToFranchise(nameFranchise: String?, id: Long)
+    @Query("UPDATE movies SET franchise = :nameFranchise WHERE kinopoiskId = :id")
+    fun addToFranchise(nameFranchise: String?, id: Int?)
 
     @Query("UPDATE movies SET franchise = null WHERE id = :id")
     fun clearFranchiseOneMovie(id: Long)

@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 8,
-    "identityHash": "66e8034518f4ee2ab7ddd41fcea56d20",
+    "identityHash": "516fdbc0abcc4214b8421f7398a204f2",
     "entities": [
       {
         "tableName": "movies",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `humor` INTEGER NOT NULL, `music` INTEGER NOT NULL, `dynamic` INTEGER NOT NULL, `image` INTEGER NOT NULL, `dialogs` INTEGER NOT NULL, `heroes` INTEGER NOT NULL, `antiheroes` INTEGER NOT NULL, `story` INTEGER NOT NULL, `drama` INTEGER NOT NULL, `repeat` INTEGER NOT NULL, `rating` INTEGER NOT NULL, `keySort` TEXT NOT NULL, `urlImage` TEXT, `genre` TEXT, `year` TEXT, `franchise` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `humor` INTEGER NOT NULL, `music` INTEGER NOT NULL, `dynamic` INTEGER NOT NULL, `image` INTEGER NOT NULL, `dialogs` INTEGER NOT NULL, `heroes` INTEGER NOT NULL, `antiheroes` INTEGER NOT NULL, `story` INTEGER NOT NULL, `drama` INTEGER NOT NULL, `repeat` INTEGER NOT NULL, `rating` INTEGER NOT NULL, `keySort` TEXT NOT NULL, `urlImage` TEXT, `genre` TEXT, `year` TEXT, `franchise` TEXT, `kinopoiskId` INTEGER, `nameOriginal` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -99,7 +99,7 @@
             "notNull": false
           },
           {
-            "fieldPath": "genre",
+            "fieldPath": "genres",
             "columnName": "genre",
             "affinity": "TEXT",
             "notNull": false
@@ -115,13 +115,25 @@
             "columnName": "franchise",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "kinopoiskId",
+            "columnName": "kinopoiskId",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nameOriginal",
+            "columnName": "nameOriginal",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -144,10 +156,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -176,10 +188,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -188,7 +200,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '66e8034518f4ee2ab7ddd41fcea56d20')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '516fdbc0abcc4214b8421f7398a204f2')"
     ]
   }
 }

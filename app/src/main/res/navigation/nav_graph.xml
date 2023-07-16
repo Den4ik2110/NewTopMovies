@@ -2,22 +2,57 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
+    android:id="@+id/navId"
     app:startDestination="@id/fragmentViewMovies">
 
     <fragment
         android:id="@+id/fragmentViewMovies"
         android:name="ru.netology.newtopmovies.view.FragmentViewMovies"
         android:label="fragment_view_movies"
-        tools:layout="@layout/fragment_view_movies" />
+        tools:layout="@layout/fragment_view_movies">
+        <action
+            android:id="@+id/action_fragmentViewMovies_to_fragmentAllMovies"
+            app:destination="@id/fragmentAllMovies"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="true" />
+    </fragment>
     <fragment
-        android:id="@+id/fragmentWishList"
-        android:name="ru.netology.newtopmovies.view.FragmentWishList"
-        android:label="fragment_wish_list"
-        tools:layout="@layout/fragment_wish_list" />
+        android:id="@+id/fragmentAllMovies"
+        android:name="ru.netology.newtopmovies.view.FragmentAllMovies"
+        android:label="FragmentAllMovies">
+        <argument
+            android:name="keyType"
+            app:argType="string" />
+        <argument
+            android:name="keyMovies"
+            app:argType="string" />
+    </fragment>
     <fragment
-        android:id="@+id/fragmentFranchise"
-        android:name="ru.netology.newtopmovies.view.FragmentFranchise"
-        android:label="fragment_franchise"
-        tools:layout="@layout/fragment_franchise" />
+        android:id="@+id/fragmentSearch"
+        android:name="ru.netology.newtopmovies.view.FragmentSearch"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/fragmentProfile"
+        android:name="ru.netology.newtopmovies.view.FragmentProfile"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/fragmentMovieInfo"
+        android:name="ru.netology.newtopmovies.view.FragmentMovieInfo"
+        android:label="fragment_movie_info"
+        tools:layout="@layout/fragment_movie_info">
+        <argument
+            android:name="idMovie"
+            app:argType="long" />
+        <argument
+            android:name="idKino"
+            app:argType="integer" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_fragmentMovieInfo2"
+        app:destination="@id/fragmentMovieInfo"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim" />
 </navigation>

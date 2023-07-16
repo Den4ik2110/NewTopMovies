@@ -1,15 +1,13 @@
 package ru.netology.newtopmovies.viewModel
 
 import android.app.Application
-import android.widget.ArrayAdapter
 import androidx.lifecycle.*
-import ru.netology.newtopmovies.data.Franchise
 import ru.netology.newtopmovies.data.Movie
 import ru.netology.newtopmovies.data.MovieRepository
-import ru.netology.newtopmovies.data.WishMovie
+import ru.netology.newtopmovies.data.SequelsAndPrequels
 import ru.netology.newtopmovies.database.AppDb
-import ru.netology.newtopmovies.util.Constants
 import ru.netology.newtopmovies.util.SingleLiveEvent
+import ru.netology.newtopmovies.util.fromSequelsAndPrequels
 import ru.netology.newtopmovies.view.MovieInteractionListener
 
 class MovieViewModel(application: Application) : AndroidViewModel(application),
@@ -20,23 +18,21 @@ class MovieViewModel(application: Application) : AndroidViewModel(application),
             context = application
         ).movieDao,
 
-        daoFranchise = AppDb.getInstance(
+        daoSearchQuery = AppDb.getInstance(
             context = application
-        ).franchiseDao,
-
-        daoWishMovie = AppDb.getInstance(
-            context = application
-        ).wishMovieDao
+        ).searchQueryDao
     )
 
     private val data by repository::data
     val keySort by repository::keySort
     val shareMovie = SingleLiveEvent<Movie>()
     val shareAllMovie = SingleLiveEvent<List<Movie>>()
-    val hideToolbar = SingleLiveEvent<String>()
-    val editImageMovie = SingleLiveEvent<String>()
-    val editUrlImage = SingleLiveEvent<String?>()
-    val arrayForAdapterSearch = SingleLiveEvent<MutableList<String>>()
+    val writeAllMovieInTextFile = SingleLiveEvent<List<Movie>>()
+    val writeAllMovieInDataBaseFile = SingleLiveEvent<List<Movie>>()
+    val hideToolbar = SingleLiveEvent<Map<String, String>>()
+    private val editImageMovie = SingleLiveEvent<String>()
+    private val editUrlImage = SingleLiveEvent<String?>()
+    val arrayForAdapterSearch = SingleLiveEvent<MutableList<Movie?>>()
 
     override fun removeMovie(movie: Movie) = repository.movieRemove(movie.idMovie)
 
@@ -46,21 +42,23 @@ class MovieViewModel(application: Application) : AndroidViewModel(application),
 
     fun deleteAll() = repository.deleteAll()
 
-    fun sortMovie(key: String) {
-        if (keySort.value == key) return
-        repository.sortMovie(key)
+    fun updateSequelsAndPrequels(sequelsAndPrequels: List<SequelsAndPrequels>?, kinopoiskId: Int?) {
+        repository.updateSequelsAndPrequels(
+            sequelsAndPrequels.fromSequelsAndPrequels(),
+            kinopoiskId
+        )
     }
 
     fun shareMovie(movie: Movie) {
         shareMovie.value = movie
     }
 
-    fun hideToolbar(key: String) {
-        hideToolbar.value = key
+    fun hideToolbar(map: Map<String, String>) {
+        hideToolbar.value = map
     }
 
     fun editUrlImage(url: String?) {
-        editUrlImage.value = url
+        this.editUrlImage.value = url
     }
 
     fun editImageMovie() = editImageMovie.call()
@@ -68,38 +66,29 @@ class MovieViewModel(application: Application) : AndroidViewModel(application),
     fun shareAllMovie() {
         shareAllMovie.value = data.value
     }
-
-    fun scrollToMovie(query: String): Int? {
-        val listMovie: List<Movie>? = data.value
-        if (listMovie != null) {
-            if (listMovie.isNotEmpty()) listMovie.forEachIndexed { index, movie ->
-                if (movie.title.equals(query, ignoreCase = true)) return index
-            }
-        }
-        return null
+    fun writeAllMovieInTextFile() {
+        writeAllMovieInTextFile.value = data.value
     }
 
-    fun setAdapterSearch(array: MutableList<String>) {
+    fun writeAllMovieInDataBaseFile() {
+        writeAllMovieInDataBaseFile.value = data.value
+    }
+
+    fun setAdapterSearch(array: MutableList<Movie?>) {
         arrayForAdapterSearch.value = array
     }
 
     private val searchQuery = MutableLiveData<String?>(null)
 
-    val searchDataFranchise: LiveData<List<Movie>>
-        get() {
-            val previousStepData by repository::data
-            return previousStepData.map { list -> list.filter { movie -> movie.franchise != null } }
-        }
-
     val searchDataSingle: LiveData<List<Movie>>
-        get() = Transformations.switchMap(searchQuery) { request ->
+        get() = searchQuery.switchMap { request ->
             val previousStepData by repository::data
             val searchData = when (request) {
                 null -> previousStepData
                 else -> {
-                    Transformations.switchMap(previousStepData) { listData ->
+                    previousStepData.switchMap { listData ->
                         val filterData = MutableLiveData<List<Movie>>()
-                        val filterList = listData.filter { it.title == request }
+                        val filterList = listData.filter { it.nameRu == request }
                         filterData.value = filterList
                         filterData
                     }
@@ -108,31 +97,25 @@ class MovieViewModel(application: Application) : AndroidViewModel(application),
             searchData
         }
 
+    val dataSearchQuery: LiveData<List<Movie>>
+        get() {
+            val previousStepData by repository::dataSearchQuery
+            return previousStepData.map { it.sortedByDescending { movie -> movie.idMovie } }
+        }
 
     override fun setSearchQuery(query: String?) {
         searchQuery.value = query
     }
 
-    val listFranchise by repository::listFranchise
+    fun addToFranchise(title: String?, kinopoiskId: Int?) =
+        repository.addToFranchise(title, kinopoiskId)
 
-    fun saveFranchise(franchise: Franchise) = repository.saveFranchise(franchise)
+    fun saveSearchQuery(movie: Movie) = repository.saveSearchQuery(movie)
 
-    fun deleteFranchise(franchise: Franchise) = repository.deleteFranchise(franchise)
+    fun deleteSearchQuery(movie: Movie) = repository.deleteSearchQuery(movie)
 
-    fun addToFranchise(franchise: Franchise, movie: Movie) =
-        repository.addToFranchise(franchise, movie)
+    fun deleteAllSearchQuery() = repository.deleteAllSearchQuery()
 
-    fun clearFranchiseOneMovie(movie: Movie) = repository.clearFranchiseOneMovie(movie)
-
-    fun editNameFranchise(franchise: Franchise, newName: String) =
-        repository.editNameFranchise(franchise, newName)
-
-    val listWishMovie by repository::listWishMovie
-
-    fun saveWishMovie(wishMovie: WishMovie) = repository.saveWishMovie(wishMovie)
-
-    fun deleteWishMovie(wishMovie: WishMovie) = repository.deleteWishMovie(wishMovie)
-
-    fun updateWishMovie(wishMovie: WishMovie) = repository.updateWishMovie(wishMovie)
+    fun updateReview(review: String?, idMovie: Long) = repository.updateReview(review, idMovie)
 
 }

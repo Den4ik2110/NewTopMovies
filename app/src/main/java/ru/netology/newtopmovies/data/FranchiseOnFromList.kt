@@ -3,29 +3,25 @@ package ru.netology.newtopmovies.data
 
 
 import android.view.View
-import android.widget.Toast
-import androidx.fragment.app.FragmentManager
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import com.xwray.groupie.Item
 import com.xwray.groupie.viewbinding.BindableItem
 import ru.netology.newtopmovies.R
 import ru.netology.newtopmovies.databinding.OneFranchiseBinding
-import ru.netology.newtopmovies.util.SheetBottomFranchise
-import ru.netology.newtopmovies.viewModel.MovieViewModel
+import ru.netology.newtopmovies.util.Constants
 
 class FranchiseOnFromList(
-    private val franchise: Franchise,
-    private val viewModel: MovieViewModel,
-    private val movie: Movie,
-    private val fragmentManager: FragmentManager,
-    private val fragment: SheetBottomFranchise
+    private val id: Long,
+    private val name: String
 ) : BindableItem<OneFranchiseBinding>() {
 
     override fun bind(viewBinding: OneFranchiseBinding, position: Int) {
-        viewBinding.franchiseName.text = franchise.title
+        viewBinding.textView10.text = name
+
         viewBinding.root.setOnClickListener {
-            viewModel.addToFranchise(franchise, movie)
-            fragmentManager.beginTransaction().remove(fragment).commit()
-            Toast.makeText(fragment.requireContext(), "Фильм добавлен к франшизе \"${franchise.title}\"", Toast.LENGTH_SHORT).show()
+            val bundle = bundleOf("keyType" to Constants.KEY_FRANCHISE, "keyMovies" to name)
+            it.findNavController().navigate(R.id.fragmentAllMovies, bundle)
         }
     }
 
@@ -35,7 +31,7 @@ class FranchiseOnFromList(
         return OneFranchiseBinding.bind(view)
     }
 
-    override fun getId(): Long = franchise.id
+    override fun getId(): Long = id
 
     override fun isSameAs(other: Item<*>): Boolean = viewType == other.viewType
 

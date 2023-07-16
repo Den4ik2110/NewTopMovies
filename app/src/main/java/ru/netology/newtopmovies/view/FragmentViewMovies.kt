@@ -1,203 +1,147 @@
 package ru.netology.newtopmovies.view
 
 
-import android.app.SearchManager
-import android.content.Context
-import android.content.Intent
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
-import android.widget.AutoCompleteTextView
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import android.widget.TextView
-import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.view.MenuProvider
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
-import com.xwray.groupie.ExpandableGroup
+import androidx.navigation.Navigation
+import androidx.recyclerview.widget.PagerSnapHelper
 import com.xwray.groupie.GroupieAdapter
 import com.xwray.groupie.Section
 import ru.netology.newtopmovies.R
-import ru.netology.newtopmovies.data.ExpandableMovie
-import ru.netology.newtopmovies.data.HeaderItemMovie
-import ru.netology.newtopmovies.data.Movie
+import ru.netology.newtopmovies.data.FranchiseOnFromList
 import ru.netology.newtopmovies.data.MovieNoFranchiseItem
+import ru.netology.newtopmovies.data.OneGenre
 import ru.netology.newtopmovies.databinding.FragmentViewMoviesBinding
 import ru.netology.newtopmovies.util.Constants
-import ru.netology.newtopmovies.util.SheetBottomMenuAndInfo
+import ru.netology.newtopmovies.util.plural
 import ru.netology.newtopmovies.viewModel.MovieViewModel
-import java.util.*
-import kotlin.concurrent.schedule
 
-class FragmentViewMovies : Fragment(), SheetBottomMenuAndInfo.ShowDialogDelete,
-    MovieNoFranchiseItem.SheetBottom {
+class FragmentViewMovies : Fragment() {
 
     private val viewModel by activityViewModels<MovieViewModel>()
     private lateinit var arrayForAdapterSearch: MutableList<String>
-    private val section = Section()
+    private val sectionOne = Section()
+    private val sectionTwo = Section()
+    private val sectionThree = Section()
+    private val sectionFour = Section()
     private var keySort = Constants.NO
-    private var listFranchise = mutableListOf<String>()
 
 
+    @SuppressLint("CutPasteId")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ) = FragmentViewMoviesBinding.inflate(layoutInflater, container, false).also { binding ->
-        val adapter = GroupieAdapter()
-        binding.recycleMovies.adapter = adapter
+        val adapterOne = GroupieAdapter()
+        val adapterTwo = GroupieAdapter()
+        val adapterThree = GroupieAdapter()
+        val adapterFour = GroupieAdapter()
+        binding.recycleViewOne.adapter = adapterOne
+        binding.recycleViewTwo.adapter = adapterTwo
+        binding.recycleViewThree.adapter = adapterThree
+        binding.recycleViewFour.adapter = adapterFour
         arrayForAdapterSearch = mutableListOf()
-        adapter.add(section)
+        adapterOne.add(sectionOne)
+        adapterTwo.add(sectionTwo)
+        adapterThree.add(sectionThree)
+        adapterFour.add(sectionFour)
+
+        val snapHelper1 = PagerSnapHelper()
+        snapHelper1.attachToRecyclerView(binding.recycleViewFour)
+        val snapHelper2 = PagerSnapHelper()
+        snapHelper2.attachToRecyclerView(binding.recycleViewThree)
+
+        requireActivity().findViewById<TextView>(R.id.toolbar_text).visibility = View.VISIBLE
 
         viewModel.searchDataSingle.observe(viewLifecycleOwner) { movieFromData ->
-            val listMovieNotFranchise = mutableListOf<Movie>()
-            listMovieNotFranchise.addAll(movieFromData)
-            val listItem = mutableListOf<MovieNoFranchiseItem>()
-
+            val listItemGroupNull = mutableListOf<MovieNoFranchiseItem>()
+            val listItemGroupAll = mutableListOf<MovieNoFranchiseItem>()
+            val listFranchise = mutableListOf<String>()
+            val listFranchiseNoDublicate = mutableListOf<FranchiseOnFromList>()
+            val listGenre = mutableListOf<String>()
+            val listGenreNoDublicate = mutableListOf<OneGenre>()
             movieFromData.forEach { movie ->
-                listItem.add(
-                    MovieNoFranchiseItem(
-                        movie,
-                        requireActivity().applicationContext,
-                        this
+                if (movie.rating == 0) {
+                    listItemGroupNull.add(
+                        MovieNoFranchiseItem(
+                            movie,
+                            requireActivity().applicationContext,
+                            view as View
+                        )
                     )
-                )
+                } else {
+                    listItemGroupAll.add(
+                        MovieNoFranchiseItem(
+                            movie,
+                            requireActivity().applicationContext,
+                            view as View
+                        )
+                    )
+                }
+                if (movie.franchise != null) listFranchise.add(movie.franchise!!)
+                if (movie.genres != null) {
+                    movie.genres!!.forEach {
+                        listGenre.add(it.genre.toString())
+                    }
+                }
             }
-            if (movieFromData.size < 2) section.removeHeader() else section.setHeader(
-                HeaderItemMovie(
-                    keySort,
-                    parentFragmentManager
-                )
-            )
+            val listFranchiseNonDouble = listFranchise.distinct()
+            listFranchiseNonDouble.forEachIndexed { index, s ->
+                listFranchiseNoDublicate.add(FranchiseOnFromList(index.toLong(), s))
+            }
 
-            if (movieFromData.size < 20) binding.floatingActionButton.visibility =
-                View.GONE else binding.floatingActionButton.visibility = View.VISIBLE
-            section.update(listItem)
-            requireActivity().findViewById<TextView>(R.id.toolbar_text).text =
-                if (movieFromData.isEmpty()) "Добавь новый фильм ->" else "Всего фильмов - ${movieFromData.size}"
-            if (arrayForAdapterSearch.isNotEmpty()) arrayForAdapterSearch.clear()
-            movieFromData.forEach { movie ->
-                arrayForAdapterSearch.add(movie.title)
+            listGenre.forEach { string ->
+                string.lowercase()
             }
-            viewModel.setAdapterSearch(arrayForAdapterSearch)
+            val listGenreNonDouble = listGenre.distinct().toMutableList()
+            listGenreNonDouble.forEach { string ->
+                string.filterNot { it.isWhitespace() }
+            }
+            listGenreNonDouble.removeAll(listOf(""))
+            listGenreNonDouble.forEachIndexed { index, s ->
+                listGenreNoDublicate.add(OneGenre(index.toLong(),  s.plural()))
+            }
+
+            if (listItemGroupAll.count() < 20) {
+                binding.textView14.visibility = View.GONE
+            } else {
+                binding.textView14.visibility = View.VISIBLE
+            }
+
+            if (listItemGroupNull.count() < 20) {
+                binding.textView16.visibility = View.GONE
+            } else {
+                binding.textView16.visibility = View.VISIBLE
+
+            }
+
+            sectionOne.update(listItemGroupNull.take(20))
+            sectionTwo.update(listItemGroupAll.take(20))
+            sectionThree.update(listFranchiseNoDublicate)
+            sectionFour.update(listGenreNoDublicate)
+        }
+
+        binding.textView14.setOnClickListener {
+            val bundle = bundleOf("keyType" to Constants.KEY_MOVIES, "keyMovies" to Constants.KEY_NO_NULL_RATING)
+            Navigation.findNavController(view as View).navigate(R.id.action_fragmentViewMovies_to_fragmentAllMovies, bundle)
+        }
+
+        binding.textView16.setOnClickListener {
+            val bundle = bundleOf("keyType" to Constants.KEY_MOVIES, "keyMovies" to Constants.KEY_NULL_RATING)
+            Navigation.findNavController(view as View).navigate(R.id.action_fragmentViewMovies_to_fragmentAllMovies, bundle)
         }
 
         viewModel.keySort.observe(viewLifecycleOwner) { key ->
             keySort = key
         }
 
-        viewModel.shareMovie.observe(viewLifecycleOwner) { movie ->
-            Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, getStringShare(movie))
-                type = "text/plain"
-            }.also { intent ->
-                val shareIntent =
-                    Intent.createChooser(intent, getString(R.string.text_share_message))
-                startActivity(shareIntent)
-            }
-        }
-
-        viewModel.hideToolbar(Constants.FRAGMENT_MOVIE)
+        viewModel.hideToolbar(mapOf("type" to Constants.FRAGMENT_MOVIE, "text" to "Cinema Trip"))
         requireActivity().invalidateOptionsMenu()
     }.root
-
-    override fun showDialogDelete(movie: Movie) {
-        val alertDialog = DeleteMovieDialogFragment(viewModel, movie)
-        alertDialog.show(parentFragmentManager, "keyOne")
-    }
-
-    override fun sheetShow(movie: Movie) {
-        val sheetBottomMenuAndInfo =
-            SheetBottomMenuAndInfo(movie, requireActivity().applicationContext, this)
-        sheetBottomMenuAndInfo.show(parentFragmentManager, SheetBottomMenuAndInfo.TAG)
-    }
-
-    private fun getStringShare(movie: Movie): String {
-        return "Посмотрел недавно фильм \"${movie.title}\". \n" +
-                "\n" +
-                "Я оценил его в ${movie.rating} ${
-                    rounding(
-                        movie.rating,
-                        Constants.KEY_ROUNDING_SHARE_MOVIE
-                    )
-                } из 100 \n" +
-                "\n" +
-                "Вот все критерии, по которым я оценивал:\n" +
-                "Юмор - ${movie.humor} ${
-                    rounding(
-                        movie.humor,
-                        Constants.KEY_ROUNDING_SHARE_MOVIE
-                    )
-                } из 10 \n" +
-                "Музыка - ${movie.music} ${
-                    rounding(
-                        movie.music,
-                        Constants.KEY_ROUNDING_SHARE_MOVIE
-                    )
-                } из 10 \n" +
-                "Динамика - ${movie.dynamic} ${
-                    rounding(
-                        movie.dynamic,
-                        Constants.KEY_ROUNDING_SHARE_MOVIE
-                    )
-                } из 10 \n" +
-                "Картинка - ${movie.image} ${
-                    rounding(
-                        movie.image,
-                        Constants.KEY_ROUNDING_SHARE_MOVIE
-                    )
-                } из 10 \n" +
-                "Диалоги - ${movie.dialogs} ${
-                    rounding(
-                        movie.dialogs,
-                        Constants.KEY_ROUNDING_SHARE_MOVIE
-                    )
-                } из 10 \n" +
-                "Герои - ${movie.heroes} ${
-                    rounding(
-                        movie.heroes,
-                        Constants.KEY_ROUNDING_SHARE_MOVIE
-                    )
-                } из 10 \n" +
-                "Злодеи - ${movie.antiheroes} ${
-                    rounding(
-                        movie.antiheroes,
-                        Constants.KEY_ROUNDING_SHARE_MOVIE
-                    )
-                } из 10 \n" +
-                "История - ${movie.story} ${
-                    rounding(
-                        movie.story,
-                        Constants.KEY_ROUNDING_SHARE_MOVIE
-                    )
-                } из 10 \n" +
-                "Драма - ${movie.drama} ${
-                    rounding(
-                        movie.drama,
-                        Constants.KEY_ROUNDING_SHARE_MOVIE
-                    )
-                } из 10 \n" +
-                "\n" +
-                "Если тебе интересно мое мнение, тогда знай: ${isRepeat(movie.repeat)}"
-    }
-
-    private fun rounding(amount: Int, key: String): String = if (amount in 11..14) {
-        if (key == "movie") "баллов" else "фильмов"
-    } else {
-        when (amount % 10) {
-            1 -> if (key == "movie") "балл" else "фильм"
-            in 2..4 -> if (key == "movie") "балла" else "фильма"
-            else -> if (key == "movie") "баллов" else "фильмов"
-        }
-    }
-
-    private fun isRepeat(repeat: Int): String {
-        return when (repeat) {
-            0 -> "я пересматривать этот фильм не собираюсь!"
-            10 -> "я с радостью посмотрю его еще ни один раз!"
-            else -> "В рамках общей истории посмотрю, но сам по себе фильм - ни рыба, ни мясо!"
-        }
-    }
 }
